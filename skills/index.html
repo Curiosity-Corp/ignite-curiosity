@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- ==============================================
+	Favicons
+	=============================================== -->
+	<link rel="shortcut icon" href="../images/favicon.png">
+	<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png">
+	
+	<!-- ==============================================
+	CSS VENDOR
+	=============================================== -->
+	<link rel="stylesheet" type="text/css" href="../css/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="../css/vendor/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/owl.theme.default.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/magnific-popup.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/animate.min.css">
+	
+	<!-- ==============================================
+	Custom Stylesheet
+	=============================================== -->
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	
+    <script src="js/vendor/modernizr.min.js"></script>
+
+	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+	<script src='https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO'></script>
+	
+	<!-- Blue CSS -->
+	<link rel="stylesheet" type="text/css" href="../css/blue.css">
+	
+
+	<script>
+		grecaptcha.ready(function() {
+		grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'TLI Member Registration'})
+		.then(function(token) {
+		var recaptchaResponse = document.getElementById('recaptchaResponse');
+        recaptchaResponse.value = token;
+		// Verify the token on the server.
+		});
+		});
+	</script>
+	<style>
+ul {
+list-style-type: none;
+}
+</style>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139076987-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-139076987-1');
+</script>
+
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i|Lato:300,400,600,700|Parisienne" rel="stylesheet" type="text/css" />
+	<!-- <link rel="stylesheet" href="css/bootstrap.css" type="text/css" /> -->
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="one-page/onepage.css" type="text/css" />
+
+	<!-- Writer Demo Specific Stylesheet -->
+	<link rel="stylesheet" href="demos/writer/writer.css" type="text/css" />
+	<!-- / -->
+
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="one-page/css/et-line.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<!-- Writer Demo Specific Stylesheet -->
+	<link rel="stylesheet" href="demos/writer/css/colors.css" type="text/css" />
+	<link rel="stylesheet" href="demos/writer/css/fonts.css" type="text/css" />
+	<!-- / -->
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lt IE 9]>
+		<script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+
+	<!-- Document Title
+	============================================= -->
+	<title>Skill Training</title>
+
+</head>
+
+<body class="sticky-footer stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- HEADER -->
+    <div class="header header-2">
+
+	    <!-- NAVBAR SECTION -->
+		<div class="navbar-main">
+			<div class="container">
+			    <nav class="navbar navbar-expand-lg">
+			        <a class="navbar-brand" href="../index.html">
+						<img src="../images/logo.png" alt="" />
+					</a>
+			        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			            <span class="navbar-toggler-icon">
+							<svg class="icon-hamburger icon-menu" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 30 30">
+								<title>menu</title>
+								<path d="M2 6h28v6h-28zM2 14h28v6h-28zM2 22h28v6h-28z"></path>
+							</svg>
+						</span>
+			        </button>
+			        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+			            <ul class="navbar-nav ml-auto">
+			                <li class="nav-item">
+			                    <a class="nav-link" href="../whatwedo.html">WHAT WE DO</a>
+			                </li>
+			                <li class="nav-item">
+			                    <a class="nav-link" href="../introducing-partnerships.html" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						          PARTNERS
+								</a>
+								<!--
+			                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" href="introducing-partnerships.html">Introducing Partnerships</a>
+			                    	<a class="dropdown-item" href="corporate.html">Corporate</a>
+	          						<a class="dropdown-item" href="nonprofit-government.html">NonProfit & Government</a>
+									<a class="dropdown-item" href="event-sponsors.html">Event Sponsors</a>
+									<a class="dropdown-item" href="chapter-directors.html">Chapter Directors</a>
+							    </div> -->
+			                </li>
+							<li class="nav-item">
+			                    <a class="nav-link" target="_blank" href="https://app.powerbi.com/view?r=eyJrIjoiYmQ1ODZjYmUtMTAyMC00Mzk5LThkZmYtMzc4M2I4MWQzY2U2IiwidCI6IjJmZWJlOTBkLTg3MmUtNGUzMS1iMWVlLTc4OThhYWMwMTU5YyJ9">SEE USAGE</a>
+			                </li>
+							<li class="nav-item dropdown">
+			                    <a class="nav-link dropdown-toggle" href="../get-started.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						          GET INVOLVED
+								</a>
+								
+			                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			                    	
+	          						<a class="dropdown-item" href="causes.html">Give to a Project</a>
+	          						<a class="dropdown-item" href="internships.html">Internships</a>
+	          						<a class="dropdown-item" href="smilecoach.html">SMILE Coach Training</a>
+	          						<a class="dropdown-item" href="advocate.html">Become an Advocate</a>
+	          						<a class="dropdown-item" href="volunteer.html">Volunteer</a>
+												<a class="dropdown-item" href="register.html">Register</a>
+							    </div>
+			                </li>
+			            </ul>
+						 <a href="../register.html" class="btn btn-secondary no-display-mobile btn-nav ml-auto">WELCOME CLASS</a> 
+			            <a href="https://donorbox.org/taolearning" class="btn btn-primary btn-nav ml-auto">DONATE</a>
+			        </div>
+			    </nav>
+			</div>
+		</div> 
+
+		
+
+    </div>
+
+		
+
+		<!-- Slider
+		============================================= -->
+		<section id="slider" class="slider-element clearfix" style="background:#1E232A; height: 800px;">
+			<div class="move-bg" style="background: url('demos/writer/images/hero/hero1.jpg') center center no-repeat; background-size: cover;"></div>
+			<div class="vertical-middle ignore-header" style="z-index: 3;">
+				<div class="container dark clearfix">
+					<div class="row clearfix">
+						<div class="col-lg-6 offset-lg-1 col-md-8" data-lightbox="gallery">
+							<a href="https://taolearning.sharepoint.com/:b:/s/Welcome/EZSQptxBZtROmmncPPtHVi8BVIA9IKcTFhEuYfmnW9TMuA?e=pak8dB" target="_blank" class="slider-book-img" data-animate="fadeInUp"><img src="demos/writer/images/hero/7steps_3d_book.png" alt=""></a>
+							<!-- <a href="demos/writer/images/hero/slider-book2-lg.jpg" data-lightbox="gallery-item" class="slider-book-img" data-animate="fadeInUp" data-delay="300"><img src="demos/writer/images/hero/slider-book2.png" alt=""></a> -->
+							<div class="emphasis-title bottommargin-sm">
+								<h1 class="400" data-animate="fadeInUp" data-delay="600">Learn 7 Steps to<br><span><em>Perfection</em></span></h1>
+							</div>
+							<a href="https://taolearning.sharepoint.com/:b:/s/Welcome/EZSQptxBZtROmmncPPtHVi8BVIA9IKcTFhEuYfmnW9TMuA?e=pak8dB" target="_blank" data-animate="fadeIn" class="button button-large button-border button-white button-light button-rounded capitalize notopmargin"><span>Read the Book</span></a><br class="d-block d-lg-none d-xl-block">
+							<a data-animate="fadeIn" data-delay="1600" href="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/508232292&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true" class="hero-action-link" data-lightbox="iframe"><i class="icon-play-sign"></i> Audiobook</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Slider Video Overlay -->
+			<div class="video-wrap" style="z-index: 2; height: 800px; position: absolute; left: 0; bottom: 0;">
+				<div class="video-overlay" style="background: -moz-linear-gradient(top,  rgba(30,35,42,0) 21%, rgba(30,35,42,0) 66%, rgba(30,35,42,1) 100%); background: -webkit-linear-gradient(top,  rgba(30,35,42,0) 21%,rgba(30,35,42,0) 66%,rgba(30,35,42,1) 100%); background: linear-gradient(to bottom,  rgba(30,35,42,0) 21%,rgba(30,35,42,0) 66%,rgba(30,35,42,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e232a', endColorstr='#1e232a',GradientType=0 );">
+				</div>
+			</div>
+		</section>
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap nobottompadding" style="background-color: #1E232A;">
+
+				<!-- Latest All Books
+				============================================= -->
+				<div class="section nopadding nomargin" style="background: url('demos/writer/images/section/bg1.jpg') center center no-repeat; background-size: cover;">
+
+					<div class="container clearfix">
+
+						<div class="row clearfix">
+							<div class="col-lg-4 offset-lg-1">
+								<img src="https://airikai.com/wp-content/uploads/sites/3/2014/10/airikai_method_3d_book_small.png" alt="Book Mockup" style="margin-top: 10px;">
+							</div>
+							<div class="col-lg-6 offset-lg-1">
+								<h3 class="color t400" style="font-size: 36px;">Mastering<br>High Performance</h3>
+								<p class="dark lead">
+									<span class="dropcap color font-secondary">L</span>earn the Sacred Trinity to understand Emotional, Intelectual and Adversity Aspects of Life by identifying your inner strengths. Awaken the self, enlighten others, and be the source to hold space for others on their path.
+								</p>
+								<a href="https://goo.gl/4aO5Fn" class="button button-large button-white button-light capitalize button-rounded">Read the Book</a>
+								<a href="https://www.youtube.com/watch?v=04peQkvjegg" class="hero-action-link" data-lightbox="iframe"><i class="icon-play-sign"></i> Audiobook</a>
+							</div>
+						</div>
+
+						<div class="clear topmargin-sm bottommargin-lg"></div>
+
+						<div class="row clearfix">
+							<div class="col-lg-12">
+								<div class="heading-block dark tleft nobottomborder nomargin">
+									<h3 class="nott t400 ls0" style="font-size: 36px;">Learn Tao Philosophy</h3>
+								</div>
+								<p class="dark lead">Study the material here and complete the attached quizzes to qualify for job shadowing, internships, career opportunities, and career advancement.  Our system automatically tracks your progress and sends invitations to those who excel with this study material.
+								</p>
+							</div>
+						</div>
+
+						<div id="portfolio" class="portfolio grid-container portfolio-3 portfolio-masonry clearfix">
+							<div class="portfolio-item">
+								<div class="book-wrap">
+									<div class="book-card">
+										<a href="demos/writer/include/ajax/hive.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="demos/writer/images/books/hive.png" alt="Book Image"></a>
+										<div class="book-detail">
+											<h2 class="book-title"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPCN3OSkOhQH2GRZXU4wxy3C">The Hive Mentality</a></h2>
+											<small class="book-category"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPCN3OSkOhQH2GRZXU4wxy3C">by Matt Hackney</a></small>
+											<div class="button button-white button-light capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Learn More</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="portfolio-item">
+								<div class="book-wrap">
+									<div class="book-card">
+										<a href="demos/writer/include/ajax/smile.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="demos/writer/images/books/smile_method.png" alt="Book Image"></a>
+										<div class="book-detail">
+											<h2 class="book-title"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPCiXsJjY1xVdhwCvpcHzMx9">The SMILE Method&trade;</a></h2>
+											<small class="book-category"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPCiXsJjY1xVdhwCvpcHzMx9">by Matt Hackney</a></small>
+											<div class="button button-white button-light capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Learn More</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="portfolio-item">
+								<div class="book-wrap">
+									<div class="book-card">
+										<a href="demos/writer/include/ajax/ignite.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="demos/writer/images/books/igniting_curiosity.png" alt="Book Image"></a>
+										<div class="book-detail">
+											<h2 class="book-title"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPC1HH6WZTeXYt_m5f6hjjz_">Igniting Curiosity</a></h2>
+											<small class="book-category"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPC1HH6WZTeXYt_m5f6hjjz_">by Zain Raza</a></small>
+											<div class="button button-white button-light capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Learn More</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="portfolio-item">
+								<div class="book-wrap">
+									<div class="book-card">
+										<a href="demos/writer/include/ajax/workbook.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="demos/writer/images/books/workbook.png" alt="Book Image"></a>
+										<div class="book-detail">
+											<h2 class="book-title"><a href="#">The Workbook</a></h2>
+											<small class="book-category"><a href="#">by Tao Learning</a></small>
+											<div class="button button-white button-light capitalize button-circle"><i class="icon-line-zoom-in"></i><span>View Now</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="portfolio-item">
+								<div class="book-wrap">
+									<div class="book-card">
+										<a href="demos/writer/include/ajax/focus.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="demos/writer/images/books/focuschef.png" alt="Book Image"></a>
+										<div class="book-detail">
+											<h2 class="book-title"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPCVD1zBWRPEuN5PhdTgt-JA">The Focus Chef</a></h2>
+											<small class="book-category"><a href="https://www.youtube.com/playlist?list=PLTEcibljmTPCVD1zBWRPEuN5PhdTgt-JA">by Donna Lazarescu</a></small>
+											<div class="button button-white button-light capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Learn More</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="portfolio-item">
+								<h4><a href="https://www.youtube.com/channel/UCTb_8kGbwqhri3TQL6TW5vQ" target="_blank">Tao Learning Media Channel</a></h4>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLTEcibljmTPB4J-3d83LVIsWpi-CGoQ6v" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLTEcibljmTPDsOMg1cbshJ9C9LY1c3-sJ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+						</div>
+
+						<div class="center"><a href="#" class="button button-large button-white button-light capitalize topmargin-lg bottommargin button-rounded">View all Material</a></div>
+					</div>
+
+					<div class="dark subscribe-widget center topmargin-sm" style="background-color: rgba(0,0,0,.25); padding: 80px 0;">
+						<div class="container clearfix">
+							<div class="divcenter" style="max-width: 600px;">
+								<div class="heading-block center nobottomborder">
+									<h3 class="t400 nott" style="font-size: 40px;">Get Access to the Hive</h3>
+									<span class="font-primary" style="font-size: 17px; color: #666;">Join Like-Minded Individuals to Prove Your Skills</span>
+								</div>
+								<div class="widget-subscribe-form-result"></div>
+									<div class="divcenter">
+											<button class="btn btn-lg bgcolor">Take the Quiz</button>
+									</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="video-wrap" style=" height: auto; position: absolute; left: 0; bottom: 0; z-index:1;">
+						<div class="video-overlay" style="background: -moz-linear-gradient(top,  rgba(30,35,42,1) 21%,, rgba(30,35,42,0) 100%); background: -webkit-linear-gradient(top,  rgba(30,35,42,1) 21%,rgba(30,35,42,0) 100%); background: linear-gradient(to bottom,  rgba(30,35,42,1) 21%,rgba(30,35,42,0) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e232a', endColorstr='#1e232a',GradientType=0 );">
+						</div>
+					</div>
+
+				</div>
+
+				<!-- Testimonials
+				============================================= -->
+				<div id="section-testimonial" class="section nomargin center" style="background: url('demos/writer/images/section/bg2.jpg') center center no-repeat; background-size: cover; padding: 100px 0;">
+					<div class="container clearfix">
+
+						<div class="heading-block nobottomborder">
+							<i class="icon-book3 i-plain i-large divcenter center"></i>
+							<h3 class="nott t400 ls0" style="font-size: 36px;">Member Stories</h3>
+						</div>
+
+					</div>
+
+					<div class="fslider testimonial testimonial-full writer-feedback nobg noborder noshadow" data-animation="fade" data-arrows="false" style="max-width: none;">
+						<div class="flexslider">
+							<div class="slider-wrap divcenter" style="max-width: 650px;">
+								<div class="slide">
+									<div class="testi-image">
+										<a href="#"><img src="images/testimonials/3.jpg" alt="Customer Testimonails"></a>
+									</div>
+									<div class="testi-content">
+										<p>I learned how to adapt my schedule with theirs and sync up in an Agile environemnt. Before I started, I didn't even know what Agile was.</p>
+										<div class="testi-meta">
+											By Lalla
+											<span>August 15 2018</span>
+										</div>
+									</div>
+								</div>
+								<div class="slide">
+									<div class="testi-image">
+										<a href="#"><img src="images/testimonials/2.jpg" alt="Customer Testimonails"></a>
+									</div>
+									<div class="testi-content">
+										<p>I love brainstorming ways to streamline and improve the process, I feel so involved in everything and though I am just an intern, I always feel entirely heard out and like my opinions are valued.</p>
+										<div class="testi-meta">
+											By Mackenzie
+											<span>August 16 2018</span>
+										</div>
+									</div>
+								</div>
+								<div class="slide">
+									<div class="testi-image">
+										<a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
+									</div>
+									<div class="testi-content">
+										<p>Incidunt deleniti blanditiis quas aperiam recusandae consequatur ullam quibusdam cum libero illo rerum!</p>
+										<div class="testi-meta">
+											John Doe
+											<span>XYZ Inc.</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- FOOTER SECTION -->
+	<!-- FOOTER SECTION -->
+	<div class="footer" data-background="../images/1920/bg-map-dot.jpg">
+		<div class="content-wrap">
+			<div class="container">
+				
+				<div class="row">
+					<div class="col-sm-3 col-md-3">
+						<div class="footer-item">
+							<a href="../about.html"><img src="../images/logo_white350.png" alt="logo bottom" class="logo-bottom"></a>
+							<div class="spacer-30"></div>
+							<p>Tao Learning is a community to advance education in a P-20+ Initiative, focusing on written, spoken, unspoken, and digital languages necessary to join the workforce and develop societies across the globe.</p>
+							
+						</div>
+					</div>
+
+					<div class="col-sm-3 col-md-3">
+						<div class="footer-item">
+							<div class="footer-title">
+								WHO WE ARE
+							</div>
+							
+							<div class="row">
+								<div class="col-sm-6 col-md-6">
+									<ul class="list">
+										<li><a href="../whatwedo.html" title="What We Do">What We Do</a></li>
+										<li><a href="../introducing-partnerships.html" title="Partners">Partners</a></li>
+										<li><a href="../register.html" title="Register">Register</a></li>
+										<li><a href="https://login.microsoftonline.com/?whr=taolearning.org" title="Login">Login</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-3 col-md-3">
+						<div class="footer-item">
+							<div class="footer-title">
+								WHERE WE WORK
+							</div>
+							<ul class="list-info">
+								<li>
+									<div class="info-icon">
+										<span class="fa fa-map-marker"></span>
+									</div>
+									<div class="info-text">125 Frederick St<br> Marietta OH 45750</div> </li>
+								<li>
+									<div class="info-icon">
+										<span class="fa fa-phone"></span>
+									</div>
+									<div class="info-text">740-538-0172</div>
+								</li>
+								<li>
+									<div class="info-icon">
+										<span class="fa fa-envelope"></span>
+									</div>
+									<div class="info-text">info@taolearning.org</div>
+								</li>
+								<li>
+									<div class="info-icon">
+										<span class="fa fa-clock-o"></span>
+									</div>
+									<div class="info-text">Mon - Sat 09:00 - 17:00</div>
+								</li>
+							</ul>
+
+						</div>
+					</div>
+					
+					<div class="col-sm-3 col-md-3">
+						<div class="footer-item">
+							<div class="footer-title">
+								GUIDE STAR
+							</div>
+							<p><a href="https://www.guidestar.org/Profile/9759491" target="_blank"><img src="../images/icons/put-platinum2019-seal.png"></a></p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="fcopy">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<p class="ftex">Copyright 2019 &copy; <span class="color-primary">Tao Learning</span>. Designed by <span class="color-primary"><a href="https://taofruit.com">Tao Fruit</a>.</span></p> 
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="demos/writer/js/hover3d.js" ></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>
+
+	<script>
+
+		jQuery(document).ready( function(){
+
+			if( !jQuery('body').hasClass('device-touch') ) {
+
+				var lFollowX = 0,
+					lFollowY = 0,
+					x = 0,
+					y = 0,
+					friction = 1 / 30;
+
+				function moveBackground() {
+					x += (lFollowX - x) * friction;
+					y += (lFollowY - y) * friction;
+
+					translate = 'translate(' + x + 'px, ' + y + 'px) scale(1.1)';
+
+					jQuery('.move-bg').css({
+						'-webit-transform': translate,
+						'-moz-transform': translate,
+						'transform': translate
+					});
+
+					window.requestAnimationFrame(moveBackground);
+				}
+
+				jQuery(window).on('mousemove click', function(e) {
+
+					var lMouseX = Math.max(-100, Math.min(100, jQuery(window).width() / 2 - e.clientX));
+					var lMouseY = Math.max(-100, Math.min(100, jQuery(window).height() / 2 - e.clientY));
+					lFollowX = (10 * lMouseX) / 100; // 100 : 12 = lMouxeX : lFollow
+					lFollowY = (10 * lMouseY) / 100;
+
+				});
+
+				moveBackground();
+
+				jQuery(".book-wrap").hover3d({
+					selector: ".book-card",
+					shine: false,
+				});
+
+			}
+
+		});
+
+	</script>
+
+</body>
+</html>
