@@ -5169,8 +5169,8 @@ object{
 }
 #loadOverlay{display: none;}
 
-.iti-flag {background-image: url("assets/tel/flags.png");}
+.iti-flag {background-image: url("assets/tel2/flags.png");}
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .iti-flag {background-image: url("assets/tel/flags@2x.png");}
+  .iti-flag {background-image: url("assets/tel2/flags@2x.png");}
 }
