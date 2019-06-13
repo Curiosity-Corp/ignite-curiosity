@@ -1,0 +1,3 @@
+[submodule "assets/tel2"]
+	path = assets/tel2
+	url = https://github.com/jackocnr/intl-tel-input.git
