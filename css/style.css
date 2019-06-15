@@ -429,9 +429,9 @@ li > ol {
 
 dl {
   margin: 0 0 1.75em; }
-
+/* 
 dt {
-  font-weight: 700; }
+  font-weight: 700; }  KRASHNIK */
 
 dd {
   margin: 0 0 1.75em; }

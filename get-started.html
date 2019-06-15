@@ -23,7 +23,7 @@
 	CSS VENDOR
 	=============================================== -->
 	<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="css/vendor/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/awesome/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="css/vendor/owl.carousel.min.css">
 	<link rel="stylesheet" type="text/css" href="css/vendor/owl.theme.default.min.css">
 	<link rel="stylesheet" type="text/css" href="css/vendor/magnific-popup.css">
@@ -96,14 +96,27 @@
 						          PARTNERS
 								</a>
 			                </li>
-							<li class="nav-item">
-			                    <a class="nav-link" href="skills/">SOFT SKILLS</a>
-			                </li>
-							<li class="nav-item">
-			                    <a class="nav-link" href="get-started.html" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						          GET STARTED
-								</a>
-			                </li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								SKILLS
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">	
+								<a class="dropdown-item" href="skills/curiousity.html">Get Curious</a>
+								<a class="dropdown-item" href="skills/soft.html">Soft Skills</a>
+								<a class="dropdown-item" href="skills/tech.html">Technical Skills</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								GET INVOLVED
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">	
+								<a class="dropdown-item" href="get-started.html">Join the Community</a>
+								<a class="dropdown-item" href="volunteer.html">Volunteer with Us</a>
+								<a class="dropdown-item" href="coach.html">Become a Coach</a>
+								<a class="dropdown-item" href="register.html">Register</a>
+							</div>
+						</li>
 			            </ul>
 						 <a href="register.html" class="btn btn-secondary no-display-mobile btn-nav ml-auto">REGISTER</a> 
 			            <a href="https://donorbox.org/taolearning" class="btn btn-primary btn-nav ml-auto">DONATE</a>
@@ -123,6 +136,7 @@
 			    <nav aria-label="breadcrumb">
 				  <ol class="breadcrumb ">
 				    <li class="breadcrumb-item"><a href="index.html">Welcome</a></li>
+				    <li class="breadcrumb-item active" aria-current="page">Skill Builder</li>
 				    <li class="breadcrumb-item active" aria-current="page">Getting Started</li>
 				  </ol>
 				</nav>
@@ -135,24 +149,26 @@
 		<div class="content-wrap-top">
 			<div class="container">
 				<div class="row align-items-end">
-					<div class="col-sm-6 col-md-6">
+					<div class="col-sm-6 col-md-6 my-auto">
 						<img src="images/440/michelle_beach.jpg" alt="" class="img-fluid">
 					</div>
 					<div class="col-sm-6 col-md-6">
 						<h2 class="section-heading">
-							Ignite Your <span>Curiosity</span>
+							<span>Ignite</span> Your <span>Curiosity</span>
 						</h2>
-						<div class="section-subheading">Follow these steps to join our Hive.</div> 
+						<div class="section-subheading">Follow these steps to join the Curiosity Community. <br><strong>This will take a minimum of 40 hours.</strong> We take our community seriously and are looking for new members who are excited about education & changing the world!</div> 
 						<div class="margin-bottom-50"></div>
 						<dl class="hiw">
-							<dt><span class="fa fa-bullhorn"></span></dt>
-							<a href="register.html"><dd><div class="no">01</div><h3>Register Online</h3>Register Online to ignite your curiosity with us.</dd></a>
-							<dt><span class="fa fa-map-marker"></span></dt>
-							<a href="https://taolearning.sharepoint.com/sites/Welcome"><dd><div class="no">02</div><h3>Explore the Welcome Class</h3>After you register, check your email (and Spam!) for your username &amp; password to our system.  Then, Explore the Welcome Class to learn The SMILE Method&trade; and how to use Office 365 for success.<div></dd></a>
-							<dt><span class="fa fa-clock-o"></span></dt>
-							<a href="#hive"><dd><div class="no">03</div><h3>Join the Hive</h3>Did you pass your Welcome Quiz?  Great - Now Get Social with Us and learn with a group of like-minded intellectuals who love to challenge &amp; encourage each other.</dd></a>	
+							<dt><span class="fab fa-centos fa-2x"></span></dt>
+							<a href="skills/curiousity.html"><dd><div class="no">01</div><h3>Get Curious</h3>Learn the secrets to a life of wonder and happiness with the SMILE Method&trade;. Gain Life Skills to be enthusiastic for any subject as you increase your AQ, EQ, and IQ.</dd></a>
+							<dt><span class="fas fa-keyboard fa-2x"></span></dt>
+							<a href="#access"><dd><div class="no">02</div><h3>Pass Curiosity Quiz</h3>Get Your Access Code upon successful completion of this quiz.  Alternatively, pay for an Access Code & we'll walk you through the skills you'll need to succeed.</dd></a>
+							<dt><span class="fas fa-universal-access fa-2x"></span></dt>
+							<a href="register.html"><dd><div class="no">03</div><h3>Join the Community</h3>Register Online to ignite your curiosity with us.  Meet people from all over the world and see our digital world come to life.</dd></a>
+							<dt><span class="fas fa-chalkboard-teacher fa-2x"></span></dt>
+							<a href="skills/tech.html"><dd><div class="no">04</div><h3>Build Functional Skills</h3>Study and apply technical skills with our community to have impact in live business environments, all from your home.</dd></a>	
 						</dl>
-						<div class="spacer-70"></div>
+						<div class="spacer-70" id="access"></div>
 					</div>
 				</div>
 			</div>
@@ -161,17 +177,17 @@
 <div class="spacer-70"></div>
 
 <!-- CTA -->
-	<div class="section cta" id="hive">
+	<div class="section cta" >
 		<div class="content-wrap-20">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 col-md-12">
 						<div class="cta-1">
 			              	<div class="body-text">
-			                	<h4>Join the Hive: Download Teams App &amp; login with your <span><strong>taolearning.org</strong></span> account.</h4>
+			                	<h4>Gain Access to the Curiosity Community: Take the <span><strong>Curiosity Quiz</strong></span> after you have learned Soft Skills and Tech Skills	.</h4>
 			              	</div>
 			              	<div class="body-action">
-			                	<a href="https://teams.microsoft.com/downloads" class="btn btn-secondary">Download MS Teams</a>
+			                	<a href="https://teams.microsoft.com/downloads" class="btn btn-secondary">Take Curiosity Quiz</a>
 			              	</div>
 						</div>
 					</div>
@@ -181,16 +197,11 @@
 	</div>
 	<!-- HOW TO HELP US -->
 	<div class="section">
-		<div class="content-wrap">
+		<div class="content-wrap-20">
 			<div class="container">
 
 				<div class="row">
 					<div class="col-sm-8 col-md-8">
-						<div class="img-date">						
-							<a href="https://teams.microsoft.com/downloads"><img src="images/download_teams_desktop.svg" alt="" class="img-fluid"></a>
-						</div>
-
-						<div class="spacer-10"></div>
 						<h2 class="color-secondary">Get Social with Us!</h2>
 						<div class="meta">
 							<span><a class="color-primary" href="https://teams.microsoft.com/downloads"><i class="fa fa-envelope"></i> Download our Chat Software for Collaboration </a></span>
@@ -213,9 +224,9 @@
 					<div class="col-sm-4 col-md-4">		
 						<div class="widget text">
 							<div class="widget-title">
-								<h3>What is the Hive?<h3>
+								<h3>The Community<h3>
 							</div>
-							<p>The Hive is where people from all over the world come together to learn, collaborate, chat, and socialize on projects together. It is the central hub of Ignite Curiosity where you get to watch experts, participate in large projects that have an impact on the entire world, and meet like-minded students from all parts of the globe.</p>
+							<p>The Curiosity Communitye is where people from all over the world come together to learn, collaborate, chat, and socialize on projects together. It is the central hub to Ignite your Curiosity where you get to watch experts, participate in large projects that have an impact on the entire world, and meet like-minded students from all parts of the globe.</p>
 							<p>We have strong initiatives in USA, Pakistan, Africa, China, France, Costa Rica, and are continuing to expand our outreach in STEAM education.</p>
 						</div>
 						<div class="promo-ads">
@@ -299,8 +310,8 @@
 					<div class="col-sm-3 col-md-3">
 						<div class="footer-item">
 							<object data="images/logo.svg" width="200px"  height="60px" type="image/svg+xml" class="ignitecuriosity_logo">
-									<img src="images/logo.png" />
-									</object>
+								<img src="images/logo.png" />
+							</object>
 							<div class="spacer-30"></div>
 							<p>Ignite Curiosity is a community to advance education in a P-20+ Initiative, focusing on written, spoken, unspoken, and digital languages necessary to join the workforce and develop societies across the globe.</p>
 						</div>
@@ -405,6 +416,17 @@
 	<!-- MAIN JS -->
 	<script src="js/script.js"></script>
 
-		
+	<!-- SMOOTH SCROLLER -->
+	<script>
+	$('a[href^="#"]').on('click', function(event) {
+		var target = $(this.getAttribute('href'));
+		if( target.length ) {
+			event.preventDefault();
+			$('html, body').stop().animate({
+				scrollTop: target.offset().top
+			}, 1000);
+		}
+	});
+	</script>
 </body>
 </html>
