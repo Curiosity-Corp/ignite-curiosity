@@ -174,7 +174,7 @@
 	position: absolute;
 	-webkit-backface-visibility: hidden;
 	transition: transform 100ms ease;
-	background: url("../images/owl.video.play.png") no-repeat;
+	background: url("images/owl.video.play.png") no-repeat;
 }
 .owl-carousel .owl-video-play-icon:hover {
 	-ms-transform: scale(1.3, 1.3);
