@@ -1004,7 +1004,7 @@ ul.circle {
   font-weight: 700;
   color: #29ABE2;
   margin-bottom: 15px;
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
   position: relative; }
 
 .category-nav {
