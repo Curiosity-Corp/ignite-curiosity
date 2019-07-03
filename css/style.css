@@ -5228,3 +5228,8 @@ object{
 }
 @media only screen and (max-width:479px){.box3 .title{margin:0}
 }
+
+/* CUSTOMIZATION BY KRASHNIK */
+.top100 {
+  padding-top: 100px;
+}
