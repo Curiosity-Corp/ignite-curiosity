@@ -267,6 +267,7 @@ $.extend($.validator, {
 	messages: {
 		required: "Required",
 		remote: "Please fix this field.",
+		invitecode: "Please enter a verified Invitation Code.",
 		email: "Enter a valid email address",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
@@ -1022,6 +1023,12 @@ $.extend($.validator, {
 		// https://docs.jquery.com/Plugins/Validation/Methods/range
 		range: function( value, element, param ) {
 			return this.optional(element) || ( value >= param[0] && value <= param[1] );
+		},
+
+		invitecode: function( value, element ) {
+			element.value = element.value.toUpperCase();
+			element.value = element.value.replace(/\s/g, '');
+			return this.optional(element) || element.value === 'TAOLEARNING' || element.value === 'CRUMPIX' || element.value === 'MISSLYRA' || element.value === 'TEAMTV' || element.value === 'GEEKSPOD' || element.value === 'TAOFRUIT';
 		},
 
 		// https://docs.jquery.com/Plugins/Validation/Methods/email

@@ -206,6 +206,17 @@ list-style-type: none;
 							<form enctype='application/json' method="POST" action="https://prod-77.eastus.logic.azure.com:443/workflows/a4773611614b4beab8cba4a601a4e731/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=O_nRuAmiFOKRrQ1U4OC2Bou2Ua6Qr-vZJsRVxFCAzME" id="register" class="form-contact"  data-toggle="validator" novalidate="true">
 							
 							<div class="title">
+								<h3>Invitation Code</h3>
+							</div>
+
+							<div class="col-md-12">
+                            	<div class="form-group">
+                                <input type="invitecode" class="form-control styled required" id="invitecode" name="invitecode"  placeholder="Invitation Code" required="">
+								<div class="help-block with-errors"></div>
+                            </div>
+							</div>
+								
+							<div class="title">
 								<h3>Personal Details</h3>
 							</div>
 
@@ -382,12 +393,13 @@ list-style-type: none;
 						 </div>
 						 <div class="col-md-3" style="background-color: #eee">
 					<div class="text-center widget-title">
-						<h3>Already <br>Signed Up?<h3>
-					<a href="start.html" class="button small btn btn-primary">Get Started</a>
+						<h3>Need an <br>Invitation Code?<h3>
+					
 					</div>
 
-                    <h4><strong>Open Registration Rules</strong></h4>
-                    <p>You will be given <strong>60 days</strong> of free membership to learn our system and to pass the Welcome class.  Your progress will be monitored to see if you are accepted into our full program.  Following class rules is mandatory for approval.</p>
+                    <h4>Join the Fundamental Class</h4>
+					<p>You will be given <strong>60 days</strong> of free membership to learn our system and to pass the Welcome class.  Your progress will be monitored to see if you are accepted into our full program.  Following class rules is mandatory for approval.</p>
+					<a href="start.html" class="button small btn btn-primary">Start Fundamentals</a>
                    
                    <h4>Our Programs</h4>
                     <div class="box_side"><a href="https://thefocushive.com" target="_blank">The Focus Hive</a> <i class="icon-link"></i>
@@ -572,7 +584,7 @@ list-style-type: none;
 	});
 	</script>
 	
-	 <script src="js/jquery.validate.js"></script>
+	<script src="js/jquery.validate.js"></script>
 	<script>
 	$("#register").validate();
 	</script>
