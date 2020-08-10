@@ -33,8 +33,11 @@
 	Custom Stylesheet
 	=============================================== -->
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom.contact.validate.css" />
 	
-    <script src="js/vendor/modernizr.min.js"></script>
+	
+	<script src="js/vendor/modernizr.min.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139076987-1"></script>
@@ -215,41 +218,48 @@
 						<div class="margin-bottom-50"></div>
 
 						<div class="content">
-							<form action="#" class="form-contact" id="contactForm" data-toggle="validator" novalidate="true">
+							<form action="https://door.taolearning.org" class="form-contact" id="contactForm" data-toggle="validator" method="POST" novalidate="true">
 								<div class="row">
 									<div class="col-sm-6 col-md-6">
 										<div class="form-group">
-											<input type="text" class="form-control" id="p_name" placeholder="Enter Name" required="">
+											<input type="text" name="name" class="form-control" id="p_name" placeholder="Enter Name" required="">
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="col-sm-6 col-md-6">
 										<div class="form-group">
-											<input type="email" class="form-control" id="p_email" placeholder="Enter Email" required="">
+											<input type="email" name="email" class="form-control" id="p_email" placeholder="Enter Email" required="">
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="col-sm-6 col-md-6">
 										<div class="form-group">
-											<input type="text" class="form-control" id="p_subject" placeholder="Subject">
+											<input type="text" name="subject" class="form-control" id="p_subject" placeholder="Subject">
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="col-sm-6 col-md-6">
 										<div class="form-group">
-											<input type="text" class="form-control" id="p_phone" placeholder="Enter Phone Number">
+											<input type="text" name="tel" class="form-control" id="p_phone" placeholder="Enter Phone Number">
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 								</div>
 								<div class="form-group">
-									 <textarea id="p_message" class="form-control" rows="6" placeholder="Enter Your Message"></textarea>
+									 <textarea id="p_message" name="message" class="form-control" rows="6" placeholder="Enter Your Message"></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group">
 									<div id="success"></div>
 									<button type="submit" class="btn btn-primary">SEND MESSAGE</button>
 								</div>
+								<input type="hidden" name="test" value="off">
+								<input type="hidden" name="owner" value="5cf40f14-1dd3-e911-a966-000d3a34e4b0">
+								<input type="hidden" name="website" value="https://ignitecuriosity.org">
+								<input type="text" name="_gotcha" style="display:none" />
+								<input type="hidden" name="budget" value="0">
+								<input type="hidden" name="token" value="">
+								<input type="hidden" name="campaign" value="Ignite Curiosity">
 							</form>
 							<div class="margin-bottom-50"></div>
 							<p><em>Note: Send Us a Message and we will respond to your email in 24 – 48 hours.</em></p>
@@ -400,8 +410,10 @@
 	<script src="js/vendor/jquery.magnific-popup.min.js"></script>
 
 	<!-- SENDMAIL -->
-	<script src="js/vendor/validator.min.js"></script>
-	<script src="js/vendor/form-scripts.js"></script>
+	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script src="js/validate.min.js"></script>
+	<script src='js/custom.contact.validate.js'></script>
+	
 	
 	<!-- GOOGLEMAP -->
 	<script src="js/googlemap-setting.js"></script>

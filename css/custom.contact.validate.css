@@ -1,0 +1,7 @@
+.form-group.has-error .form-control {
+    border-color: #dc3545;
+}
+
+.form-group.has-success .form-control {
+    border-color: #28a745;
+}
