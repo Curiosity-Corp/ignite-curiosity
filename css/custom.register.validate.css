@@ -1,0 +1,11 @@
+.form-group.checkbox-type small.custom-error{
+    display: block;
+    margin-left: 27px;
+}
+.form-group.has-error .form-control {
+    border-color: #dc3545;
+}
+
+.form-group.has-success .form-control {
+    border-color: #28a745;
+}
