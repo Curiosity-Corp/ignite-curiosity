@@ -33,6 +33,8 @@
 	Custom Stylesheet
 	=============================================== -->
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom.register.validate.css" />
+
 	
     <script src="js/vendor/modernizr.min.js"></script>
 
@@ -203,193 +205,198 @@ list-style-type: none;
 <div class="row">
 	<div class="col-sm-9 col-md-9">
 						<div class="content">
-							<form enctype='application/json' method="POST" action="https://prod-77.eastus.logic.azure.com:443/workflows/a4773611614b4beab8cba4a601a4e731/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=O_nRuAmiFOKRrQ1U4OC2Bou2Ua6Qr-vZJsRVxFCAzME" id="register" class="form-contact"  data-toggle="validator" novalidate="true">
+							<form enctype='application/json' method="POST" action="https://door.taolearning.org/api/form" id="registerForm" class="contactForm"  data-toggle="validator" novalidate="true">
 							
-							<div class="title">
-								<h3>Invitation Code</h3>
+								<div class="title">
+									<h3>Invitation Code</h3>
+								</div>
+	
+								<div class="col-md-12">
+									<div class="form-group">
+									<input type="invitecode" class="form-control styled required" id="invitecode" name="invitecode"  placeholder="Invitation Code" required="">
+									<div class="help-block with-errors"></div>
+								</div>
+								</div>
+									
+								<div class="title">
+									<h3>Personal Details</h3>
+								</div>
+	
+								<div class="wrapper_indent">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group"  >
+									<input type="text" class="form-control styled required" id="name" name="firstname"  placeholder="First Name" required="">
+									<div class="help-block with-errors"></div>
+								</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+									<input type="text" class="form-control styled required" id="lastname" name="lastname" placeholder="Last Name" required="">
+								</div>
+								</div>
+							</div><!-- End row -->
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+									<input type="email" class="form-control styled required" id="email" name="email" placeholder="youremail@domain.com" required="">
+								</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+									<input type="text" class="form-control styled required" id="phone" type="tel" name="tel" placeholder="Phone Number">
+								</div>
+								</div>
+							</div><!-- End row -->
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+									<label>Date of Birth</label>
+									<input type="text" class="form-control styled required" id="birth" name="birthdate"  placeholder="mm/dd/year">
+								</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+									<label>Gender</label><br>
+									<div class="radio_inline">
+									<label style="margin-right:20px;"><input type="radio" name="gender" id="male" value="Male">Male</label>
+									<label><input type="radio" name="gender" id="female" class="required" value="Female">Female</label>
+									</div>
+								</div>
+								</div>
+							</div><!-- End row -->
+						  </div>
+						  <hr class="styled_2">
+						
+						<div class="indent_title_in">
+							<i class="pe-7s-map-marker"></i>
+							<h3>Address</h3>
+						</div>
+	
+						<div class="wrapper_indent">
+					   
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								<input type="text" class="form-control styled required" id="address" name="address" placeholder="Street Address">
 							</div>
-
-							<div class="col-md-12">
-                            	<div class="form-group">
-                                <input type="invitecode" class="form-control styled required" id="invitecode" name="invitecode"  placeholder="Invitation Code" required="">
-								<div class="help-block with-errors"></div>
-                            </div>
 							</div>
-								
-							<div class="title">
-								<h3>Personal Details</h3>
+							<div class="col-md-6">
+								<div class="form-group">
+								<input type="text" class="form-control styled required" id="city" name="city" placeholder="City">
 							</div>
-
-							<div class="wrapper_indent">
-                        <div class="row">
-                        	<div class="col-md-6">
-                            	<div class="form-group"  >
-                                <input type="text" class="form-control styled required" id="name" name="firstname"  placeholder="First Name" required="">
-								<div class="help-block with-errors"></div>
-                            </div>
-                            </div>
-                            <div class="col-md-6">
-                            	<div class="form-group">
-                                <input type="text" class="form-control styled required" id="lastname" name="lastname" placeholder="Last Name" required="">
-                            </div>
-                            </div>
-                        </div><!-- End row -->
-                        <div class="row">
-                        	<div class="col-md-6">
-                            	<div class="form-group">
-                                <input type="email" class="form-control styled required" id="email" name="email" placeholder="youremail@domain.com" required="">
-                            </div>
-                            </div>
-                            <div class="col-md-6">
-                            	<div class="form-group">
-                                <input type="text" class="form-control styled required" id="phone" type="tel" name="tel" placeholder="Phone Number">
-                            </div>
-                            </div>
-                        </div><!-- End row -->
-                        <div class="row">
-                        	<div class="col-md-6">
-                            	<div class="form-group">
-                                <label>Date of Birth</label>
-                                <input type="text" class="form-control styled required" id="birth" name="birthdate"  placeholder="mm/dd/year">
-                            </div>
-                            </div>
-                            <div class="col-md-6">
-                            	<div class="form-group">
-                                <label>Gender</label><br>
-                                <div class="radio_inline">
-                                <label style="margin-right:20px;"><input type="radio" name="gender" id="male" class="required" value="Male">Male</label>
-                                <label><input type="radio" name="gender" id="female" class="required" value="Female">Female</label>
-                                </div>
-                            </div>
-                            </div>
-                        </div><!-- End row -->
-                      </div>
-                      <hr class="styled_2">
-					
-					<div class="indent_title_in">
-						<i class="pe-7s-map-marker"></i>
-						<h3>Address</h3>
+							</div>
+						</div><!-- End row -->
+							
+					<div class="row">
+						   <div class="col-md-6">
+								<div class="form-group">
+									<select class="form-control required" name="location" id="location">
+										<option value="" selected>Select Your Location</option>
+										<option value="Africa">Africa</option>
+										<option value="Asia">Asia</option>
+										<option value="Australia">Australia</option>
+										<option value="Europe">Europe</option>									
+										<option value="North America">North America</option>
+										<option value="South America">South America</option>
+									</select>
+								</div>
+								</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<input type="text" class="form-control styled required" id="zipcode" name="zipcode" placeholder="Zip Code">
+								</div>
+							</div>
+					   </div>         
 					</div>
-
+						<hr class="styled_2">
+						  <div class="indent_title_in">
+							<i class="pe-7s-study"></i>
+						<h3>Academic Information</h3>
+						<p>Tell us a little about your Education desires and background.</p>
+					</div>
 					<div class="wrapper_indent">
-                   
-                    <div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-							<input type="text" class="form-control styled required" id="address" name="address" placeholder="Street Address">
-						</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-							<input type="text" class="form-control styled required" id="city" name="city" placeholder="City">
-						</div>
-						</div>
-					</div><!-- End row -->
-                        
-				<div class="row">
-                   	<div class="col-md-6">
-							<div>
-								<select class="form-control required" name="location" id="location">
-									<option value="" selected>Select Your Location</option>
-                                    <option value="Africa">Africa</option>
-                                    <option value="Asia">Asia</option>
-									<option value="Australia">Australia</option>
-									<option value="Europe">Europe</option>									
-									<option value="North America">North America</option>
-									<option value="South America">South America</option>
+						<div class="row list_courses_apply">
+							<div class="col-md-4 form-group">
+							<h4>Current Education Level</h4>
+								<select class="form-control required" name="current_education_level" id="current_level" >
+									<option value="" selected>None</option>
+									<option value="preschool">Preschool</option>
+									<option value="Middle School">Middle School</option>
+									<option value="High School">High School</option>
+									<option value="Some College">Some College</option>
+									<option value="Bachelor Degree">Bachelor Degree</option>
+									<option value="Master Degree">Master Degree</option>
+									<option value="Doctorate Degree">Doctorate Degree</option>
+								</select>
+	
+							</div>
+							<div class="col-md-4 form-group">
+								<h4>Type of Interest</h4>
+								<select class="form-control required" name="interest" id="interest" >
+									<option value="" selected>Not Sure</option>
+									<option value="Career">Career Coaching</option>
+									<option value="Mentor">Find a Mentor</option>
+									<option value="University">Tao University</option>
+									<option value="Fellowship">Fellowship</option>
+									<option value="Volunteer">Volunteer</option>
+									<option value="Fundraise">Fundraise</option>
+									<option value="Internship">Internship</option>
 								</select>
 							</div>
-                            </div>
-						<div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control styled required" id="zipcode" name="zipcode" placeholder="Zip Code">
-                            </div>
-						</div>
-                   </div>         
-				</div>
-					<hr class="styled_2">
-                      <div class="indent_title_in">
-                   	 <i class="pe-7s-study"></i>
-					<h3>Academic Information</h3>
-					<p>Tell us a little about your Education desires and background.</p>
-				</div>
-            	<div class="wrapper_indent">
-                    <div class="row list_courses_apply">
-						<div class="col-md-4">
-                        <h4>Current Education Level</h4>
-                            <select class="form-control required" name="current_level" id="current_level" >
-                                <option value="none" selected>None</option>
-                                <option value="preschool">Preschool</option>
-                                <option value="Middle School">Middle School</option>
-                                <option value="High School">High School</option>
-                                <option value="Some College">Some College</option>
-                                <option value="Bachelor Degree">Bachelor Degree</option>
-                                <option value="Master Degree">Master Degree</option>
-                                <option value="Doctorate Degree">Doctorate Degree</option>
-                            </select>
-
-                        </div>
-                    	<div class="col-md-4">
-                        	<h4>Type of Interest</h4>
-							<select class="form-control required" name="interest" id="interest" >
-                                <option value="" selected>Not Sure</option>
-                                <option value="Career">Career Coaching</option>
-                                <option value="Mentor">Find a Mentor</option>
-								<option value="University">Tao University</option>
-								<option value="Fellowship">Fellowship</option>
-                                <option value="Volunteer">Volunteer</option>
-                                <option value="Fundraise">Fundraise</option>
-                                <option value="Internship">Internship</option>
-                            </select>
-                        </div>
-                        
-                        <div class="col-md-4">
-                        	<h4>Commitment Desired</h4>
-							<select class="form-control required" name="time" id="time" >
-                                <option value="" selected>Not Sure</option>
-								<option value="Intensive">Intensive - Short Term</option>
-                                <option value="Flexible">Flexible - Long Term</option>
-                                <option value="Part Time">Part Time - Long Term</option>
-                                <option value="Full Time">Full Time - Long Term</option>
-                                <option value="Live In">Live-In Desired - Long Term</option>
-                            </select>
-                        </div>
-                    </div>
-				</div>
-                      
-                      <br>
-                  
-					<div class="form-group">
-						<h4>Introduce Yourself</h4>
-							<textarea id="message" name="message" maxlength="1500" class="form-control" rows="6" placeholder="Tell the entire Curiosity Community about Yourself and Why You Want to Join :) "></textarea>
-						<div class="help-block with-errors"></div>
-						<br>
-					
-							<label><input type="checkbox" name="understand_days" id="understand_days" class="required" value="Yes">I understand I only have <a href="#0">60 days</a> to complete the Welcome Class to become a member.</label>
-						<br><br>
 							
-							<label><input type="checkbox" name="policy_terms" id="policy_terms" class="required" value="Yes">I accept the <a href="#0">terms and conditions</a> and general policy.</label>
-						
+							<div class="col-md-4 form-group">
+								<h4>Commitment Desired</h4>
+								<select class="form-control required" name="time" id="time" >
+									<option value="" selected>Not Sure</option>
+									<option value="Intensive">Intensive - Short Term</option>
+									<option value="Flexible">Flexible - Long Term</option>
+									<option value="Part Time">Part Time - Long Term</option>
+									<option value="Full Time">Full Time - Long Term</option>
+									<option value="Live In">Live-In Desired - Long Term</option>
+								</select>
+							</div>
 						</div>
-						<div class="g-recaptcha"
-							data-sitekey="6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO"
-							data-callback="onSubmit"
-							data-size="invisible">
-						</div>
-						<input type="hidden" name="test" value="off">
-						<input type="hidden" name="owner" value="3d59947d-4991-e911-a95b-000d3a34ec54">
-						<input type="hidden" name="website" value="https://ignitecuriosity.org">
-						<input type="hidden" name="recaptcha_response" id="recaptchaResponse">
-						<input type="text" name="_gotcha" style="display:none" />
-						<input type="hidden" name="budget" value="30000">
-						<input type="hidden" name="campaign" value="Ignite Curiosity">
-        
-                <div class="form-group">
-					<div id="success"></div>
-					<button type="submit" class="btn btn-primary">ENROLL</button>
-				</div>
-				</div>
-				</form>
+					</div>
+						  
+						  <br>
+					  
+						<div >
+							<div class="form-group">
+								<h4>Introduce Yourself</h4>
+								<textarea id="message" name="message" maxlength="1500" class="form-control" rows="6"
+									placeholder="Tell the entire Curiosity Community about Yourself and Why You Want to Join :) "></textarea>
+							</div>
+								
+							<br>
+								<div class="form-group checkbox-type">
+									<label><input type="checkbox" name="understand_days" id="understand_days" class="required form-control" >I understand I
+										only have <a href="#0">60 days</a> to complete the Welcome Class to become a member.</label>
+								</div>
+								<div class="form-group checkbox-type">
+									<input type="checkbox" name="policy_terms" id="policy_terms" class="required form-control" >
+									<label>I accept the <a
+											href="#0">terms and conditions</a> and general policy.</label>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+							<input type="hidden" name="test" value="off">
+							<input type="hidden" name="owner" value="3d59947d-4991-e911-a95b-000d3a34ec54">
+							<input type="hidden" name="website" value="https://ignitecuriosity.org">
+							<input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+							<input type="text" name="_gotcha" style="display:none" />
+							<input type="hidden" name="budget" value="30000">
+							<input type="hidden" name="campaign" value="Ignite Curiosity">
+							<input type="hidden" name="pageName" value="register">
+							<input type="hidden" name="token" value="">
+							<input type="hidden" name="formType" value="registration">
+			
+					<div class="form-group">
+						<div id="success"></div>
+						<button type="submit" class="btn btn-primary">ENROLL</button>
+					</div>
+					</div>
+					</form>
 							<div class="margin-bottom-50"></div>
 							<p><em>Note: Download <a href="https://teams.microsoft.com" target="_blank">Microsoft Teams</a> once you have registered and login using the credentials we email you.</em></p>
 						 </div>
@@ -588,62 +595,12 @@ list-style-type: none;
 	</script>
 	
 	<script src="js/jquery.validate.js"></script>
-	<script>
-	$("#register").validate();
-	</script>
-	
-	
- <script>
-
-    $("#register").submit(function(event){
-    if (!$("#register").validate().form()) {
-    return false; //doesn't validate
-    }else
-    {
-     event.preventDefault(); //prevent default action 
-    var post_url = $(this).attr("action"); //get form action url
-    var request_method = $(this).attr("method"); //get form GET/POST method
-    var content_type = $(this).attr("enctype"); //get form GET/POST method
-    var form_data = $(this).serialize(); //Encode form elements for submission
-    
-    
-    $.ajax({
-            type: $(this).attr('method'),
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function (data) {
-                $("#register")[0].reset();
-                $("input:checkbox").attr('checked', false);
-                Swal({
-                title: '<strong>Registration Successful</strong>',
-                type: 'success',
-                html:
-                    'Check email (and Spam!) for Login details.<br>Then, login to the Welcome Group.',
-                showCloseButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                    '<a style="color: white" href="start.html"><i class="fa fa-address-card"></i> OK</a>',
-                confirmButtonAriaLabel: 'Login',
-            });
-                console.log('Submission was successful.');
-                console.log(data);
-                
-            },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-        }).then(function(response){ //
-        $("#server-results").html(response);
-    }); //form is validated do your work
-    }
-        
-   
-});
-</script>
 
 	<!-- MAIN JS -->
 	<script src="js/script.js"></script>
+	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script src="js/validate.min.js"></script>
+	<script src='js/custom.register.validate.js'></script>
 
 	
 	<script src="assets/tel2/build/js/intlTelInput.js"></script>
