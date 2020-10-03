@@ -26,7 +26,7 @@ Languages/Technologies used in the project:
 
 ### Installation:
 #### Direct Download
-1. Download <a href="https://github.com/TaoFruit/curiosity/archive/master.zip" target="_blank">Tao Learning.zip</a>
+1. Download <a href="https://github.com/TaoFruit/curiosity/archive/master.zip" target="_blank">Ignite Curiosity.zip</a>
 2. Extract the zip file.
 3. Open the folder in <b>VS Code</b> or any other <b>Code Editor</b>
 
@@ -35,8 +35,8 @@ Languages/Technologies used in the project:
 
 2. Clone the forked repo locally:
     ```sh
-    $ git clone your_forked_repo
-    $ cd foco
+    $ git clone {your_forked_repo_url}
+    $ cd {folder_name}
     ```
 3. If using <b>VS Code</b> project can be opened directly using command line:
     ```sh
