@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 Tools/IDE:
-1. <a href="https://code.visualstudio.com/download">VS Code <small>(Preffered)</small></a> or any another IDE to make changes into the code.
+1. <a href="https://code.visualstudio.com/download">VS Code <small>(Preferred)</small></a> or any another IDE to make changes into the code.
 2. Git should be installed in the system.
 
 Languages/Technologies used in the project:
