@@ -26,7 +26,7 @@ Languages/Technologies used in the project:
 
 ### Installation:
 #### Direct Download
-1. Download <a href="https://github.com/TaoFruit/curiosity/archive/master.zip" target="_blank">Ignite Curiosity.zip</a>
+1. Download <a href="https://github.com/TaoFruit/curiosity/archive/gh-pages.zip" target="_blank">Ignite Curiosity.zip</a>
 2. Extract the zip file.
 3. Open the folder in <b>VS Code</b> or any other <b>Code Editor</b>
 
@@ -37,6 +37,15 @@ Languages/Technologies used in the project:
     ```sh
     $ git clone {your_forked_repo_url}
     $ cd {folder_name}
+    ```
+    **Note: Current branch should be gh-pages. To check the current branch type following in git bash**
+    ```sh
+    $ git branch
+    ```
+    <b>To change the branch to gh-pages.</b>
+
+    ```sh
+    $ git checkout gh-pages
     ```
 3. If using <b>VS Code</b> project can be opened directly using command line:
     ```sh
