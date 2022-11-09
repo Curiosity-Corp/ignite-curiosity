@@ -1028,7 +1028,7 @@ $.extend($.validator, {
 		invitecode: function( value, element ) {
 			element.value = element.value.toUpperCase();
 			element.value = element.value.replace(/\s/g, '');
-			return this.optional(element) || element.value === 'TAOLEARNING' || element.value === 'TAOFRUIT' || element.value === 'INSTAR' || element.value === 'TAONINJA' || element.value === 'TAOLINGO';
+			return this.optional(element) || element.value === 'TAOLEARNING' || element.value === 'TAOFRUIT' || element.value === 'INSTAR' || element.value === 'CURIOSITY' || element.value === 'YENYANG' || element.value === 'DIJASOUP' || element.value === 'TAOLINGO';
 		},
 
 		// https://docs.jquery.com/Plugins/Validation/Methods/email
