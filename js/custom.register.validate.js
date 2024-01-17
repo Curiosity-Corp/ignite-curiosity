@@ -3,6 +3,18 @@ let constraints = {
     invitecode: {
         presence: true,
     },
+    preferredname: {
+        presence: true,
+        length: {
+            minimum: 2,
+            maximum: 50
+        },
+        format: {
+            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mohamed|mohamad|mahammad|mohammed|mohammad|muhamad|muhammed|muhammad|mohmad|m|saiyed|seyit|seyd|syed|sayed|sayyed|saiyid|seyed|al-sayyed|seyyed|sayda|saeeda|sayeeda)\\b(\\s|\\p{P}|$))[a-zA-Z0-9 ]*",
+            flags: "iu",
+            message: "Error or Too Common. Choose a Unique Name"
+        }
+    },
     firstname: {
         presence: true,
         length: {
@@ -10,9 +22,9 @@ let constraints = {
             maximum: 50
         },
         format: {
-            pattern: "^(?!.*\\b(hafiz|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam)\\b[\\s\\p{P}]).*",
+            pattern: "^(?!.*\\b(hafiz|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|m|saiyed|seyit|seyd|syed|sayed|sayyed|saiyid|seyed|al-sayyed|seyyed|sayda|saeeda|sayeeda)\\b(\\s|\\p{P}|$))[a-zA-Z0-9 ]*",
             flags: "iu",
-            message: "Contains Name that is a Prefix"
+            message: "Contains Invalid Characters or Prefix"
         }
     },
     lastname: {
