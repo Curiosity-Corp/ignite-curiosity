@@ -8,6 +8,11 @@ let constraints = {
         length: {
             minimum: 2,
             maximum: 50
+        },
+        format: {
+            pattern: "^(?!.*\\b(hafiz|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam)\\b).*",
+            flags: "i",
+            message: "Contains Name that is a Prefix"
         }
     },
     lastname: {
