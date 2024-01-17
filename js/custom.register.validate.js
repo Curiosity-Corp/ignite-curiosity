@@ -10,8 +10,8 @@ let constraints = {
             maximum: 50
         },
         format: {
-            pattern: "^(?!.*\\b(hafiz|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam)\\b).*",
-            flags: "i",
+            pattern: "^(?!.*\\b(hafiz|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam)\\b[\\s\\p{P}]).*",
+            flags: "iu",
             message: "Contains Name that is a Prefix"
         }
     },
