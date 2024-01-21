@@ -40,7 +40,7 @@
 
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-	<script src='https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO'></script>
+	<script src="https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO"></script>
 	
 	<!-- Blue CSS -->
 	<link rel="stylesheet" type="text/css" href="css/blue.css">
@@ -127,14 +127,14 @@ list-style-type: none;
 							</div>
 							</li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="learn/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<a class="nav-link dropdown-toggle" href="learn/" id="navbarDropdownLearn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								LEARN
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								<a class="dropdown-item" href="learn/orientation.html">Orientation</a>	
 								<a class="dropdown-item" href="skills/soft.html">Soft Skills</a>
 								<a class="dropdown-item" href="learn/business.html">Business Development</a>
-								<a class="dropdown-item" href="learn/creative.html">Fine Arts & Creativity</a>
+								<a class="dropdown-item" href="learn/creative.html">Fine Arts &amp; Creativity</a>
 								<a class="dropdown-item" href="learn/finance.html">Wealth &amp; Finance</a>
 								<a class="dropdown-item" href="learn/growth.html">Sales &amp; Growth Hacking</a>
 								<a class="dropdown-item" href="learn/hr.html">Human Resources</a>
@@ -145,7 +145,7 @@ list-style-type: none;
 							</div>
 							</li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownInvolve" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									GET INVOLVED
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">	
@@ -156,7 +156,7 @@ list-style-type: none;
 								</div>
 							</li>
 							<li class="nav-item">
-			                    <a class="nav-link" href="shop.html" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			                    <a class="nav-link" href="shop.html" id="navbarDropdownShop" role="button" aria-haspopup="true" aria-expanded="false">
 						          SHOP
 								</a>
 			                </li>
@@ -205,7 +205,7 @@ list-style-type: none;
 	<div class="row">
 		<div class="col-sm-9 col-md-9">
 				<div class="content">
-					<form enctype='application/json' method="POST" action="https://door.taolearning.org/api/form" id="registerForm" class="contactForm" data-toggle="validator" novalidate="true">
+					<form enctype="application/json" method="POST" action="https://door.taolearning.org/api/form" id="registerForm" class="contactForm" data-toggle="validator" novalidate="true">
 						<div class="container">
 							<div class="row">
 								<div class="col-12">
@@ -259,13 +259,13 @@ list-style-type: none;
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Phone Number</label>
-										<input type="text" class="form-control styled required" id="phone" type="tel" name="tel" placeholder="Phone Number">
+										<input class="form-control styled required" id="phone" type="tel" name="tel" placeholder="Phone Number">
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Date of Birth</label>
-										<input type="text" class="form-control styled required" id="birth" name="birthdate"  placeholder="mm/dd/year">
+										<input type="text" class="form-control styled required" id="birth" name="birthdate"  placeholder="mm/dd/yyyy">
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -303,76 +303,76 @@ list-style-type: none;
 							</div>
 						</div><!-- End row -->
 							
-					<div class="row">
-						   <div class="col-md-6">
-								<div class="form-group">
-									<select class="form-control required" name="location" id="location">
-										<option value="" selected>Select Your Location</option>
-										<option value="Africa">Africa</option>
-										<option value="Asia">Asia</option>
-										<option value="Australia">Australia</option>
-										<option value="Europe">Europe</option>									
-										<option value="North America">North America</option>
-										<option value="South America">South America</option>
+						<div class="row">
+							<div class="col-md-6">
+									<div class="form-group">
+										<select class="form-control required" name="location" id="location">
+											<option value="" selected>Select Your Location</option>
+											<option value="Africa">Africa</option>
+											<option value="Asia">Asia</option>
+											<option value="Australia">Australia</option>
+											<option value="Europe">Europe</option>									
+											<option value="North America">North America</option>
+											<option value="South America">South America</option>
+										</select>
+									</div>
+									</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<input type="text" class="form-control styled required" id="zipcode" name="zipcode" placeholder="Zip Code">
+									</div>
+								</div>
+						</div>         
+						</div>
+							<hr class="styled_2">
+							<div class="indent_title_in">
+								<i class="pe-7s-study"></i>
+							<h3>Academic Information</h3>
+							<p>Tell us a little about your Education desires and background.</p>
+						</div>
+						<div class="wrapper_indent">
+							<div class="row list_courses_apply">
+								<div class="col-md-4 form-group">
+								<h4>Current Education Level</h4>
+									<select class="form-control required" name="current_education_level" id="current_level" >
+										<option value="" selected>None</option>
+										<option value="preschool">Preschool</option>
+										<option value="Middle School">Middle School</option>
+										<option value="High School">High School</option>
+										<option value="Some College">Some College</option>
+										<option value="Bachelor Degree">Bachelor Degree</option>
+										<option value="Master Degree">Master Degree</option>
+										<option value="Doctorate Degree">Doctorate Degree</option>
+									</select>
+		
+								</div>
+								<div class="col-md-4 form-group">
+									<h4>Type of Interest</h4>
+									<select class="form-control required" name="interest" id="interest" >
+										<option value="" selected>Not Sure</option>
+										<option value="Career">Career Coaching</option>
+										<option value="Mentor">Find a Mentor</option>
+										<option value="University">Tao University</option>
+										<option value="Fellowship">Fellowship</option>
+										<option value="Volunteer">Volunteer</option>
+										<option value="Fundraise">Fundraise</option>
+										<option value="Internship">Internship</option>
 									</select>
 								</div>
+								
+								<div class="col-md-4 form-group">
+									<h4>Commitment Desired</h4>
+									<select class="form-control required" name="time" id="time" >
+										<option value="" selected>Not Sure</option>
+										<option value="Intensive">Intensive - Short Term</option>
+										<option value="Flexible">Flexible - Long Term</option>
+										<option value="Part Time">Part Time - Long Term</option>
+										<option value="Full Time">Full Time - Long Term</option>
+										<option value="Live In">Live-In Desired - Long Term</option>
+									</select>
 								</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<input type="text" class="form-control styled required" id="zipcode" name="zipcode" placeholder="Zip Code">
-								</div>
-							</div>
-					   </div>         
-					</div>
-						<hr class="styled_2">
-						  <div class="indent_title_in">
-							<i class="pe-7s-study"></i>
-						<h3>Academic Information</h3>
-						<p>Tell us a little about your Education desires and background.</p>
-					</div>
-					<div class="wrapper_indent">
-						<div class="row list_courses_apply">
-							<div class="col-md-4 form-group">
-							<h4>Current Education Level</h4>
-								<select class="form-control required" name="current_education_level" id="current_level" >
-									<option value="" selected>None</option>
-									<option value="preschool">Preschool</option>
-									<option value="Middle School">Middle School</option>
-									<option value="High School">High School</option>
-									<option value="Some College">Some College</option>
-									<option value="Bachelor Degree">Bachelor Degree</option>
-									<option value="Master Degree">Master Degree</option>
-									<option value="Doctorate Degree">Doctorate Degree</option>
-								</select>
-	
-							</div>
-							<div class="col-md-4 form-group">
-								<h4>Type of Interest</h4>
-								<select class="form-control required" name="interest" id="interest" >
-									<option value="" selected>Not Sure</option>
-									<option value="Career">Career Coaching</option>
-									<option value="Mentor">Find a Mentor</option>
-									<option value="University">Tao University</option>
-									<option value="Fellowship">Fellowship</option>
-									<option value="Volunteer">Volunteer</option>
-									<option value="Fundraise">Fundraise</option>
-									<option value="Internship">Internship</option>
-								</select>
-							</div>
-							
-							<div class="col-md-4 form-group">
-								<h4>Commitment Desired</h4>
-								<select class="form-control required" name="time" id="time" >
-									<option value="" selected>Not Sure</option>
-									<option value="Intensive">Intensive - Short Term</option>
-									<option value="Flexible">Flexible - Long Term</option>
-									<option value="Part Time">Part Time - Long Term</option>
-									<option value="Full Time">Full Time - Long Term</option>
-									<option value="Live In">Live-In Desired - Long Term</option>
-								</select>
 							</div>
 						</div>
-					</div>
 						  
 						  <br>
 					  
@@ -395,7 +395,7 @@ list-style-type: none;
 									<label>I accept the <a href="#0">terms and conditions</a> and general policy.</label>
 								</div>
 								<div class="help-block with-errors"></div>
-							</div>
+							
 							<input type="hidden" name="test" value="off">
 							<input type="hidden" name="owner" value="3d59947d-4991-e911-a95b-000d3a34ec54">
 							<input type="hidden" name="website" value="https://ignitecuriosity.org">
@@ -412,16 +412,19 @@ list-style-type: none;
 									<button type="submit" class="btn btn-primary">REGISTER</button>
 								</div>
 							</div>
-					</form>
 
 						<div class="margin-bottom-50"></div>
 							<p><em>Note: <a href="https://teams.microsoft.com" target="_blank">Download Microsoft Teams</a> once you have registered and login using the credentials we email you.</em></p>
 						 </div>
-						 <div>
-						 <div class="col-md-3" style="background-color: #eee">
-					<div class="text-center widget-title">
-						<h3>Need an <br>Invitation Code?<h3>
-					</div>
+					</form>
+
+						
+					
+				<div class="col-md-3" style="background-color: #eee">
+						<div class="text-center widget-title">
+							<h3>Need an <br>Invitation Code?<h3>
+						</div>
+
 						<div class="text-center">
 						<h4>Start Orientation</h4>
 						<p>Before joining us, you will need to learn about Hive Mentality, SCRUM, DevOps, Agile Methodology, and basic Office 365 skills. Click below to join the free course. Take the quiz once ready to get your Invitation Code.</p>
@@ -585,7 +588,7 @@ list-style-type: none;
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 col-md-12">
-						<p class="ftex">Copyright 2020 &copy; <span class="color-primary">Ignite Curiosity</span>. Designed by <span class="color-primary"><a href="https://ignitecuriosity.org">Tao Fruit</a>.</span></p> 
+						<p class="ftex">Copyright 2024 &copy; <span class="color-primary">Ignite Curiosity</span>. Designed by <span class="color-primary"><a href="https://ignitecuriosity.org">Tao Fruit</a>.</span></p> 
 					</div>
 				</div>
 			</div>
@@ -618,7 +621,7 @@ list-style-type: none;
 	<script src="js/script.js"></script>
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
 	<script src="js/validate.min.js"></script>
-	<script src='js/custom.register.validate.js'></script>
+	<script src="js/custom.register.validate.js"></script>
 
 	
 	<script src="assets/tel2/build/js/intlTelInput.js"></script>

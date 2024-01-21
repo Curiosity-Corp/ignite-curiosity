@@ -10,10 +10,11 @@ let constraints = {
             maximum: 50
         },
         format: {
-            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mohamed|mohamad|mahammad|mohammed|mohammad|muhamad|muhammed|muhammad|mohmad|m|saiyed|seyit|seyd|syed|sayed|sayyed|saiyid|seyed|al-sayyed|seyyed|sayda|saeeda|sayeeda)\\b(\\s|\\p{P}|$))[a-zA-Z0-9 ]*",
+            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|hafiza|hafeza|hafize|hafisah|hafeesah|hafizeh|haphiza|haphizeh|mme|hajji|hajiya|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mian|begum|chaudhry|malik|nawab|sardar|pir|mohamed|mohamad|mahammad|mohammed|mohammad|muhamad|muhammed|muhammad|mohmad|m)\\b)(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9]+$)(?!^[a-zA-Z]$)^.{5,}[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$",
             flags: "iu",
             message: "Error or Too Common. Choose a Unique Name"
         }
+        
     },
     firstname: {
         presence: true,
@@ -22,7 +23,7 @@ let constraints = {
             maximum: 50
         },
         format: {
-            pattern: "^(?!.*\\b(hafiz|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|m|saiyed|seyit|seyd|syed|sayed|sayyed|saiyid|seyed|al-sayyed|seyyed|sayda|saeeda|sayeeda)\\b(\\s|\\p{P}|$))[a-zA-Z0-9 ]*",
+            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|hafiza|hafeza|hafize|hafisah|hafeesah|hafizeh|haphiza|haphizeh|mme|hajji|hajiya|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mian|begum|chaudhry|malik|nawab|sardar|pir|m)\\b)(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9]+$)(?!^[a-zA-Z]$)^.{5,}[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$",
             flags: "iu",
             message: "Contains Invalid Characters or Prefix"
         }
@@ -47,7 +48,12 @@ let constraints = {
     },
     birthdate: {
         presence: true,
-    },
+        format: {
+            // This pattern checks for a date in mm/dd/yyyy format with basic validation for month and day ranges.
+            pattern: "^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(19|20)\\d{2}$",
+            message: "must be in mm/dd/yyyy format"
+        }
+    },    
     address: {
         presence: true,
         length: {
