@@ -3,7 +3,7 @@ let constraints = {
     invitecode: {
         presence: true,
     },
-    preferredname: {
+    displayname: {
         presence: true,
         length: {
             minimum: 2,
