@@ -182,9 +182,8 @@ let constraints = {
         presence: true
     },
     Program_Interest: {
-        presence: true,
-        format: {
-            message: "^You must select at least 1 Curiosity"
+        presence: {
+            message: "^You must select at least one interest"
         }
     },
     Time_Interest: {
@@ -268,6 +267,8 @@ function handleFormSubmit(form, input) {
     if (!errors) {
         showSuccess();
     } else {
+        // console log the errors
+        console.log(errors);
         formError();
         submitMSG(false, "Did you fill in the form properly?");
     }
