@@ -150,7 +150,16 @@ let constraints = {
             pattern:"^0x[a-fA-F0-9]{40}$",   
             message:"^must be a valid USDT address"   
         }
-    },    
+    },
+    Binance_Pay_ID:{   
+        presence: {
+            message: '^Binance Pay ID is Required'
+        },   
+        format:{   
+            pattern:"^0x[a-fA-F0-9]{9}$",   
+            message:"^must be a valid Binance Pay ID"   
+        }
+    },     
     Reference:{    
         presence:false // Optional field but if provided, ensure it's not empty.    
     },
