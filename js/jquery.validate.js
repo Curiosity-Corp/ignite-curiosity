@@ -267,7 +267,7 @@ $.extend($.validator, {
 	messages: {
 		required: "Required",
 		remote: "Please fix this field.",
-		invitecode: "Please enter a verified Invitation Code.",
+		Invite_Code: "Please enter a verified Invitation Code.",
 		email: "Enter a valid email address",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
@@ -1025,7 +1025,7 @@ $.extend($.validator, {
 			return this.optional(element) || ( value >= param[0] && value <= param[1] );
 		},
 
-		invitecode: function( value, element ) {
+		Invite_Code: function( value, element ) {
 			element.value = element.value.toUpperCase();
 			element.value = element.value.replace(/\s/g, '');
 			return this.optional(element) || element.value === 'TAOLEARNING' || element.value === 'TAOFRUIT' || element.value === 'INSTAR' || element.value === 'CURIOSITY' || element.value === 'YENYANG' || element.value === 'DIJASOUP' || element.value === 'TAOLINGO';

@@ -1,99 +1,205 @@
 //constraints which are applied on the form field
 let constraints = {
-    invitecode: {
-        presence: true,
+    Prefix: {
+        length: {
+            minimum: 1,
+            maximum: 15
+        }
     },
-    displayname: {
+    Display_Name: {
         presence: true,
         length: {
-            minimum: 2,
+            minimum: 5,
             maximum: 50
         },
         format: {
             pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|hafiza|hafeza|hafize|hafisah|hafeesah|hafizeh|haphiza|haphizeh|mme|hajji|hajiya|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mian|begum|chaudhry|malik|nawab|sardar|pir|mohamed|mohamad|mahammad|mohammed|mohammad|muhamad|muhammed|muhammad|mohmad|m)\\b)(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9]+$)(?!^[a-zA-Z]$)^.{5,}[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$",
             flags: "iu",
-            message: "Error or Too Common. Choose a Unique Name"
+            message: "^Error or Too Common. Choose a Unique Name"
         }
         
     },
-    firstname: {
+    First_Name: {
         presence: true,
         length: {
             minimum: 2,
             maximum: 50
         },
         format: {
-            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|hafiza|hafeza|hafize|hafisah|hafeesah|hafizeh|haphiza|haphizeh|mme|hajji|hajiya|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mian|begum|chaudhry|malik|nawab|sardar|pir|m)\\b)(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9]+$)(?!^[a-zA-Z]$)^.{5,}[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$",
+            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|hafiza|hafeza|hafize|hafisah|hafeesah|hafizeh|haphiza|haphizeh|mme|hajji|hajiya|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mian|begum|chaudhry|malik|nawab|sardar|pir|m)\\b)(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9]+$)(?!^[a-zA-Z]$)^.{1,}[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$",
             flags: "iu",
-            message: "Contains Invalid Characters or Prefix"
+            message: "^Contains Invalid Characters or Prefix"
         }
     },
-    lastname: {
+    Last_Name: {
         presence: true,
         length: {
             minimum: 2,
             maximum: 50
         }
     },
-    email: {
+    Email: {
         presence: true,
         email: true
     },
-    tel: {
+    Phone_Number: {
         presence: true,
         format: {
             pattern: "[0-9]+",
-            message: "can only contain digits"
+            message: "^can only contain digits"
         }
     },
-    birthdate: {
+    Birth_Date: {
         presence: true,
         format: {
             // This pattern checks for a date in mm/dd/yyyy format with basic validation for month and day ranges.
             pattern: "^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(19|20)\\d{2}$",
-            message: "must be in mm/dd/yyyy format"
+            message: "^must be in mm/dd/yyyy format"
+        }
+    },
+    Gender:{
+        presence:true,
+        inclusion:["Male", "Female", "Other"]
+    },
+    Driver_License: {
+        presence: true,
+        inclusion: ["Yes", "No"]
+    },
+    Backgound_Check: {
+        presence: true,
+        inclusion: ["Yes", "No"]
+    },
+    Drug_Test: {
+        presence: true,
+        inclusion: ["Yes", "No"]
+    },
+    GitHub_Username: {
+        presence: {
+            message: '^You must have a GitHub Username'
+        },   
+        format:{
+            pattern:"^[a-zA-Z0-9-]+$",
+            message:"^must be a valid GitHub username (only alphanumeric characters and hyphens allowed)"
+        }
+    },
+    LinkedIn_Username:{
+        presence:true,
+        format:{
+            pattern:"^[a-zA-Z0-9-]+$",
+            message:"^must be a valid LinkedIn username (only alphanumeric characters and hyphens allowed)"
+        }
+    },
+    MS_Learn_Username:{
+        presence: {
+            message: '^You must have a Microsoft Learn Profile'
+        },   
+         format:{
+             pattern:"^[a-zA-Z0-9-]+$",
+             message:"^must be a valid Microsoft Learn username"
+         }
+     },
+     Resume:{
+         url:true
+     },
+     SMILE_Space:{ // Assuming 'SMILE_Space' is the correct name attribute for the SMILE Space™ field.
+         presence:true
+     },
+     Intro_Video:{
+         url:true,
+         presence: {
+             message:"^must be a valid Flip Grid Intro Video"
+         }
+     },
+     Prev_Salary:{  
+        presence: {
+            message: '^Salary must be present. If you do not have one, just put 0'
+        },     
+        numericality:{  
+            onlyInteger:false, // Allow decimal for salary  
+            greaterThanOrEqualTo:0 // Salary must be non-negative  
+        }  
+    },
+    Education_Level:{
+        // Current education level constraints already defined in initial constraints variable.
+    },
+    Time_Interest: {
+        // Assuming 'Time_Interest' is the correct name attribute for Type of Curiosity checkboxes.
+        presence: true,
+        inclusion: {
+            within: ["Intensive", "Flexible", "Part Time", "Full Time", "Live In"],
+            message: "^You must select at least one desired time."
+        }
+    },
+    speedTestResult: {
+        presence: {
+            message: "^You must run the internet speed test before submitting"
+        },
+        numericality: {
+            greaterThan: 0,
+            message: "^Your internet speed must be greater than 0 Mbps"
+        }
+    },
+    Currency:{  
+            presence:true
+    },
+    USDT:{   
+        presence: {
+            message: '^USDT Contract Address is Required'
+        },   
+        format:{   
+            pattern:"^0x[a-fA-F0-9]{40}$",   
+            message:"^must be a valid USDT address"   
         }
     },    
-    address: {
+    Reference:{    
+        presence:false // Optional field but if provided, ensure it's not empty.    
+    },
+    Invite_Code: {
+        presence: true,
+    },
+    
+    Address: {
         presence: true,
         length: {
             minimum: 2,
             maximum: 100
         }
     },
-    city: {
+    City: {
         presence: true,
         length: {
             minimum: 2,
             maximum: 100
         }
     },
-    location: {
+    Location: {
         presence: true
     },
-    zipcode: {
+    Zip_Code: {
         presence: true
     },
-    current_education_level:{
+    Education_Level:{
         presence: true
     },
-    interest: {
-        presence: true
+    Program_Interest: {
+        presence: true,
+        format: {
+            message: "^You must select at least 1 Curiosity"
+        }
     },
-    time: {
+    Time_Interest: {
         presence: {
-            message: '^Commitment Desired is required'
+            message: '^Time Commitment is required'
         }
     },
-    message:{
+    Message:{
         presence: true,
         length: {
             minimum: 10,
             maximum: 1500
         }
     },
-    
-    understand_days:{
+    Correspondence_Accept:{
         presence: {
             message: "^You need to check the checkbox"
         },
@@ -102,7 +208,16 @@ let constraints = {
             message: "^You need to check the checkbox"
         }
     },
-    policy_terms:{
+    Understand_Days:{
+        presence: {
+            message: "^You need to check the checkbox"
+        },
+        inclusion: {
+            within: [true],
+            message: "^You need to check the checkbox"
+        }
+    },
+    Policy_Terms:{
         presence: {
             message: "^You need to check the checkbox"
         },
@@ -132,6 +247,21 @@ form.addEventListener("submit", function (ev) {
 //it handles the form submit
 function handleFormSubmit(form, input) {
     // validate the form against the constraints
+    if (!speedTestButtonClicked || parseFloat(document.getElementById('speedTestResult').value) <= 0) {
+        // Show error message related to speed test not being completed or having invalid results
+        showErrorsForInput(document.getElementById('speedTestResult'), ["You must complete the internet speed test with a valid result before submitting."]);
+        
+        if (!speedTestButtonClicked || parseFloat(document.getElementById('speedTestResult').value) <= 0) {
+            var errorMessageDiv = document.getElementById('speed-test-error');
+            errorMessageDiv.style.display = 'block';
+            errorMessageDiv.textContent = 'Please click "Click to Analyze Internet Speed" button and ensure your connection meets our requirements.';
+        } else {
+            document.getElementById('speed-test-error').style.display = 'none';
+        }
+        
+        return; // Stop form submission as we have validation errors.
+    }
+
     var errors = validate(form, constraints);
     // then we update the form to reflect the results
     showErrors(form, errors || {});
@@ -142,6 +272,7 @@ function handleFormSubmit(form, input) {
         submitMSG(false, "Did you fill in the form properly?");
     }
 }
+
 
 function showErrors(form, errors) {
     // We loop through all the inputs and show the errors for that input

@@ -477,6 +477,21 @@ th,
 td {
   padding: 0.4375em; }
 
+  .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group-addon {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.no-border-table, .no-border-table tr, .no-border-table td {
+  border: none;
+}
+
 /* Placeholder text color -- selectors need to be separate to work. */
 ::-webkit-input-placeholder {
   color: #686868;
