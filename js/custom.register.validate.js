@@ -156,10 +156,10 @@ let constraints = {
             message: '^Binance Pay ID is Required'
         },   
         format:{   
-            pattern:"^0x[a-fA-F0-9]{9}$",   
+            pattern:"^[0-9]{9}$",   
             message:"^must be a valid Binance Pay ID"   
         }
-    },     
+    },        
     Reference:{    
         presence:false // Optional field but if provided, ensure it's not empty.    
     },
