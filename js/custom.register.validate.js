@@ -104,12 +104,12 @@ let constraints = {
      SMILE_Space:{ // Assuming 'SMILE_Space' is the correct name attribute for the SMILE Space™ field.
          presence:true
      },
-     Intro_Video:{
-         url:true,
-         presence: {
-             message:"^must be a valid Flip Grid Intro Video"
-         }
-     },
+    //  Intro_Video:{
+    //      url:true,
+    //      presence: {
+    //          message:"^must be a valid Flip Grid Intro Video"
+    //      }
+    //  },
      Prev_Salary:{  
         presence: {
             message: '^Salary must be present. If you do not have one, just put 0'
