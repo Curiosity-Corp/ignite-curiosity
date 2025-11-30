@@ -1,0 +1,81 @@
+{
+  "User": {
+    "User_ID": "Integer",
+    "Display_Name": "String",
+    "First_Name": "String",
+    "Last_Name": "String",
+    "Email": "String",
+    "Start_Date": "Date",
+    "End_Date": "Date",
+    "Hive": "String",
+    "Cell": "String",
+    "GitHub_Username": "String",
+    "LinkedIn_Username": "String",
+    "MS_Learn_Username": "String",
+    "Resume": "String",
+    "Intro_Video": "String",
+    "Invite_Code": "String",
+    "Phone_Number": "String",
+    "Birth_Date": "Date",
+    "Gender": "String",
+    "Address": "String",
+    "City": "String",
+    "Location": "String",
+    "Zip_Code": "String",
+    "SMILE_Space": "String",
+    "Driver_License": { "_type":"Boolean" },
+    "Backgound_Check": { "_type":"Boolean" },
+    "Drug_Test": { "_type":"Boolean" },
+    "Program_Interest": [ 
+      { "_type":"Enum" }
+    ],
+    "Current_Level": "String",
+    "time_interest": [
+      { "_type":"Enum" }
+    ],
+    "Skill_Communication": [
+      { "type": "Rating" }
+    ],
+    "Skill_Leadership": [
+      { "type": "Rating" }
+    ],
+    "Skill_Research": [
+      { "type": "Rating" }
+    ],
+    "Skill_Project_Management": [
+      { "type": "Rating" }
+    ],
+    "Skill_Sales": [
+      { "type": "Rating" }
+    ],
+    "Skill_Agile_Development": [
+      { "type": "Rating" }
+    ],
+    "Skill_Office_365": [
+      { "type": "Rating" }
+    ],
+    "Skill_Teamwork": [
+      { "type": "Rating" }
+    ],
+    "Currency": [
+      { "_type": "Enum" }
+    ],
+    "Prev_Salary": [
+      { "_type": "Number" }
+    ],
+    "Current_Salary": [
+      { "_type": "Number" }
+    ],
+    "USDT": "String",
+    "Company": "String",
+    "Budget": [
+      { "_type": "Number" }
+    ],
+    "Message": "String",
+    "Website": [
+      { "_type": "URL" }
+    ],
+    "Owner": "String",
+    "Partner": "String"
+  }
+}
