@@ -1,0 +1,24 @@
+# robots.txt for Curiosity Website
+
+User-agent: *
+Allow: /
+
+# Disallow test and placeholder pages
+Disallow: /blank.html
+Disallow: /blank2.html
+Disallow: /test.html
+
+# Disallow old and backup files
+Disallow: /*_old.html
+Disallow: /*_orig.html
+Disallow: /index3.html
+
+# Disallow demo directories
+Disallow: /skills/demos/
+Disallow: /_include/
+
+# Disallow info directory
+Disallow: /info/
+
+# Sitemap location
+Sitemap: https://curiosityinitiative.org/sitemap.xml

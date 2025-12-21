@@ -10,8 +10,8 @@ Learn with a SPARK (Seek, Play, Apply, Research, Know). Be self-motivated and ha
 
 We are a 2-way community. Pay it forward by engaging with others and be actively involved with the SWARM Intelligence System™ to properly play your part in the hive. Your future self will thank you. Our SWARM Intelligence System™ increases collaboration, allowing you to cultivate amazing culture. This system standardizes communications, implements innovative artificial intelligence, and utilizes business intelligence to take your team into the future.
 ### The Tao Process™
-**Dream, Discovery, & Discipline**: 
-Our 3-step process built by Tao Learning. Encourage others to do the same and do not steer other students astray from this pedagogy.
+**Dream, Discovery, & Discipline**:
+Our 3-step process built by Curiosity Research Corporation. Encourage others to do the same and do not steer other students astray from this pedagogy.
 **The D.R.E.A.M. Playbook™:** 
 Wander, explore, and discover the possibilities that resonate with the story you want to tell in your next chapter. Study the D.R.E.A.M. Playbook™ and use this organizational style to find your success.
 ### The G.R.A.N.T. Accelerator™
