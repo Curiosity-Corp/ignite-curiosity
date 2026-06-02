@@ -628,15 +628,15 @@ list-style-type: none;
 									</div>
 									<div class="col-md-7">
 										<div class="form-group">
-											<label><span><a href="https://accounts.binance.com/en/register" target="_blank">USDT Contract Address</a></span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed by Tether's reserves."></i></label>
-											<input type="text" class="form-control styled required" id="USDT" name="USDT" placeholder="0x5E19b04130FB8204696922eBf602D5206AE9D126" required="" maxlength="42">
+											<label><span><a href="https://accounts.binance.com/en/register" target="_blank">USDT Contract Address</a> (optional)</span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Optional. Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed by Tether's reserves."></i></label>
+											<input type="text" class="form-control styled" id="USDT" name="USDT" placeholder="0x5E19b04130FB8204696922eBf602D5206AE9D126" maxlength="42">
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="col-md-5">
 										<div class="form-group">
-											<label><span><a href="https://accounts.binance.com/en/register" target="_blank">Binance Pay ID</a></span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Make sure to Share your Binance Pay ID, not your Binance Account ID"></i></label>
-											<input type="text" class="form-control styled required" id="Binance_Pay_ID" name="Binance_Pay_ID" placeholder="123456789" required="" maxlength="10">
+											<label><span><a href="https://accounts.binance.com/en/register" target="_blank">Binance Pay ID</a> (optional)</span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Optional. If you provide this, make sure it is your Binance Pay ID, not your Binance Account ID."></i></label>
+											<input type="text" class="form-control styled" id="Binance_Pay_ID" name="Binance_Pay_ID" placeholder="123456789" maxlength="10">
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
@@ -752,11 +752,11 @@ list-style-type: none;
 							</div>
 							<br> -->
 							<div>
-								<i class="fa fa-check" style="color: lightskyblue; border: 2px solid lightskyblue; border-radius: 50%; padding: 5px;"></i> <a href="https://accounts.binance.com/en/register" target="_blank">USDT Account</a>
+								<i class="fa fa-check" style="color: lightskyblue; border: 2px solid lightskyblue; border-radius: 50%; padding: 5px;"></i> <a href="https://accounts.binance.com/en/register" target="_blank">USDT Account</a> <small>(optional)</small>
 							</div>
 							<br>
 							<div>
-								<i class="fa fa-check" style="color: lightskyblue; border: 2px solid lightskyblue; border-radius: 50%; padding: 5px;"></i> <a href="https://accounts.binance.com/en/register" target="_blank">Binance Pay ID</a>
+								<i class="fa fa-check" style="color: lightskyblue; border: 2px solid lightskyblue; border-radius: 50%; padding: 5px;"></i> <a href="https://accounts.binance.com/en/register" target="_blank">Binance Pay ID</a> <small>(optional)</small>
 							</div>
 							<br>
 							<div>
@@ -1051,21 +1051,17 @@ list-style-type: none;
 	</script>
 
 	<script>
-		// Get the currency select field and salary input field
-		var currencySelect = document.getElementById('currency');
-		var salaryInput = document.getElementById('salary');
+		var currencySelect = document.getElementById('Currency');
+		var salaryInput = document.getElementById('Prev_Salary');
 
-		// Listen for the 'change' event on the currency select field
-		currencySelect.addEventListener('change', function() {
-			// Get the selected option's text
-			var selectedOptionText = this.options[this.selectedIndex].text;
+		if (currencySelect && salaryInput) {
+			currencySelect.addEventListener('change', function() {
+				var selectedOptionText = this.options[this.selectedIndex].text;
+				var currencySymbol = selectedOptionText.split(' ')[0];
 
-			// Extract the currency symbol from the selected option's text
-			var currencySymbol = selectedOptionText.split(' ')[0];
-
-			// Update the placeholder of the salary input field
-			salaryInput.placeholder = currencySymbol + '0';
-		});
+				salaryInput.placeholder = currencySymbol + '0';
+			});
+		}
 	</script>
 
 	

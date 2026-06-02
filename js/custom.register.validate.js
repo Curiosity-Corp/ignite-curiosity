@@ -1,3 +1,12 @@
+validate.validators.optionalFormat = function (value, options) {
+    if (validate.isEmpty(value)) {
+        return null;
+    }
+
+    var pattern = options.pattern instanceof RegExp ? options.pattern : new RegExp(options.pattern, options.flags);
+    return pattern.test(value) ? null : options.message;
+};
+
 //constraints which are applied on the form field
 let constraints = {
     Prefix: {
@@ -142,20 +151,14 @@ let constraints = {
     Currency:{  
             presence:true
     },
-    USDT:{   
-        presence: {
-            message: '^USDT Contract Address is Required'
-        },   
-        format:{   
+    USDT:{
+        optionalFormat:{
             pattern:"^0x[a-fA-F0-9]{40}$",   
             message:"^must be a valid USDT address"   
         }
     },
-    Binance_Pay_ID:{   
-        presence: {
-            message: '^Binance Pay ID is Required'
-        },   
-        format:{   
+    Binance_Pay_ID:{
+        optionalFormat:{
             pattern:"^[0-9]{9}$",   
             message:"^must be a valid Binance Pay ID"   
         }
