@@ -9,3 +9,24 @@
 .form-group.has-success .form-control {
     border-color: #28a745;
 }
+#speedTestStatus {
+    margin-top: 8px;
+    font-size: 13px;
+}
+.speed-test-note {
+    color: #856404;
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: 13px;
+}
+#speed-test-error {
+    margin-top: 8px;
+}
+#inviteCodeHelp {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+}

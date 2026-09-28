@@ -18,15 +18,14 @@ let constraints = {
     Display_Name: {
         presence: true,
         length: {
-            minimum: 5,
+            minimum: 2,
             maximum: 50
         },
         format: {
-            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|hafiza|hafeza|hafize|hafisah|hafeesah|hafizeh|haphiza|haphizeh|mme|hajji|hajiya|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mian|begum|chaudhry|malik|nawab|sardar|pir|mohamed|mohamad|mahammad|mohammed|mohammad|muhamad|muhammed|muhammad|mohmad|m)\\b)(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9]+$)(?!^[a-zA-Z]$)^.{5,}[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$",
+            pattern: "^(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9 .'\-]+$)(?!^[A-Za-z]$)^[A-Za-z0-9 .'\-]{2,50}$",
             flags: "iu",
-            message: "^Error or Too Common. Choose a Unique Name"
+            message: "^Please enter a valid display name (2-50 characters: letters, numbers, spaces, . ' -)"
         }
-        
     },
     First_Name: {
         presence: true,
@@ -35,9 +34,9 @@ let constraints = {
             maximum: 50
         },
         format: {
-            pattern: "^(?!.*\\b(hafiz|hafis|hafith|hafez|hafizh|hafiza|hafeza|hafize|hafisah|hafeesah|hafizeh|haphiza|haphizeh|mme|hajji|hajiya|syed|syeda|mr|mrs|miss|ms|dr|prof|sir|lady|lord|mister|master|madam|mian|begum|chaudhry|malik|nawab|sardar|pir|m)\\b)(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9]+$)(?!^[a-zA-Z]$)^.{1,}[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$",
+            pattern: "^(?!admin$)(?!moderator$)(?!user$)(?!guest$)(?!anonymous$)(?!^[0-9 .'\-]+$)^[A-Za-z][A-Za-z .'\-]*$",
             flags: "iu",
-            message: "^Contains Invalid Characters or Prefix"
+            message: "^Please enter a valid first name (letters, spaces, . ' - only)"
         }
     },
     Last_Name: {
@@ -139,15 +138,8 @@ let constraints = {
             message: "^You must select at least one desired time."
         }
     },
-    speedTestResult: {
-        presence: {
-            message: "^You must run the internet speed test before submitting"
-        },
-        numericality: {
-            greaterThan: 0,
-            message: "^Your internet speed must be greater than 0 Mbps"
-        }
-    },
+    // speedTestResult is intentionally NOT a blocking constraint: the speed
+    // test is optional (non-blocking warning only, see handleFormSubmit).
     Currency:{  
             presence:true
     },
@@ -167,7 +159,9 @@ let constraints = {
         presence:false // Optional field but if provided, ensure it's not empty.    
     },
     Invite_Code: {
-        presence: true,
+        presence: {
+            message: "^Invitation code is required - finish the free orientation at curiosityhive.org or ask an existing member for a code"
+        },
     },
     
     Address: {
@@ -257,26 +251,28 @@ form.addEventListener("submit", function (ev) {
 
 //it handles the form submit
 function handleFormSubmit(form, input) {
-    // validate the form against the constraints
-    if (!speedTestButtonClicked || parseFloat(document.getElementById('speedTestResult').value) <= 0) {
-        // Show error message related to speed test not being completed or having invalid results
-        showErrorsForInput(document.getElementById('speedTestResult'), ["You must complete the internet speed test with a valid result before submitting."]);
-        
-        if (!speedTestButtonClicked || parseFloat(document.getElementById('speedTestResult').value) <= 0) {
-            var errorMessageDiv = document.getElementById('speed-test-error');
-            errorMessageDiv.style.display = 'block';
-            errorMessageDiv.textContent = 'Please click "Click to Analyze Internet Speed" button and ensure your connection meets our requirements.';
-        } else {
-            document.getElementById('speed-test-error').style.display = 'none';
-        }
-        
-        return; // Stop form submission as we have validation errors.
-    }
-
     var errors = validate(form, constraints);
     // then we update the form to reflect the results
     showErrors(form, errors || {});
     if (!errors) {
+        // Speed test is optional and non-blocking: surface a gentle notice
+        // when no result was recorded, but always allow submission.
+        try {
+            var speedInput = document.getElementById('speedTestResult');
+            var statusDiv = document.getElementById('speedTestStatus');
+            var speedVal = speedInput ? parseFloat(speedInput.value) : NaN;
+            if ((!speedVal || speedVal <= 0) && statusDiv) {
+                statusDiv.innerHTML = 'Note: no speed test recorded - you can still submit. Running the optional check above helps coaches advise on connectivity.';
+                statusDiv.className = 'speed-test-note';
+            }
+            var legacyGate = document.getElementById('speed-test-error');
+            if (legacyGate) {
+                legacyGate.style.display = 'none';
+                legacyGate.textContent = '';
+            }
+        } catch (warnErr) {
+            console.log('optional speed-test notice skipped', warnErr);
+        }
         showSuccess();
     } else {
         // console log the errors
@@ -356,51 +352,151 @@ function resetForm() {
 }
 
 
+// Show a clear, non-silent error when bot verification cannot run.
+function showRecaptchaError(msg) {
+    submitMSG(false, msg);
+    try {
+        if (typeof Swal !== 'undefined' && Swal && Swal.fire) {
+            Swal.fire({
+                title: 'Verification failed',
+                html: msg,
+                type: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else if (typeof swal !== 'undefined' && swal && swal.fire) {
+            swal.fire({
+                title: 'Verification failed',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    } catch (alertErr) {
+        console.log('alert fallback failed', alertErr);
+    }
+}
+
+function showAlertSuccess() {
+    var html = 'Thank you! Your registration was <strong>received</strong> and is now ' +
+        '<strong>pending coach approval</strong>. This is <strong>not</strong> an instant account.<br><br>' +
+        'A coach will review your application. Watch your email (and Spam!) for login details.<br>' +
+        'Then, login to the Welcome Group.';
+    try {
+        if (typeof Swal !== 'undefined' && Swal && Swal.fire) {
+            Swal.fire({
+                title: 'Registration received - pending coach approval',
+                type: 'success',
+                html: html,
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<a style="color: white" href="start.html"><i class="fa fa-address-card"></i> OK</a>'
+            });
+            return;
+        }
+    } catch (alertErr) {
+        console.log('success alert failed', alertErr);
+    }
+    try {
+        if (typeof Swal === 'function') {
+            Swal({
+                title: '<strong>Registration received - pending coach approval</strong>',
+                type: 'success',
+                html: html,
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<a style="color: white" href="start.html"><i class="fa fa-address-card"></i> OK</a>'
+            });
+        }
+    } catch (legacyErr) {
+        console.log('legacy alert failed', legacyErr);
+    }
+}
+
+function showAlertError(title) {
+    try {
+        if (typeof Swal !== 'undefined' && Swal && Swal.fire) {
+            Swal.fire({
+                title: title,
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
+    } catch (alertErr) {
+        console.log('error alert failed', alertErr);
+    }
+    try {
+        if (typeof swal !== 'undefined' && swal && swal.fire) {
+            swal.fire({
+                title: title,
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    } catch (legacyErr) {
+        console.log('legacy error alert failed', legacyErr);
+    }
+}
+
 // this function handles success if form is valid
 function showSuccess() {
-    grecaptcha.ready(function () {
-        grecaptcha.execute("6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO").then(function (token) {
-            document.querySelector('input[name=token]').value = token;
-            let a = $('form#registerForm');
-            submitMSG(true, '')
-            $.ajax({
-                type: a.attr('method'),
-                url: a.attr('action'),
-                data: a.serialize(),
-                success: function (data, textStatus, xhr) {
-                    console.log(xhr.status)
-                    if (xhr.status === 200) {
-                        
-                        Swal({
-                            title: '<strong>Registration Successful</strong>',
-                            type: 'success',
-                            html:
-                                'Check email (and Spam!) for Login details.<br>Then, login to the Welcome Group.',
-                            showCloseButton: true,
-                            focusConfirm: false,
-                            confirmButtonText:
-                                '<a style="color: white" href="start.html"><i class="fa fa-address-card"></i> OK</a>',
-                        });
-                        submitMSG(true, 'Thank You! We will reach out to you soon.')
-                        resetForm();
-                    } else {
-                        swal.fire({
-                            title: "Some Error Occurred!",
-                            type: "error",
-                            confirmButtonText: 'Ok'
-                        });
-                    }
-                },
-                error: function (data) {
-                    swal.fire({
-                        title: "An unexpected Error Occurred!",
-                        type: "error",
-                        confirmButtonText: 'Ok'
-                    })
-                },
-            })
+    submitMSG(true, 'Submitting... please wait.');
+    var tokenInput = document.querySelector('input[name=token]');
+    var recaptchaInput = document.getElementById('recaptchaResponse');
+
+    function doSubmit(token) {
+        if (!token) {
+            showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+            return;
+        }
+        if (tokenInput) {
+            tokenInput.value = token;
+        }
+        if (recaptchaInput) {
+            recaptchaInput.value = token;
+        }
+        let a = $('form#registerForm');
+        $.ajax({
+            type: a.attr('method'),
+            url: a.attr('action'),
+            data: a.serialize(),
+            success: function (data, textStatus, xhr) {
+                console.log(xhr.status)
+                if (xhr.status === 200) {
+                    showAlertSuccess();
+                    submitMSG(true, 'Registration received - pending coach approval. Watch your email (and Spam) for next steps.')
+                    resetForm();
+                } else {
+                    showAlertError('Some Error Occurred!');
+                }
+            },
+            error: function (data) {
+                showAlertError('An unexpected Error Occurred!');
+            },
+        })
+    }
+
+    try {
+        if (typeof grecaptcha === 'undefined' || !grecaptcha || !grecaptcha.execute || !grecaptcha.ready) {
+            showRecaptchaError('Verification failed to load (ad blocker or network issue). Please disable your ad blocker, reload the page, and retry.');
+            return;
+        }
+        grecaptcha.ready(function () {
+            try {
+                grecaptcha.execute("6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO").then(function (token) {
+                    doSubmit(token);
+                }, function (execErr) {
+                    console.log('grecaptcha execute failed', execErr);
+                    showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+                });
+            } catch (execSyncErr) {
+                console.log('grecaptcha execute threw', execSyncErr);
+                showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+            }
         });
-    });
+    } catch (readyErr) {
+        console.log('grecaptcha ready failed', readyErr);
+        showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+    }
 }
 
 function formError() {

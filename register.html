@@ -49,14 +49,32 @@
 		
 
 	<script>
-		grecaptcha.ready(function() {
-		grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'TLI Member Registration'})
-		.then(function(token) {
-		var recaptchaResponse = document.getElementById('recaptchaResponse');
-        recaptchaResponse.value = token;
-		// Verify the token on the server.
-		});
-		});
+		// Best-effort token prefetch. Submit-time grecaptcha.execute in
+		// js/custom.register.validate.js is authoritative; this block must
+		// never throw (e.g. when an ad blocker prevents recaptcha loading).
+		try {
+			if (typeof grecaptcha !== 'undefined' && grecaptcha && grecaptcha.ready) {
+				grecaptcha.ready(function() {
+					try {
+						grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'TLI Member Registration'})
+						.then(function(token) {
+							var recaptchaResponse = document.getElementById('recaptchaResponse');
+							if (recaptchaResponse) {
+								recaptchaResponse.value = token;
+							}
+						}, function(err) {
+							console.log('recaptcha prefetch failed', err);
+						});
+					} catch (prefetchErr) {
+						console.log('recaptcha prefetch threw', prefetchErr);
+					}
+				});
+			} else {
+				console.log('recaptcha unavailable at load; submit-time verification will report it');
+			}
+		} catch (loadErr) {
+			console.log('recaptcha prefetch skipped', loadErr);
+		}
 	</script>
 	<style>
 ul {
@@ -537,8 +555,9 @@ list-style-type: none;
 								</div>
 								<div class="row">
 									<div class="col-md-6 form-group">
-										<h4>Share Your Internet Speed</h4>
-										<button type="button" id="speedTestButton" class="btn btn-secondary">Click to Analyze Internet Speed</button>
+										<h4>Share Your Internet Speed (Optional)</h4>
+										<p><small>Optional - helps coaches advise on connectivity. You can submit without running it. Quick lightweight check only (no large downloads).</small></p>
+										<button type="button" id="speedTestButton" class="btn btn-secondary">Check Internet Speed (Optional)</button>
 										<div id="speedTestStatus"></div> <!-- Element to display "Testing..." or the result -->
 										<input type="hidden" id="speedTestResult" name="speedTestResult" value="">
 										<div id="speederror" class="help-block with-errors"></div>
@@ -665,8 +684,9 @@ list-style-type: none;
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>Currently Open to Invitee Only <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Complete Our Training or Ask an Existing Member for a Code"></i></label>
-												<input type="Invite_Code" class="form-control styled required" id="Invite_Code" name="Invite_Code" placeholder="Invitation Code" required="">
+												<label>Invitation Code (Required) <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Required. Finish the free orientation at curiosityhive.org to receive a code, or ask an existing member"></i></label>
+												<input type="text" class="form-control styled required" id="Invite_Code" name="Invite_Code" placeholder="e.g. ORIENTATION-2024-XXXX" required="" aria-describedby="inviteCodeHelp">
+												<small id="inviteCodeHelp" class="form-text text-muted">Required. Get a code by completing the free <a href="https://curiosityhive.org/" target="_blank">orientation</a> quiz or asking an existing member. Registration is <strong>pending coach approval</strong> - not an instant account.</small>
 												<div class="help-block with-errors"></div>
 											</div>
 										</div>
@@ -704,12 +724,13 @@ list-style-type: none;
 								<div class="form-group">
 									<div id="success"></div>
 										<button type="submit" class="btn btn-primary">REGISTER</button>
+										<p class="form-text text-muted" style="margin-top:8px;"><small>Submitting creates a <strong>pending request</strong> - a coach must approve it before any account exists. Watch your email (and Spam) for next steps.</small></p>
 									</div>
 									<div id="speed-test-error" class="error-message" style="display:none;color:red;"></div>
 								</div>
 
 							<div class="margin-bottom-50"></div>
-								<p><em>Note: <a href="https://teams.microsoft.com" target="_blank">Download Microsoft Teams</a> once you have registered and login using the credentials we email you.</em></p>
+								<p><em>Note: registration is <strong>pending coach approval</strong> - not an instant account. <a href="https://teams.microsoft.com" target="_blank">Download Microsoft Teams</a> so you are ready once a coach approves you and emails login credentials.</em></p>
 							</div>
 						</form>
 					</div>
@@ -966,84 +987,95 @@ list-style-type: none;
 
 
 <script>
+	// Optional lightweight connectivity check. Never blocks submission and
+	// never downloads large files (previous version fetched ~19MB).
 	var speedTestButtonClicked = false;
 	document.getElementById('speedTestButton').addEventListener('click', function() {
 		var errorMessageDiv = document.getElementById('speed-test-error');
-    	if (errorMessageDiv) {
-        errorMessageDiv.style.display = 'none';
+		if (errorMessageDiv) {
+			errorMessageDiv.style.display = 'none';
 		}
 
 		var speedErrorDiv = document.getElementById('speederror');
 		if (speedErrorDiv) {
-			speedErrorDiv.innerHTML = ''; // Clear out any text
-			speedErrorDiv.style.display = 'none'; // Hide the block
+			speedErrorDiv.innerHTML = '';
+			speedErrorDiv.style.display = 'none';
 		}
 
 		var statusDiv = document.getElementById('speedTestStatus');
+		var resultInput = document.getElementById('speedTestResult');
 		var button = document.getElementById('speedTestButton');
-		
-		// Disable button while testing
+
 		button.disabled = true;
-		statusDiv.innerHTML = 'Testing...';
-	
-		// URLs of your test files with their respective sizes in bytes
-		var tests = [
-			{ url: 'https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_2MB_MP4.mp4', size: 2 * 1024 * 1024 },
-			{ url: 'https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_7MB_MP4.mp4', size: 7 * 1024 * 1024 },
-			{ url: 'https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_10MB_MP4.mp4', size: 10 * 1024 * 1024 }
-		];
-		
-		var testIndex = -1;
-		var speeds = [];
-	
-		function nextTest() {
-			testIndex++;
-			if (testIndex < tests.length) {
-				downloadFile(tests[testIndex].url, tests[testIndex].size);
-			} else {
-				// All tests are done, calculate average speed
-				var avgSpeedMbps = speeds.reduce(function(a, b) { return a + b; }, 0) / speeds.length;
-				document.getElementById('speedTestResult').value = avgSpeedMbps.toFixed(2);
-				
-				// Display result and re-enable button
-				statusDiv.innerHTML = "Average internet speed is: " + avgSpeedMbps.toFixed(2) + " Mbps";
-				document.getElementById('speedTestResult').value = avgSpeedMbps; // Set the actual value instead of 'toFixed' string.
-				button.disabled = false;
-
-				// Set speedTestButtonClicked to true since the speed test has been conducted
-				speedTestButtonClicked = true;
-
-			}
+		if (statusDiv) {
+			statusDiv.className = '';
+			statusDiv.innerHTML = 'Checking... (quick lightweight check, optional)';
 		}
-	
-		function downloadFile(url, fileSize) {
+
+		function finish(value, message, isNote) {
+			if (resultInput) { resultInput.value = value; }
+			if (statusDiv) {
+				statusDiv.innerHTML = message;
+				statusDiv.className = isNote ? 'speed-test-note' : '';
+			}
+			button.disabled = false;
+			speedTestButtonClicked = true;
+		}
+
+		// Prefer the Network Information API when available: zero downloads.
+		try {
+			var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+			if (conn && conn.downlink) {
+				var dl = parseFloat(conn.downlink);
+				if (isFinite(dl) && dl > 0) {
+					finish(dl.toFixed(2), 'Approximate connection speed: ' + dl.toFixed(2) + ' Mbps (estimate). You can submit now.', false);
+					return;
+				}
+			}
+		} catch (connErr) { console.log('connection API skipped', connErr); }
+
+		// Fallback: time fetching one small same-origin image (no large downloads).
+		try {
+			var finished = false;
 			var startTime = (new Date()).getTime();
-			
-			// Create XHR request
 			var xhr = new XMLHttpRequest();
-			
+			var timeoutId = setTimeout(function() {
+				if (!finished) { finished = true; try { xhr.abort(); } catch (e) {} }
+				finish('', 'Could not measure speed (timed out) - you can still submit.', true);
+			}, 15000);
 			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE) {
-					var endTime = (new Date()).getTime();
-					var durationSeconds = (endTime - startTime) / 1000; // Duration in seconds
-					var bitsLoaded = fileSize * 8;
-					var speedBps = bitsLoaded / durationSeconds;
-					var speedMbps = (speedBps / (1024 * 1024)).toFixed(2);
-	
-					speeds.push(parseFloat(speedMbps));
-					
-					nextTest(); // Proceed to next test file
+				if (finished || xhr.readyState !== XMLHttpRequest.DONE) { return; }
+				finished = true;
+				clearTimeout(timeoutId);
+				try {
+					if (xhr.status >= 200 && xhr.status < 300) {
+						var bytes = (xhr.responseText || '').length;
+						var secs = (((new Date()).getTime() - startTime) / 1000) || 1;
+						var mbps = ((bytes * 8) / secs) / (1024 * 1024);
+						if (!isFinite(mbps) || mbps < 0) { mbps = 0; }
+						finish(mbps.toFixed(2), 'Approximate speed: ' + mbps.toFixed(2) + ' Mbps (rough estimate). You can submit now.', false);
+					} else {
+						finish('', 'Could not measure speed - you can still submit.', true);
+					}
+				} catch (parseErr) {
+					console.log('speed fallback parse failed', parseErr);
+					finish('', 'Could not measure speed - you can still submit.', true);
 				}
 			};
-	
-			xhr.open('GET', url + "?nocache=" + Math.random(), true);
-			
+			xhr.onerror = function() {
+				if (finished) { return; }
+				finished = true;
+				clearTimeout(timeoutId);
+				finish('', 'Could not measure speed - you can still submit.', true);
+			};
+			xhr.open('GET', 'images/logo.png?nocache=' + Math.random(), true);
 			xhr.send();
+		} catch (checkErr) {
+			console.log('speed check skipped', checkErr);
+			finish('', 'Speed check unavailable - you can still submit.', true);
 		}
-	
-		nextTest(); // Start the first test
 	});
-	</script>
+</script>
 	<script>
 		function updateValue(id, value) {
 			document.getElementById(id).textContent = value;
