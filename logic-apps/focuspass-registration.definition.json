@@ -862,10 +862,10 @@
           },
           "type": "ApiConnection"
         },
-        "Assign_Azlan_as_Manager": {
+        "Assign_Maha_as_Manager": {
           "inputs": {
             "body": {
-              "@@odata.id": "71c2eda9-20e9-42fe-b9c8-bba1c64009ad"
+              "@@odata.id": "e99673fd-3264-418d-970e-db0d4b65abab"
             },
             "host": {
               "connection": {
@@ -1008,7 +1008,7 @@
             "path": "/v2/SharedMailbox/Mail"
           },
           "runAfter": {
-            "Assign_Azlan_as_Manager": [
+            "Assign_Maha_as_Manager": [
               "Succeeded"
             ]
           },
