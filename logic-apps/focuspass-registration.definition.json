@@ -1,0 +1,1971 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "actions": {
+    "Address": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Address",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Address')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Gender": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Azure_Email": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Azure Email",
+            "type": "String",
+            "value": "@{toLower(concat(replace(variables('Display Name'),' ',''), '@focuspass.com'))}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Display_Name": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Azure_ID": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Azure ID",
+            "type": "string",
+            "value": "@{triggerFormDataValue('azureID')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Azure_Email": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Background_Check": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Background_Check",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Background_Check')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Azure_ID": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Binance_Pay_ID": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Binance_Pay_ID",
+            "type": "string",
+            "value": "Binance_Pay_ID"
+          }
+        ]
+      },
+      "runAfter": {
+        "USDT": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Birth_Date": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Birth Date",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Birth_Date')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Phone_Number": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Budget": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Budget",
+            "type": "Integer",
+            "value": 0
+          }
+        ]
+      },
+      "runAfter": {
+        "Company": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Check_if_Password_Present": {
+      "actions": {},
+      "else": {
+        "actions": {
+          "Set_variable": {
+            "inputs": {
+              "name": "User Password",
+              "value": "@{concat('P', formatDateTime(utcNow(),'yyyyMMddTHHmmssZ'), '_', substring(replace(guid(),'-',''), 0, 12),'#', rand(100, 999), '-AbC', rand(10,99), '!', toLower(substring(replace(guid(),'-',''), 0, 2)), toUpper(substring(replace(guid(),'-',''), 2, 2)), '*')}"
+            },
+            "type": "SetVariable"
+          }
+        }
+      },
+      "expression": {
+        "and": [
+          {
+            "not": {
+              "equals": [
+                "@variables('User Password')",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      "runAfter": {
+        "User_Password": [
+          "Succeeded"
+        ]
+      },
+      "type": "If"
+    },
+    "City": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "City",
+            "type": "String",
+            "value": "@{triggerFormDataValue('City')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Address": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Company": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Company",
+            "type": "String",
+            "value": "Tao Learning"
+          }
+        ]
+      },
+      "runAfter": {
+        "Time_Interest": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Correspondence_Accept": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Correspondence_Accept",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Correspondence_Accept')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Background_Check": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Create_a_new_record": {
+      "inputs": {
+        "body": {
+          "_address1_addresstypecode_label": "Default Value",
+          "_address2_addresstypecode_label": "Default Value",
+          "_budgetstatus_label": "No Committed Budget",
+          "_customerid_type": "accounts",
+          "_industrycode_label": "Consulting",
+          "_initialcommunication_label": "Not Contacted",
+          "_leadqualitycode_label": "Warm",
+          "_leadsourcecode_label": "Web",
+          "_msdyn_ordertype_label": "Work based",
+          "_need_label": "No need",
+          "_ownerid_type": "teams",
+          "_ownerid_value": "@variables('Owner')",
+          "_preferredcontactmethodcode_label": "Any",
+          "_prioritycode_label": "Default Value",
+          "_purchaseprocess_label": "Individual",
+          "_purchasetimeframe_label": "",
+          "_salesstage_label": "Qualify",
+          "_salesstagecode_label": "Default Value",
+          "_statuscode_label": "New",
+          "address1_city": "@variables('City')",
+          "address1_country": "@variables('Location')",
+          "confirminterest": false,
+          "decisionmaker": false,
+          "description": "Message: @{variables('Message')}\nInterested in @{variables('Interest')}\nLength of Interest: @{variables('Time')}\nMy Current Education Level: @{variables('Current Level')}\nGender: @{variables('Gender')}\nBirth Date: @{variables('Birth Date')}\n",
+          "donotbulkemail": false,
+          "donotemail": false,
+          "donotfax": false,
+          "donotphone": false,
+          "donotpostalmail": false,
+          "donotsendmm": false,
+          "emailaddress1": "@variables('Email')",
+          "evaluatefit": false,
+          "firstname": "@{variables('First Name')}",
+          "followemail": true,
+          "jobtitle": "Student",
+          "lastname": "@variables('Last Name')",
+          "merged": false,
+          "msdyn_gdproptout": false,
+          "participatesinworkflow": false,
+          "subject": "@{variables('Time')}  @{variables('Interest')}",
+          "telephone1": "@variables('Phone Number')"
+        },
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['dynamicscrmonline']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('org8a977f45.crm'))}/tables/@{encodeURIComponent(encodeURIComponent('leads'))}/items"
+      },
+      "runAfter": {
+        "Should_We_Create_a_User": [
+          "Succeeded"
+        ]
+      },
+      "type": "ApiConnection"
+    },
+    "Curiosity_Coaches_Approval": {
+      "inputs": {
+        "body": {
+          "body": {
+            "messageBody": "{\n  \"type\": \"AdaptiveCard\",\n  \"msteams\": {\n      \"width\": \"Full\"\n  },\n  \"body\": [\n      {\n          \"type\": \"TextBlock\",\n          \"text\": \"@{variables('Display Name')}'s Application \ud83d\udcab\",\n          \"wrap\": true,\n          \"size\": \"Large\"\n      },\n      {\n          \"type\": \"Table\",\n          \"columns\": [\n              {\n                  \"width\": 2\n              },\n              {\n                  \"width\": 3\n              },\n              {\n                  \"width\": 2\n              }\n          ],\n          \"rows\": [\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Field\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Current Value\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"New Value\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Display Name:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Display Name')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"displayname\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"First Name:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('First Name')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"firstname\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Last Name:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Last Name')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"lastname\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Email:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Email')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"email1\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Focus Email:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Azure Email')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"email2\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                \"type\": \"TableRow\",\n                \"cells\": [\n                    {\n                        \"type\": \"TableCell\",\n                        \"items\": [\n                            {\n                                \"type\": \"TextBlock\",\n                                \"text\": \"Phone Number:\",\n                                \"wrap\": true,\n                                \"horizontalAlignment\": \"Right\"\n                            }\n                        ]\n                    },\n                    {\n                        \"type\": \"TableCell\",\n                        \"items\": [\n                            {\n                                \"type\": \"TextBlock\",\n                                \"text\": \"@{variables('Phone Number')}\",\n                                \"wrap\": true\n                            }\n                        ]\n                    },\n                    {\n                        \"type\": \"TableCell\",\n                        \"items\": [\n                            {\n                                \"type\": \"Input.Text\",\n                                \"id\": \"tel\"\n                            }\n                        ]\n                    }\n                ]\n            },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Monthly Salary:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{if(equals(variables('Currency'), 'Philippine Peso'), '\u20b1', if(equals(variables('Currency'), 'India Rupee'), '\u20b9', if(equals(variables('Currency'), 'Pakistan Rupee'), '\u20a8', if(equals(variables('Currency'), 'Ukrainian Hryvnia'), '\u20b4', if(equals(variables('Currency'), 'US Dollar'), '$', if(equals(variables('Currency'), 'Bitcoin'), '\u20bf', if(equals(variables('Currency'), 'USDT'), '\u20ae', '')))))))}@{variables('Prev_Salary')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"prev_salary\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Program Interest:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Interest')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"program_interest\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                \"type\": \"TableRow\",\n                \"cells\": [\n                    {\n                        \"type\": \"TableCell\",\n                        \"items\": [\n                            {\n                                \"type\": \"TextBlock\",\n                                \"text\": \"Internet Speed:\",\n                                \"wrap\": true,\n                                \"horizontalAlignment\": \"Right\"\n                            }\n                        ]\n                    },\n                    {\n                        \"type\": \"TableCell\",\n                        \"items\": [\n                            {\n                                \"type\": \"TextBlock\",\n                                \"text\": \"@{variables('Internet Speed')} Mbps\",\n                                \"wrap\": true,\n                                \"color\": \"@{if(less(int(variables('Internet Speed')), 10), 'warning', if(and(greater(int(variables('Internet Speed')), 10), less(int(variables('Internet Speed')), 50)), 'accent', 'good'))}\"\n                            \n                            }\n                        ]\n                    },\n                    {\n                        \"type\": \"TableCell\",\n                        \"items\": [\n                            {\n                                \"type\": \"Input.Text\",\n                                \"id\": \"Internet Speed\"\n                            }\n                        ]\n                    }\n                ]\n            },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Skills:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Total_Skills')}/40 - @{mul(div(float(variables('Total_Skills')), 40), 100)}%\",\n                                  \"wrap\": true,\n                                  \"color\": \"@{if(less(int(variables('Total_Skills')), 10), 'warning', if(and(greater(int(variables('Total_Skills')), 10), less(int(variables('Total_Skills')), 30)), 'accent', 'good'))}\"\n                              }                                \n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"interest\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Referred By:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Reference')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"Reference\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"Time Interest:\",\n                                  \"wrap\": true,\n                                  \"horizontalAlignment\": \"Right\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"TextBlock\",\n                                  \"text\": \"@{variables('Time')}\",\n                                  \"wrap\": true\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"Input.Text\",\n                                  \"id\": \"time_interest\"\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"ActionSet\",\n                                  \"actions\": [\n                                      {\n                                          \"type\": \"Action.OpenUrl\",\n                                          \"title\": \"LinkedIn\",\n                                          \"url\": \"https://linkedin.com/in/@{variables('LinkedIn_Username')}\"\n                                      }\n                                  ]\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"ActionSet\",\n                                  \"actions\": [\n                                      {\n                                          \"type\": \"Action.OpenUrl\",\n                                          \"title\": \"MS Learn\",\n                                          \"url\": \"https://learn.microsoft.com/en-us/users/@{variables('MS_Learn_Username')}\"\n                                      }\n                                  ]\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"ActionSet\",\n                                  \"actions\": [\n                                      {\n                                          \"type\": \"Action.OpenUrl\",\n                                          \"title\": \"GitHub\",\n                                          \"url\": \"https://github.com/@{variables('GitHub_Username')}\"\n                                      }\n                                  ]\n                              }\n                          ]\n                      }\n                  ]\n              },\n              {\n                  \"type\": \"TableRow\",\n                  \"cells\": [\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"ActionSet\",\n                                  \"actions\": [\n                                      {\n                                          \"type\": \"Action.OpenUrl\",\n                                          \"title\": \"Resume\",\n                                          \"url\": \"@{variables('Resume')}\"\n                                      }\n                                  ],\n                                  \"isVisible\": \"@{not(empty(variables('Resume')))}\"\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"ActionSet\",\n                                  \"actions\": [\n                                      {\n                                          \"type\": \"Action.OpenUrl\",\n                                          \"title\": \"Intro Video\",\n                                          \"url\": \"@{variables('Intro_Video')}\"\n                                      }\n                                  ]\n                              }\n                          ]\n                      },\n                      {\n                          \"type\": \"TableCell\",\n                          \"items\": [\n                              {\n                                  \"type\": \"ActionSet\",\n                                  \"actions\": [\n                                      {\n                                          \"type\": \"Action.OpenUrl\",\n                                          \"title\": \"Location\",\n                                          \"url\": \"https://www.google.com/maps/search/?api=1&query=@{variables('City')},@{variables('Zip Code')},@{variables('Location')}\"\n                                      }\n                                  ]\n                              }\n                          ]\n                      }\n                  ]\n              }\n          ],\n          \"showGridLines\": false\n      },\n      {\n          \"type\": \"Container\",\n          \"items\": [\n              {\n                  \"type\": \"TextBlock\",\n                  \"text\": \"@{variables('Display Name')}'s Introduction\",\n                  \"wrap\": true\n              },\n              {\n                  \"type\": \"TextBlock\",\n                  \"text\": \"@{variables('Message')}\",\n                  \"wrap\": true,\n                  \"fontType\": \"Monospace\"\n              }\n          ],\n          \"separator\": true\n      },\n      {\n          \"type\": \"ColumnSet\",\n          \"columns\": [\n              {\n                  \"type\": \"Column\",\n                  \"items\": [\n                      {\n                          \"type\": \"ActionSet\",\n                          \"actions\": [\n                              {\n                                  \"type\": \"Action.Submit\",\n                                  \"title\": \"Approve\",\n                                  \"data\": {\n                                      \"action\": \"approve\"\n                                  },\n                                  \"style\": \"positive\"\n                              }\n                          ]\n                      }\n                  ],\n                  \"width\": \"stretch\"\n              },\n              {\n                  \"type\": \"Column\",\n                  \"items\": [\n                      {\n                          \"type\": \"ActionSet\",\n                          \"actions\": [\n                              {\n                                  \"type\": \"Action.Submit\",\n                                  \"title\": \"Reply\",\n                                  \"data\": {\n                                      \"action\": \"reply\"\n                                  }\n                              }\n                          ]\n                      }\n                  ],\n                  \"width\": \"stretch\"\n              },\n              {\n                  \"type\": \"Column\",\n                  \"items\": [\n                      {\n                          \"type\": \"ActionSet\",\n                          \"actions\": [\n                              {\n                                  \"type\": \"Action.Submit\",\n                                  \"title\": \"Change\",\n                                  \"data\": {\n                                      \"action\": \"change\"\n                                  }\n                              }\n                          ]\n                      }\n                  ],\n                  \"width\": \"stretch\"\n              },\n              {\n                  \"type\": \"Column\",\n                  \"items\": [\n                      {\n                          \"type\": \"ActionSet\",\n                          \"actions\": [\n                              {\n                                  \"type\": \"Action.Submit\",\n                                  \"title\": \"Reject\",\n                                  \"data\": {\n                                      \"action\": \"reject\"\n                                  },\n                                  \"style\": \"destructive\"\n                              }\n                          ]\n                      }\n                  ],\n                  \"width\": \"stretch\"\n              }\n          ]\n      }\n  ],\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n    \"version\": \"1.4\"\n}",
+            "recipient": {
+              "recipient": "19:9e248cb69a3346be9d375737754fd4b2@thread.v2"
+            },
+            "updateMessage": "Thanks for your response!"
+          },
+          "notificationUrl": "@{listCallbackUrl()}"
+        },
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['teams_1']['connectionId']"
+          }
+        },
+        "path": "/v1.0/teams/conversation/gatherinput/poster/Flow bot/location/@{encodeURIComponent('Group chat')}/$subscriptions"
+      },
+      "runAfter": {
+        "Policy_and_Terms": [
+          "Succeeded"
+        ]
+      },
+      "type": "ApiConnectionWebhook"
+    },
+    "Currency": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Currency",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Currency')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Correspondence_Accept": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Current_Level": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Current Level",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Education_Level')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Reference": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Display_Name": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Display Name",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Display_Name')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Check_if_Password_Present": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Driver_License": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Driver_License",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Driver_License')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Currency": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Drug_Test": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Drug_Test",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Drug_Test')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Driver_License": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Email": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Email",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Email')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Last_Name": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "First_Name": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "First Name",
+            "type": "String",
+            "value": "@{triggerFormDataValue('First_Name')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Invite_Code": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Gender": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Gender",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Gender')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Birth_Date": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "GitHub_Username": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "GitHub_Username",
+            "type": "String",
+            "value": "@{triggerFormDataValue('GitHub_Username')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Drug_Test": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Internet_Speed": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Internet Speed",
+            "type": "String",
+            "value": "@{first(split(triggerFormDataValue('speedTestResult'), '.'))}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Resume": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Intro_Video": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Intro_Video",
+            "type": "String",
+            "value": "@coalesce(triggerFormDataValue('Intro_Video'), '')"
+          }
+        ]
+      },
+      "runAfter": {
+        "GitHub_Username": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Invite_Code": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Invite Code",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Invite_Code')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Prefix": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Last_Name": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Last Name",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Last_Name')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "First_Name": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "LinkedIn_Username": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "LinkedIn_Username",
+            "type": "String",
+            "value": "@{triggerFormDataValue('LinkedIn_Username')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Intro_Video": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Location": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Location",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Location')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "City": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "MS_Learn_Username": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "MS_Learn_Username",
+            "type": "String",
+            "value": "@{triggerFormDataValue('MS_Learn_Username')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "LinkedIn_Username": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Marketing": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Marketing",
+            "type": "String",
+            "value": "on"
+          }
+        ]
+      },
+      "runAfter": {
+        "Partner": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Message": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Message",
+            "type": "String",
+            "value": "@{replace(triggerFormDataValue('Message'), '\"', '')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Budget": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Onboarding": {
+      "actions": {
+        "Add_User_to_AI_Usage": {
+          "inputs": {
+            "body": {
+              "API Keys": "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",
+              "Banksy": "0",
+              "Cat Prompt": "0",
+              "Cat Response": "0",
+              "Cat Total": "0",
+              "Catherine": "0",
+              "Devin": "0",
+              "Devin Tokens": "0",
+              "Display name": "@variables('Display Name')",
+              "Marisa": "0",
+              "Marisa Prompt": "0",
+              "Marisa Response": "0",
+              "Marisa Total": "0",
+              "Object Id": "@variables('Azure ID')",
+              "Overall Total": "0",
+              "Zee": "0",
+              "Zee Prompt": "0",
+              "Zee Response": "0",
+              "Zee Total": "0"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['excelonlinebusiness']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/codeless/v1.2/drives/@{encodeURIComponent('b!O9bYR-bFMEOOeYYawXvD8wpbpHyTxh5BuC_pbnDjnp84ICk03xwvQJhCLrdRkTQ1')}/items/@{encodeURIComponent(encodeURIComponent('01L3DZ62GEOAJWMPMUIRGZATE2TN4HGHG5'))}/workbook/tables/@{encodeURIComponent('{FEC4CA4E-1EE6-4397-97E8-C6959F4350E4}')}/rows",
+            "queries": {
+              "source": "sites/focushive.sharepoint.com,47d8d63b-c5e6-4330-8e79-861ac17bc3f3,7ca45b0a-c693-411e-b82f-e96e70e39e9f"
+            }
+          },
+          "metadata": {
+            "01L3DZ62GEOAJWMPMUIRGZATE2TN4HGHG5": "/App/Admin/FocusPass.xlsx"
+          },
+          "runAfter": {
+            "Add_User_to_Dreamers": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Add_User_to_Dream_Hive": {
+          "inputs": {
+            "body": {
+              "@@odata.id": "@variables('Azure ID')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['azuread_1']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/v1.0/groups/@{encodeURIComponent('fd76ec71-2125-4d46-833f-f9c67b2715b6')}/members/$ref"
+          },
+          "runAfter": {
+            "Delay": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Add_User_to_Dream_Quest_Security_Group": {
+          "inputs": {
+            "body": {
+              "@@odata.id": "@variables('Azure ID')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['azuread_1']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/v1.0/groups/@{encodeURIComponent('c76141ba-21e2-4fe3-ac61-9553a8cbb250')}/members/$ref"
+          },
+          "runAfter": {
+            "Add_User_to_AI_Usage": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Add_User_to_Dreamers": {
+          "inputs": {
+            "body": {
+              "Address": "@variables('Address')",
+              "Backgound_Check": "@variables('Background_Check')",
+              "Binance_Pay_ID": "@variables('Binance_Pay_ID')",
+              "Birth_Date": "@variables('Birth Date')",
+              "Cell": "Quest",
+              "City": "@variables('City')",
+              "Company": "@variables('Company')",
+              "Correspondence_Accept": "@variables('Correspondence_Accept')",
+              "Currency": "@variables('Currency')",
+              "Display_Name": "@variables('Display Name')",
+              "Driver_License": "@variables('Driver_License')",
+              "Drug_Test": "@variables('Drug_Test')",
+              "Education_Level": "@variables('Current Level')",
+              "Email": "@variables('Azure Email')",
+              "Email2": "@variables('Email')",
+              "End Date": "@formatDateTime(addDays(utcNow(),365), 'MM-dd-yyyy')",
+              "End_Date": "@{formatDateTime(addDays(utcNow(),365), 'MM-dd-yyyy')}",
+              "First_Name": "@variables('First Name')",
+              "Gender": "@variables('Gender')",
+              "GitHub_Username": "@variables('GitHub_Username')",
+              "Hive": "Dream",
+              "Internet_Speed": "@variables('Internet Speed')",
+              "Intro_Video": "@variables('Intro_Video')",
+              "Invite_Code": "@variables('Invite Code')",
+              "Last_Name": "@variables('Last Name')",
+              "LinkedIn_Username ": "@variables('LinkedIn_Username')",
+              "Location": "@variables('Location')",
+              "MS_Learn_Username": "@variables('MS_Learn_Username')",
+              "Message": "@variables('Message')",
+              "Owner": "@variables('Owner')",
+              "Partner": "@variables('Partner')",
+              "Phone_Number": "@variables('Phone Number')",
+              "Policy_Terms": "@variables('Policy_Terms')",
+              "Prefix": "@variables('Prefix')",
+              "Prev_Salary": "@variables('Prev_Salary')",
+              "Program_Interest": "@variables('Interest')",
+              "Reference": "@variables('Reference')",
+              "Resume": "@variables('Resume')",
+              "SMILE_Space": "@variables('SMILE_Space')",
+              "Skill_Agile_Development": "@variables('Skill_Agile_Development')",
+              "Skill_Communication": "@variables('Skill_Communication')",
+              "Skill_Leadership": "@variables('Skill_Leadership')",
+              "Skill_Office_365": "@variables('Skill_Office_365')",
+              "Skill_Project_Management": "@variables('Skill_Project_Management')",
+              "Skill_Research": "@variables('Skill_Research')",
+              "Skill_Sales": "@variables('Skill_Sales')",
+              "Skill_Teamwork": "@variables('Skill_Teamwork')",
+              "Start Date": "@formatDateTime(utcNow(), 'MM-dd-yyyy')",
+              "Start_Date": "@{formatDateTime(utcNow(), 'MM-dd-yyyy')}",
+              "Time_Interest": "@variables('Time')",
+              "USDT": "@variables('USDT')",
+              "Understand_Days": "@variables('Understand_Days')",
+              "User_ID": "@variables('Azure ID')",
+              "Website": "@variables('Website')",
+              "Zip_Code": "@variables('Zip Code')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['excelonlinebusiness']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/codeless/v1.2/drives/@{encodeURIComponent('b!7pEv5VN4MUK3vH5UU8SYqmxWxm_riMVBtZmGlCy1MW2a-TaHy0COTJIW3-NCJA1l')}/items/@{encodeURIComponent(encodeURIComponent('01JF7TUWTTKXNT3ZNKUBAZIT6M47CL23XB'))}/workbook/tables/@{encodeURIComponent('{FA743DE6-758C-4501-9E1C-4C198B64BE68}')}/rows",
+            "queries": {
+              "source": "groups/292ebe55-5955-4428-abdf-0e52ba7c2bba"
+            }
+          },
+          "metadata": {
+            "01JF7TUWTTKXNT3ZNKUBAZIT6M47CL23XB": "/General/Dreamers.xlsx",
+            "01L3DZ62GEOAJWMPMUIRGZATE2TN4HGHG5": "/App/Admin/FocusPass.xlsx"
+          },
+          "runAfter": {
+            "Add_User_to_Focus_Pass": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Add_User_to_Focus_Hive": {
+          "inputs": {
+            "body": {
+              "@@odata.id": "@variables('Azure ID')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['azuread_1']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/v1.0/groups/@{encodeURIComponent('e7e868db-ccde-4982-8ce8-89dee015794e')}/members/$ref"
+          },
+          "runAfter": {
+            "Add_User_to_Dream_Hive": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Add_User_to_Focus_Pass": {
+          "inputs": {
+            "body": {
+              "Address": "@variables('Address')",
+              "Backgound_Check": "@variables('Background_Check')",
+              "Binance_Pay_ID": "@variables('Binance_Pay_ID')",
+              "Birth_Date": "@variables('Birth Date')",
+              "Cell": "Quest",
+              "City": "@variables('City')",
+              "Company": "@variables('Company')",
+              "Correspondence_Accept": "@variables('Correspondence_Accept')",
+              "Currency": "@variables('Currency')",
+              "Display_Name": "@variables('Display Name')",
+              "Driver_License": "@variables('Driver_License')",
+              "Drug_Test": "@variables('Drug_Test')",
+              "Education_Level": "@variables('Current Level')",
+              "Email": "@variables('Azure Email')",
+              "Email2": "@variables('Email')",
+              "End Date": "@formatDateTime(addDays(utcNow(),365), 'MM-dd-yyyy')",
+              "End_Date": "@{formatDateTime(addDays(utcNow(),365), 'MM-dd-yyyy')}",
+              "First_Name": "@variables('First Name')",
+              "Gender": "@variables('Gender')",
+              "GitHub_Username": "@variables('GitHub_Username')",
+              "Hive": "Dream",
+              "Internet_Speed": "@variables('Internet Speed')",
+              "Intro_Video": "@variables('Intro_Video')",
+              "Invite_Code": "@variables('Invite Code')",
+              "Last_Name": "@variables('Last Name')",
+              "LinkedIn_Username ": "@variables('LinkedIn_Username')",
+              "Location": "@variables('Location')",
+              "MS_Learn_Username": "@variables('MS_Learn_Username')",
+              "Message": "@variables('Message')",
+              "Owner": "@variables('Owner')",
+              "Partner": "@variables('Partner')",
+              "Phone_Number": "@variables('Phone Number')",
+              "Policy_Terms": "@variables('Policy_Terms')",
+              "Prefix": "@variables('Prefix')",
+              "Prev_Salary": "@variables('Prev_Salary')",
+              "Program_Interest": "@variables('Interest')",
+              "Reference": "@variables('Reference')",
+              "Resume": "@variables('Resume')",
+              "SMILE_Space": "@variables('SMILE_Space')",
+              "Skill_Agile_Development": "@variables('Skill_Agile_Development')",
+              "Skill_Communication": "@variables('Skill_Communication')",
+              "Skill_Leadership": "@variables('Skill_Leadership')",
+              "Skill_Office_365": "@variables('Skill_Office_365')",
+              "Skill_Project_Management": "@variables('Skill_Project_Management')",
+              "Skill_Research": "@variables('Skill_Research')",
+              "Skill_Sales": "@variables('Skill_Sales')",
+              "Skill_Teamwork": "@variables('Skill_Teamwork')",
+              "Start Date": "@formatDateTime(utcNow(), 'MM-dd-yyyy')",
+              "Start_Date": "@{formatDateTime(utcNow(), 'MM-dd-yyyy')}",
+              "Time_Interest": "@variables('Time')",
+              "USDT": "@variables('USDT')",
+              "Understand_Days": "@variables('Understand_Days')",
+              "User_ID": "@variables('Azure ID')",
+              "Website": "@variables('Website')",
+              "Zip_Code": "@variables('Zip Code')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['excelonlinebusiness']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/codeless/v1.2/drives/@{encodeURIComponent('b!O9bYR-bFMEOOeYYawXvD8wpbpHyTxh5BuC_pbnDjnp84ICk03xwvQJhCLrdRkTQ1')}/items/@{encodeURIComponent(encodeURIComponent('01L3DZ62GEOAJWMPMUIRGZATE2TN4HGHG5'))}/workbook/tables/@{encodeURIComponent('{CD9B1FFC-E8D4-4185-B0B9-5B2AC19C4ED0}')}/rows",
+            "queries": {
+              "source": "sites/focushive.sharepoint.com,47d8d63b-c5e6-4330-8e79-861ac17bc3f3,7ca45b0a-c693-411e-b82f-e96e70e39e9f"
+            }
+          },
+          "metadata": {
+            "01L3DZ62GEOAJWMPMUIRGZATE2TN4HGHG5": "/App/Admin/FocusPass.xlsx"
+          },
+          "runAfter": {
+            "Add_User_to_Focus_Hive": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Assign_Azlan_as_Manager": {
+          "inputs": {
+            "body": {
+              "@@odata.id": "71c2eda9-20e9-42fe-b9c8-bba1c64009ad"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['azuread_1']['connectionId']"
+              }
+            },
+            "method": "put",
+            "path": "/v1.0/users/@{encodeURIComponent(variables('Azure ID'))}/manager/$ref"
+          },
+          "runAfter": {
+            "Broadcast_Message_to_Dream_Quest_if_Found": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Broadcast_Message_to_Dream_Quest_if_Found": {
+          "actions": {
+            "Post_card_in_a_chat_or_channel": {
+              "inputs": {
+                "body": {
+                  "messageBody": "{\n    \"type\": \"AdaptiveCard\",\n    \"msteams\": {\n        \"width\": \"Full\"\n    },\n    \"body\": [\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"New Dreamer: @{variables('Display Name')} \ud83d\udcab\",\n            \"wrap\": true,\n            \"size\": \"Large\"\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{variables('Display Name')}'s Introduction\",\n            \"wrap\": true\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{variables('Message')}\",\n            \"wrap\": true,\n            \"fontType\": \"Monospace\"\n        },\n        {\n            \"type\": \"Table\",\n            \"columns\": [\n                {\n                    \"width\": 1\n                },\n                {\n                    \"width\": 2\n                }\n            ],\n            \"rows\": [\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Program Interest:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Interest')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Skills:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Total_Skills')}/40 - @{mul(div(float(variables('Total_Skills')), 40), 100)}%\",\n                                    \"wrap\": true,\n                                    \"color\": \"@{if(less(int(variables('Total_Skills')), 10), 'warning', if(and(greater(int(variables('Total_Skills')), 10), less(int(variables('Total_Skills')), 30)), 'accent', 'good'))}\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Referred By:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Reference')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Time Interest:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Time')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"LinkedIn\",\n                                            \"url\": \"https://linkedin.com/in/@{variables('LinkedIn_Username')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"MS Learn\",\n                                            \"url\": \"https://learn.microsoft.com/en-us/users/@{variables('MS_Learn_Username')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"Resume\",\n                                            \"url\": \"@{variables('Resume')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"Intro Video\",\n                                            \"url\": \"@{variables('Intro_Video')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ],\n            \"showGridLines\": false\n        }\n    ],\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n    \"version\": \"1.4\"\n}",
+                  "recipient": "19:e4796799aa234d7b9c6c2df14ae65c91@thread.v2"
+                },
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['teams']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "path": "/v1.0/teams/conversation/adaptivecard/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Group chat')}"
+              },
+              "type": "ApiConnection"
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "expression": {
+            "and": [
+              {
+                "not": {
+                  "equals": [
+                    "@variables('Message')",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          "runAfter": {
+            "Add_User_to_Dream_Quest_Security_Group": [
+              "Succeeded"
+            ]
+          },
+          "type": "If"
+        },
+        "Delay": {
+          "inputs": {
+            "interval": {
+              "count": 10,
+              "unit": "Second"
+            }
+          },
+          "type": "Wait"
+        },
+        "Delay_for_15_Minutes": {
+          "inputs": {
+            "interval": {
+              "count": 3,
+              "unit": "Minute"
+            }
+          },
+          "runAfter": {
+            "Post_Announcement_to_Curiosity_Coaches": [
+              "Succeeded"
+            ]
+          },
+          "type": "Wait"
+        },
+        "Greeting_Email_from_Marisa": {
+          "inputs": {
+            "body": {
+              "Body": "<p class=\"editor-paragraph\">Hello @{variables('First Name')},<span></span>Congrats on starting your Dream Quest with us! &nbsp;You should've already recieved an email from us that includes your new Focus Pass Username &amp; Password. &nbsp;This gives you an account with access to our community inside <b><strong class=\"editor-text-bold\">Micsrosoft 365 (known as the Focus Hive)</strong></b><span></span>We have a few Facebook Groups to answer basic questions. You should start or continue training there to understand great enterprise skills and business philosophy. The communities are below:<span></span><a class=\"editor-link\" href=\"https://www.facebook.com/groups/curiosityhive/\">Curiosity Hive</a> - Intro to the Future of Work and STEAM Literacy<span></span><a class=\"editor-link\" href=\"https://www.facebook.com/groups/notehive/\">Note Hive</a> - Intelligent Guidance using Advanced Notebook Applications</p><p class=\"editor-paragraph\"><a class=\"editor-link\" href=\"https://dreamhive.org\">Design Hive </a><span>- Product Management, Creative Direction, Roadmapping</span><a class=\"editor-link\" href=\"https://www.facebook.com/groups/thedeveloperdojo/\">Developer Dojo</a> - Training for Application and Business Development</p><p class=\"editor-paragraph\"></p><br><p class=\"editor-paragraph\">If you want to fast track your path to a career, then we recommend studying our <a class=\"editor-link\" href=\"https://training.reveltek.com\">Career Training Manual</a><span></span>Registration is just the first step with us. &nbsp;You'll now have access to the entire Microsoft toolset and direct access to collaborates inside our Curiosity Community within multiple departments. &nbsp;Our analytics team tracks your activity and shares this information with multiple industry partners to see if they are interested in bringing you inside their organization.<span></span>I hope you enjoy your journey with us. Please send any questions into our <a class=\"editor-link\" href=\"https://www.facebook.com/groups/curiositycommunity/\">FB Curiosity Community</a> where someone will assist you.<span></span>Marisa Ito<span></span>Community Manager<span></span>Focus Hive<span></span><a class=\"editor-link\" href=\"http://focushive.com\">focushive.com</a><span></span></p>",
+              "Importance": "High",
+              "Subject": "Hello from Focus Hive",
+              "To": "@variables('Email')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['office365']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/v2/Mail"
+          },
+          "runAfter": {
+            "Delay_for_15_Minutes": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Post_Announcement_to_Curiosity_Coaches": {
+          "inputs": {
+            "body": {
+              "messageBody": "<p class=\"editor-paragraph\">Hey @{body('Get_Maha')?['atMention']} and @{body('Get_Abdul')?['atMention']} - we have a new Dreamer! @{coalesce(body('Create_User')?['displayName'], variables('Display Name'))} is interested in the @{variables('Time')} @{variables('Interest')} Program. Go ahead and get @{coalesce(body('Create_User')?['displayName'], variables('Display Name'))} started on their Dream Quest. Invite them to start studying the <a href=\"https://training.reveltek.com\" class=\"editor-link\">RevelTek Training Manual</a> or Dream Hub Training and make sure they attend Learning Sessions.</p><br><p class=\"editor-paragraph\">@{body('Curiosity_Coaches_Approval')?['submitActionId']} by <a href=\"mailto:@{body('Curiosity_Coaches_Approval')?['responder']?['email']}\" class=\"editor-link\">@{body('Curiosity_Coaches_Approval')?['responder']?['displayName']}</a> at @{formatDateTime(body('Curiosity_Coaches_Approval')?['responseTime'], 'MMM dd h:mma')}.</p>",
+              "recipient": "19:9e248cb69a3346be9d375737754fd4b2@thread.v2"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['teams_1']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Group chat')}"
+          },
+          "runAfter": {
+            "Get_Abdul": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Welcome_Email": {
+          "inputs": {
+            "body": {
+              "Body": "<p>&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"&gt;<br>\n&lt;html xmlns=\"https://www.w3.org/1999/xhtml\"&gt;<br>\n&lt;head&gt;<br>\n<br>\n&lt;meta name=\"viewport\" content=\"width=device-width; initial-scale=1.0; maximum-scale=1.0;\" /&gt;<br>\n&lt;title&gt;Welcome to Your Focus Pass&lt;/title&gt;<br>\n<br>\n&lt;style type=\"text/css\"&gt;<br>\n<br>\n\t &nbsp;&nbsp;&nbsp;body{width: 100%; background-color: #292828; margin:0; padding:0; -webkit-font-smoothing: antialiased;mso-margin-top-alt:0px; mso-margin-bottom-alt:0px; mso-padding-alt: 0px 0px 0px 0px;}<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p,h1,h2,h3,h4{margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;}<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span.preheader{display: none; font-size: 1px;}<br>\n\t\t<br>\n\t\ta,a:hover{text-decoration:none; color:#545555;}<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html{width: 100%;}<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;table{font-size: 12px;border: 0;}<br>\n\t\t<br>\n\t\t.menu-space{padding-right:25px;}<br>\n<br>\n<br>\n@media only screen and (max-width:640px)<br>\n<br>\n{<br>\n\tbody{width:auto!important;}<br>\n\tbody[yahoo] .main {width:440px !important;}<br>\n\tbody[yahoo] .two-left{width:420px !important; margin:0px auto; text-align:center;}<br>\n\tbody[yahoo] .full{width:100% !important; margin:0px auto;}<br>\n\tbody[yahoo] .alaine{ text-align:center;}<br>\n\tbody[yahoo] .menu-space{padding-right:0px;}<br>\n<br>\n\t}<br>\n<br>\n@media only screen and (max-width:479px)<br>\n{<br>\n\tbody{width:auto!important;}<br>\n\tbody[yahoo] .main {width:280px !important;}<br>\n\tbody[yahoo] .two-left{width:270px !important; margin:0px auto; text-align:center;}<br>\n\tbody[yahoo] .full{width:100% !important; margin:0px auto;}<br>\n\tbody[yahoo] .alaine{ text-align:center;}<br>\n\tbody[yahoo] .menu-space{padding-right:0px;}<br>\n<br>\n\t<br>\n}<br>\n<br>\n<br>\n&lt;/style&gt;<br>\n&lt;/head&gt;<br>\n<br>\n&lt;body yahoo=\"fix\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\"&gt;<br>\n<br>\n&lt;!--Main Table Start--&gt;<br>\n<br>\n&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#292828\" style=\"background:#292828;\"&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Top space Start--&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"80\" align=\"left\" valign=\"top\" style=\"line-height:80px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Top space End--&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Date part Start--&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#ffffff\" style=\"background:#ffffff;\"&gt;&lt;table width=\"600\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"270\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:lighter; color:#545555;\"&gt;You can&amp;acute;t see this email?&lt;a href=\"https://taolearning.org/info/mail.html\"&gt; View it in your browser&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table border=\"0\" align=\"right\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:#2c2a2a;\"&gt;&lt;b&gt;&lt;a href=\"https://taolearning.org\" style=\"color:#14a7de;\"&gt;Tao Learning&lt;/a&gt;&lt;/b&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&lt;!--Date part End--&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--Banner part Start--&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"middle\" bgcolor=\"#171717\" style=\"background:url(https://taolearning.org/info/images/ignite.jpg) #171717 center top no-repeat; height:520px;\"&gt;&lt;table width=\"525\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"220\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- &lt;td align=\"center\" valign=\"top\"&gt;&lt;a href=\"https://taolearning.org\"&gt;&lt;img src=\"https://taolearning.org/info/images/logo600.png\" &nbsp;height=\"60%\" alt=\"\" /&gt;&lt;/a&gt;&lt;/td&gt; --&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"40\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"45\" align=\"center\" valign=\"top\" style=\"line-height:45px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- &lt;td align=\"center\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:27px; font-weight:lighter; color:#FFF;\"&gt;World&amp;acute;s first &nbsp;&lt;b style=\"color:#14a7de;\"&gt;P-20+ Education&lt;/b&gt; Program&lt;/td&gt; --&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- &lt;td align=\"center\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:lighter; color:#FFF; line-height:24px;\"&gt;&lt;br&gt; Welcome to the Ignite Curiosity Community &lt;/td&gt; --&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Banner part End--&gt;<br>\n<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&lt;!--Menu part Start--&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#14a7de\" style=\"background:#14a7de;\"&gt;&lt;table width=\"400\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"12\" align=\"center\" valign=\"top\" style=\"line-height:12px;\"&gt;&lt;img src=\"https://taolearning.org/info/images/space.png\" width=\"4\" height=\"4\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"12\" align=\"center\" valign=\"top\" style=\"line-height:12px;\"&gt;&lt;img src=\"https://taolearning.org/info/images/space.png\" width=\"4\" height=\"4\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Menu part End--&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Text Part Start--&gt; <br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#FFFFFF\" style=\"background:#FFF;\"&gt;&lt;table width=\"560\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"40\" align=\"center\" valign=\"top\" style=\"line-height:40px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:18px; font-weight:lighter; color:#14a7de; line-height:24px; padding-bottom:12px;\"&gt;Hello @{variables('First Name')}, Let's Ignite Your Curiosity! &lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:lighter; color:#5d5c5c; line-height:20px;\"&gt;&lt;p&gt;Login using your Focus Pass to find your passion and hone your focus in partnership with Tao Learning. Use the details below to start your journey with us. &nbsp;This gives you access to all the areas in your Focus Pass including access to Office 365 and Microsoft Teams.&lt;/p&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul style=\"list-style-type:none;\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;strong&gt;Username: @{body('Create_user')?['userPrincipalName']}&lt;/strong&gt;&lt;/li&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;strong&gt;Password: @{variables('User Password')}&lt;/strong&gt;&lt;/li&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt; &nbsp;&nbsp;&nbsp;<br>\n &nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:lighter; color:#5d5c5c; line-height:20px;padding-top:4px;\"&gt;Tao Learning is a 501c3 Non Profit which builds many education platforms that all work together. &nbsp;Some of our signature programs that utilize the &lt;a style=\"color:#14a7de;\" href=\"https://ignitecuriosity.org\"&gt;Curiosity Community&lt;/a&gt; include: &lt;a style=\"color:#14a7de;\" href=\"https://focushive.com\"&gt;Focus Hive&lt;/a&gt;, &lt;a style=\"color:#14a7de;\" href=\"https://sunnyhive.com\"&gt;Sunny Hive&lt;/a&gt;, &lt;a style=\"color:#14a7de;\" href=\"https://steamhive.com\"&gt;Steam Hive&lt;/a&gt;, the &lt;a style=\"color:#14a7de;\" href=\"https://developerdojo.org\"&gt;Developer Dojo&lt;/a&gt;, and many more!&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"300\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"105\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"35\" align=\"center\" valign=\"middle\" bgcolor=\"#14a7de\" style=\"background:#252626;-moz-border-radius: 3px; border-radius: 3px;\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"80\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width=\"84\" align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:lighter; color:#FFF; text-transform:uppercase;\"&gt;&lt;a href=\"https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=taolearning.org&amp;wreply=https%3A%2F%2Ftaolearning.sharepoint.com/sites/welcome\" style=\"text-decoration:none; color:#FFF;\"&gt;Login&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width=\"16\" align=\"right\" valign=\"top\"&gt;&lt;img src=\"https://taolearning.org/info/images/read-arrow.png\" width=\"16\" height=\"18\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"155\" border=\"0\" align=\"right\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"35\" align=\"center\" valign=\"middle\" bgcolor=\"#252626\" style=\"background:#5558af;-moz-border-radius: 3px; border-radius: 3px;\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"128\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:lighter; color:#FFF; text-transform:uppercase;\"&gt;&lt;a href=\"https://teams.microsoft.com/downloads\" style=\"text-decoration:none; color:#FFF;\"&gt;Get Teams App&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width=\"16\" align=\"right\" valign=\"top\"&gt;&lt;img src=\"https://taolearning.org/info/images/read-arrow.png\" width=\"16\" height=\"18\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"center\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table&gt; <br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\"border-top:#e2e3e3 solid 1px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:18px; font-weight:lighter; color:#14a7de; line-height:24px; padding-bottom:12px;\"&gt;Welcome to the Future of Education &lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:lighter; color:#5d5c5c; line-height:20px;\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Welcome!! We are here to help you make your dreams come true. I'm Marisa, one of our Curiosity Coaches who will guide your education, your career, and your life skills. We have an international team to help in the subjects or degrees you desire. We lead workshops and seminars to inspire self-motivated learning through our SMILE Method&amp;trade; \"Self-Motivated Impact Learning Environment.\" This method encourages you to observe how others coach themselves and ignite their own curiosity. We believe in empowering you to discover your own passions and paths.&lt;/p&gt;<br>\n&lt;p&gt;Explore various paths and ignite your curiosity at &lt;a href=\"https://ignitecuriosity.org\" style=\"color:#14a7de;\"&gt;Ignite Curiosity&lt;/a&gt;. I look forward to watching your life blossom with our program!&lt;/p&gt;<br>\n<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"175\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;img src=\"https://taolearning.org/info/images/marisa.png\" width=\"120\" height=\"40\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:#5d5c5c; line-height:20px;\"&gt;Community Manager&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--Text Part End--&gt; <br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Border Start--&gt; <br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#FFFFFF\" style=\"background:#FFF;\"&gt;&lt;table width=\"560\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"35\" align=\"left\" valign=\"top\" style=\"line-height:35px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\"border-top:#e2e3e3 solid 1px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"35\" align=\"left\" valign=\"top\" style=\"line-height:35px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&lt;!--Border End--&gt; <br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&lt;!--1-row-2 Start--&gt; <br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#FFFFFF\" style=\"background:#FFF;\"&gt;&lt;table width=\"560\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"285\" border=\"0\" align=\"right\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#14a7de\" style=\"background:#14a7de; padding:30px 25px 30px 25px;\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:20px; font-weight:lighter; color:#FFF; padding-bottom:8px;\"&gt;Dream Quest&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:lighter; color:#FFF; line-height:22px;\"&gt;Your first step in understanding our system, the intro software, our philosophy, &nbsp;and start creating a good habit for learning.&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"155\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"35\" align=\"center\" valign=\"middle\" bgcolor=\"#FFFFFF\" style=\"background:#FFF;-moz-border-radius: 3px;<br>\nborder-radius: 3px;\"&gt;&lt;table width=\"140\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:lighter; color:#686868; text-transform:uppercase;\"&gt;&lt;a href=\"https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=taolearning.org&amp;wreply=https%3A%2F%2Ftaolearning.sharepoint.com/sites/welcome\" style=\"text-decoration:none; color:#686868;\"&gt;Join the Class&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width=\"16\" align=\"right\" valign=\"top\"&gt;&lt;img src=\"https://taolearning.org/info/images/read-arrow2.png\" width=\"16\" height=\"18\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"260\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td&gt;&lt;img src=\"https://taolearning.org/info/images/the-focus-hive.jpg\" style=\"display:block;width:100% !important; height:auto !important; \" width=\"260\" height=\"231\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n&lt;/table&gt;<br>\n<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"40\" align=\"center\" valign=\"top\" style=\"line-height:40px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--1-row-2 End--&gt; <br>\n <br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Footer content part Start--&gt; &nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#14a7de\" style=\"background:#14a7de;\"&gt;&lt;table width=\"560\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"35\" align=\"left\" valign=\"top\" style=\"line-height:35px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"275\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:24px; font-weight:normal; color:#FFF; padding-bottom:6px; text-transform:uppercase;\"&gt;About Us&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:lighter; color:#FFF; line-height:22px;\"&gt;The Learning Institute is a 501c3 non-profit organization focused on P-20+ Education.&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"215\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"215\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;a href=\"https://facebook.com/taolearninginstitute\"&gt;&lt;img src=\"https://taolearning.org/info/images/facebook.png\" width=\"32\" height=\"34\" alt=\"\" /&gt;&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;a href=\"https://twitter.com/taolearning\"&gt;&lt;img src=\"https://taolearning.org/info/images/twitter.png\" width=\"32\" height=\"34\" alt=\"\" /&gt;&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;a href=\"#\"&gt;&lt;img src=\"https://taolearning.org/info/images/rss.png\" width=\"32\" height=\"34\" alt=\"\" /&gt;&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;a href=\"https://www.youtube.com/channel/UCTb_8kGbwqhri3TQL6TW5vQ\"&gt;&lt;img src=\"https://taolearning.org/info/images/youtube.png\" width=\"32\" height=\"34\" alt=\"\" /&gt;&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;a href=\"#\"&gt;&lt;img src=\"https://taolearning.org/info/images/dribbble.png\" width=\"32\" height=\"34\" alt=\"\" /&gt;&lt;/a&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"35\" align=\"left\" valign=\"top\" style=\"line-height:35px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table width=\"230\" border=\"0\" align=\"right\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:24px; font-weight:normal; color:#FFF; padding-bottom:12px; text-transform:uppercase;\"&gt;Get in touch&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"230\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width=\"37\" align=\"left\" valign=\"middle\"&gt;&lt;table width=\"28\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;img src=\"https://taolearning.org/info/images/map-icon.png\" width=\"28\" height=\"28\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:#FFF; line-height:18px;\"&gt;Tao Learning Institute&lt;br&gt;48 Wall St&lt;br&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New York, NY 10005 USA&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" colspan=\"2\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table width=\"230\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width=\"37\" align=\"left\" valign=\"middle\"&gt;&lt;table width=\"28\" border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;img src=\"https://taolearning.org/info/images/support-icon.png\" width=\"28\" height=\"28\" alt=\"\" /&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:#FFF; line-height:18px;\"&gt;Mail : info@taolearning.org&lt;br /&gt;Call : +01 929-229-2917&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n&lt;/table&gt;<br>\n<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--Footer content part End--&gt; &nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--Copyright part Start--&gt; &nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\" bgcolor=\"#171717\" style=\"background:#171717;\"&gt;&lt;table width=\"560\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table border=\"0\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:#FFF;\"&gt;Copyright &amp;copy; Tao Learning Institute - All Rights Reserved. &lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table border=\"0\" align=\"right\" cellpadding=\"0\" cellspacing=\"0\" class=\"two-left\"&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td align=\"left\" valign=\"top\"&gt;&lt;table border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\" style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:#FFF;\"&gt;&lt;a style=\"color:#FFF;\" href=\"https://taolearning.org/tos.html\"&gt;Terms and Conditions&lt;/a&gt; &nbsp;/ &nbsp;&lt;a style=\"color:#FFF;\" href=\"mailto:info@taolearning.org?subject=Unsubscribe\"&gt;Unsubscribe&lt;/a&gt;&lt;/span&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;td height=\"20\" align=\"left\" valign=\"top\" style=\"line-height:20px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Copyright part End--&gt; <br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Bottom space Start--&gt; <br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td align=\"center\" valign=\"top\"&gt;&lt;table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"main\"&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td height=\"80\" align=\"left\" valign=\"top\" style=\"line-height:80px;\"&gt;&amp;nbsp;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&lt;/td&gt;<br>\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>\n &nbsp;&nbsp;&nbsp;&lt;/table&gt;<br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;!--Bottom space End--&gt; <br>\n &nbsp;&nbsp;&nbsp;<br>\n &nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>\n &nbsp;&lt;/tr&gt;<br>\n&lt;/table&gt;<br>\n<br>\n&lt;!--Main Table End--&gt;<br>\n<br>\n&lt;/body&gt;<br>\n&lt;/html&gt;<br>\n</p>",
+              "Importance": "High",
+              "MailboxAddress": "no-reply@focushive.com",
+              "Subject": "Welcome to your Focus Pass",
+              "To": "@variables('Email')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['office365']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/v2/SharedMailbox/Mail"
+          },
+          "runAfter": {
+            "Assign_Azlan_as_Manager": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Get_Maha": {
+          "inputs": {
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['teams_1']['connectionId']"
+              }
+            },
+            "method": "get",
+            "path": "/v1.0/users/@{encodeURIComponent('mahakhan@focuspass.com')}"
+          },
+          "runAfter": {
+            "Welcome_Email": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Get_Abdul": {
+          "inputs": {
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['teams_1']['connectionId']"
+              }
+            },
+            "method": "get",
+            "path": "/v1.0/users/@{encodeURIComponent('abdulrehman@focuspass.com')}"
+          },
+          "runAfter": {
+            "Get_Maha": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        }
+      },
+      "else": {
+        "actions": {}
+      },
+      "expression": {
+        "and": [
+          {
+            "contains": [
+              "@variables('Marketing')",
+              "on"
+            ]
+          },
+          {
+            "not": {
+              "equals": [
+                "@variables('Email')",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      "runAfter": {
+        "Should_We_Create_a_User": [
+          "Succeeded"
+        ]
+      },
+      "type": "If"
+    },
+    "Owner": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Owner",
+            "type": "String",
+            "value": "@{triggerFormDataValue('owner')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Website": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Partner": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Partner",
+            "type": "String"
+          }
+        ]
+      },
+      "runAfter": {
+        "Owner": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Phone_Number": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Phone Number",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Phone_Number')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Email": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Policy_Terms": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Policy_Terms",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Policy_Terms')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "MS_Learn_Username": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Policy_and_Terms": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Policy Terms",
+            "type": "string",
+            "value": "@triggerFormDataValue('Policy_Terms')"
+          }
+        ]
+      },
+      "runAfter": {
+        "Understand_Days": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Prefix": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Prefix",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Prefix')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Test_Condition": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Prev_Salary": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Prev_Salary",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Prev_Salary')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Internet_Speed": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Program_Interest": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Interest",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Program_Interest')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Zip_Code": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Reference": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Reference",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Reference')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Prev_Salary": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Resume": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Resume",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Resume')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Program_Interest": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "SMILE_Space": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "SMILE_Space",
+            "type": "String",
+            "value": "@{triggerFormDataValue('SMILE_Space')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Policy_Terms": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Send_SMS": {
+      "actions": {
+        "Send_Text_Message_(SMS)": {
+          "inputs": {
+            "body": {
+              "body": "Hi! This is Marisa from Focus Hive. You are now signed up to our Curiosity Community.\nCheck your email for your login details! Don't forget to check your Spam folder, too! :)",
+              "from": "+16696000447",
+              "to": "+1@{variables('Phone Number')}"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['twilio']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/Messages.json"
+          },
+          "type": "ApiConnection"
+        }
+      },
+      "else": {
+        "actions": {}
+      },
+      "expression": {
+        "and": [
+          {
+            "equals": [
+              "@variables('Location')",
+              "North America"
+            ]
+          }
+        ]
+      },
+      "runAfter": {
+        "Should_We_Create_a_User": [
+          "Succeeded"
+        ]
+      },
+      "type": "If"
+    },
+    "Should_We_Create_a_User": {
+      "actions": {
+        "Create_User": {
+          "inputs": {
+            "body": {
+              "accountEnabled": true,
+              "businessPhones": [
+                "@variables('Phone Number')"
+              ],
+              "department": "@variables('Invite Code')",
+              "displayName": "@variables('Display Name')",
+              "givenName": "@{variables('First Name')}",
+              "jobTitle": "Dreamer",
+              "mailNickname": "@{toLower(replace(variables('Display Name'),' ',''))}",
+              "mobilePhone": "@variables('Phone Number')",
+              "officeLocation": "@variables('Location')",
+              "passwordProfile": {
+                "password": "@variables('User Password')"
+              },
+              "preferredLanguage": "en-US",
+              "surname": "@variables('Last Name')",
+              "userPrincipalName": "@variables('Azure Email')"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['azuread_1']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/v1.0/users"
+          },
+          "type": "ApiConnection",
+          "runAfter": {
+            "Check_User_Exists": [
+              "Failed"
+            ]
+          }
+        },
+        "Set_Azure_ID": {
+          "inputs": {
+            "name": "Azure ID",
+            "value": "@body('Create_User')?['id']"
+          },
+          "runAfter": {
+            "Create_User": [
+              "Succeeded"
+            ]
+          },
+          "type": "SetVariable"
+        },
+        "Update_an_adaptive_card_in_a_chat_or_channel": {
+          "inputs": {
+            "body": {
+              "messageBody": "{\n    \"type\": \"AdaptiveCard\",\n    \"msteams\": {\n        \"width\": \"Full\"\n    },\n    \"body\": [\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"New Dreamer: @{variables('Display Name')} \ud83d\udcab\",\n            \"wrap\": true,\n            \"size\": \"Large\"\n        },\n        {\n            \"type\": \"Table\",\n            \"columns\": [\n                {\n                    \"width\": 1\n                },\n                {\n                    \"width\": 2\n                }\n            ],\n            \"rows\": [\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Display Name:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Display Name')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('First Name')}\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Last Name')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Focus Email:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Azure Email')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Phone Number:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Phone Number')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Monthly Salary:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Prev_Salary')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Program Interest:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Interest')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Internet Speed:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Internet Speed')} Mbps\",\n                                    \"wrap\": true,\n                                    \"color\": \"@{if(less(int(variables('Internet Speed')), 10), 'warning', if(and(greater(int(variables('Internet Speed')), 10), less(int(variables('Internet Speed')), 50)), 'accent', 'good'))}\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Skills:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Total_Skills')}/40 - @{mul(div(float(variables('Total_Skills')), 40), 100)}%\",\n                                    \"wrap\": true,\n                                    \"color\": \"@{if(less(int(variables('Total_Skills')), 10), 'warning', if(and(greater(int(variables('Total_Skills')), 10), less(int(variables('Total_Skills')), 30)), 'accent', 'good'))}\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Referred By:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Reference')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"Time Interest:\",\n                                    \"wrap\": true,\n                                    \"horizontalAlignment\": \"Right\"\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"TextBlock\",\n                                    \"text\": \"@{variables('Time')}\",\n                                    \"wrap\": true\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"LinkedIn\",\n                                            \"url\": \"https://linkedin.com/in/@{variables('LinkedIn_Username')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"MS Learn\",\n                                            \"url\": \"https://learn.microsoft.com/en-us/users/@{variables('MS_Learn_Username')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"TableRow\",\n                    \"cells\": [\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"Resume\",\n                                            \"url\": \"@{variables('Resume')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        },\n                        {\n                            \"type\": \"TableCell\",\n                            \"items\": [\n                                {\n                                    \"type\": \"ActionSet\",\n                                    \"actions\": [\n                                        {\n                                            \"type\": \"Action.OpenUrl\",\n                                            \"title\": \"Intro Video\",\n                                            \"url\": \"@{variables('Intro_Video')}\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ],\n            \"showGridLines\": false\n        },\n        {\n            \"type\": \"Container\",\n            \"items\": [\n                {\n                    \"type\": \"TextBlock\",\n                    \"text\": \"@{variables('Display Name')}'s Introduction\",\n                    \"wrap\": true\n                },\n                {\n                    \"type\": \"TextBlock\",\n                    \"text\": \"@{variables('Message')}\",\n                    \"wrap\": true,\n                    \"fontType\": \"Monospace\"\n                }\n            ],\n            \"separator\": true\n        }\n    ],\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n    \"version\": \"1.4\"\n}",
+              "messageId": "@body('Curiosity_Coaches_Approval')?['messageId']",
+              "recipient": "19:9e248cb69a3346be9d375737754fd4b2@thread.v2"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['teams']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/v1.0/teams/conversation/updateAdaptivecard/poster/@{encodeURIComponent('Flow bot')}/location/@{encodeURIComponent('Group chat')}"
+          },
+          "runAfter": {
+            "Set_Azure_ID": [
+              "Succeeded",
+              "Skipped"
+            ],
+            "Notify_User_Already_Exists": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          "type": "ApiConnection"
+        },
+        "Check_User_Exists": {
+          "inputs": {
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['azuread_1']['connectionId']"
+              }
+            },
+            "method": "get",
+            "path": "/v1.0/users/@{encodeURIComponent(variables('Azure Email'))}"
+          },
+          "type": "ApiConnection"
+        },
+        "Set_Azure_ID_From_Existing": {
+          "inputs": {
+            "name": "Azure ID",
+            "value": "@body('Check_User_Exists')?['id']"
+          },
+          "runAfter": {
+            "Check_User_Exists": [
+              "Succeeded"
+            ]
+          },
+          "type": "SetVariable"
+        },
+        "Notify_User_Already_Exists": {
+          "inputs": {
+            "body": {
+              "messageBody": "<p class=\"editor-paragraph\">Re-registration detected: @{variables('Display Name')} (@{variables('Azure Email')}) already exists in Microsoft Entra (ID @{body('Check_User_Exists')?['id']}). Skipped creating a duplicate user and continued onboarding with the existing account. No action needed unless these details look wrong.</p>",
+              "recipient": "19:9e248cb69a3346be9d375737754fd4b2@thread.v2"
+            },
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['teams_1']['connectionId']"
+              }
+            },
+            "method": "post",
+            "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Group chat')}"
+          },
+          "runAfter": {
+            "Set_Azure_ID_From_Existing": [
+              "Succeeded"
+            ]
+          },
+          "type": "ApiConnection"
+        }
+      },
+      "else": {
+        "actions": {
+          "Terminate_2": {
+            "inputs": {
+              "runStatus": "Cancelled"
+            },
+            "type": "Terminate"
+          }
+        }
+      },
+      "expression": {
+        "and": [
+          {
+            "equals": [
+              "@variables('Azure ID')",
+              ""
+            ]
+          },
+          {
+            "not": {
+              "equals": [
+                "@triggerFormDataValue('onboardingID')",
+                "684798798asdfoawserh3w45pasdou8yvbasdbsadlasdfuiywsefrbaesw"
+              ]
+            }
+          },
+          {
+            "equals": [
+              "@body('Curiosity_Coaches_Approval')['submitActionId']",
+              "Approve"
+            ]
+          }
+        ]
+      },
+      "runAfter": {
+        "Curiosity_Coaches_Approval": [
+          "Succeeded"
+        ]
+      },
+      "type": "If"
+    },
+    "Skill_Agile_Development": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Agile_Development",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Skill_Agile_Development')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "SMILE_Space": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Skill_Communication": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Communication",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Skill_Communication')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Agile_Development": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Skill_Leadership": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Leadership",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Skill_Leadership')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Communication": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Skill_Office_365": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Office_365",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Skill_Office_365')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Leadership": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Skill_Project_Management": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Project_Management",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Skill_Project_Management')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Office_365": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Skill_Research": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Research",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Skill_Research')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Project_Management": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Skill_Sales": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Sales",
+            "type": "string",
+            "value": "@{triggerFormDataValue('Skill_Sales')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Research": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Skill_Teamwork": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Skill_Teamwork",
+            "type": "string",
+            "value": "@{triggerFormDataValue('Skill_Teamwork')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Sales": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Success_Code": {
+      "inputs": {
+        "headers": {
+          "location": "https://taolearning.org/welcome.html"
+        },
+        "statusCode": 200
+      },
+      "kind": "Http",
+      "runAfter": {},
+      "type": "Response"
+    },
+    "Test_Condition": {
+      "actions": {
+        "Terminate": {
+          "inputs": {
+            "runStatus": "Succeeded"
+          },
+          "type": "Terminate"
+        }
+      },
+      "else": {
+        "actions": {}
+      },
+      "expression": {
+        "and": [
+          {
+            "contains": [
+              "@triggerFormDataValue('test')",
+              "on"
+            ]
+          },
+          {
+            "not": {
+              "equals": [
+                "@triggerFormDataValue('test')",
+                "Null"
+              ]
+            }
+          }
+        ]
+      },
+      "runAfter": {
+        "Success_Code": [
+          "Succeeded",
+          "Skipped",
+          "Failed"
+        ]
+      },
+      "type": "If"
+    },
+    "Time_Interest": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Time",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Time_Interest')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Current_Level": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Total_Skills": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Total_Skills",
+            "type": "integer",
+            "value": "@add(add(add(int(variables('Skill_Communication')), int(variables('Skill_Leadership'))), add(int(variables('Skill_Research')), int(variables('Skill_Project_Management')))), add(add(int(variables('Skill_Sales')), int(variables('Skill_Agile_Development'))), add(int(variables('Skill_Office_365')), int(variables('Skill_Teamwork')))))"
+          }
+        ]
+      },
+      "runAfter": {
+        "Skill_Teamwork": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "USDT": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "USDT",
+            "type": "String",
+            "value": "@{triggerFormDataValue('USDT')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Total_Skills": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Understand_Days": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Understand_Days",
+            "type": "string",
+            "value": "@{triggerFormDataValue('Understand_Days')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Binance_Pay_ID": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "User_Password": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "User Password",
+            "type": "String",
+            "value": "@{triggerFormDataValue('password')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Marketing": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Website": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Website",
+            "type": "String",
+            "value": "@{triggerFormDataValue('website')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Message": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Zip_Code": {
+      "inputs": {
+        "variables": [
+          {
+            "name": "Zip Code",
+            "type": "String",
+            "value": "@{triggerFormDataValue('Zip_Code')}"
+          }
+        ]
+      },
+      "runAfter": {
+        "Location": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    }
+  },
+  "contentVersion": "1.0.0.0",
+  "outputs": {},
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "manual": {
+      "inputs": {
+        "method": "POST",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "properties": {
+            "body": {
+              "properties": {
+                "$formdata": {
+                  "items": {
+                    "properties": {
+                      "Address": {
+                        "type": "string"
+                      },
+                      "Backgound_Check": {
+                        "type": "string"
+                      },
+                      "Birth_Date": {
+                        "type": "string"
+                      },
+                      "City": {
+                        "type": "string"
+                      },
+                      "Correspondence_Accept": {
+                        "type": "string"
+                      },
+                      "Currency": {
+                        "type": "string"
+                      },
+                      "Display_Name": {
+                        "type": "string"
+                      },
+                      "Driver_License": {
+                        "type": "string"
+                      },
+                      "Drug_Test": {
+                        "type": "string"
+                      },
+                      "Education_Level": {
+                        "type": "string"
+                      },
+                      "Email": {
+                        "type": "string"
+                      },
+                      "First_Name": {
+                        "type": "string"
+                      },
+                      "Gender": {
+                        "type": "string"
+                      },
+                      "GitHub_Username": {
+                        "type": "string"
+                      },
+                      "Intro_Video": {
+                        "type": "string"
+                      },
+                      "Invite_Code": {
+                        "type": "string"
+                      },
+                      "Last_Name": {
+                        "type": "string"
+                      },
+                      "LinkedIn_Username": {
+                        "type": "string"
+                      },
+                      "Location": {
+                        "type": "string"
+                      },
+                      "MS_Learn_Username": {
+                        "type": "string"
+                      },
+                      "Message": {
+                        "type": "string"
+                      },
+                      "Phone_Number": {
+                        "type": "string"
+                      },
+                      "Policy_Terms": {
+                        "type": "string"
+                      },
+                      "Prefix": {
+                        "type": "string"
+                      },
+                      "Prev_Salary": {
+                        "type": "string"
+                      },
+                      "Program_Interest": {
+                        "type": "string"
+                      },
+                      "Reference": {
+                        "type": "string"
+                      },
+                      "Resume": {
+                        "type": "string"
+                      },
+                      "SMILE_Space": {
+                        "type": "string"
+                      },
+                      "Skill_Agile_Development": {
+                        "type": "string"
+                      },
+                      "Skill_Communication": {
+                        "type": "string"
+                      },
+                      "Skill_Leadership": {
+                        "type": "string"
+                      },
+                      "Skill_Office_365": {
+                        "type": "string"
+                      },
+                      "Skill_Project_Management": {
+                        "type": "string"
+                      },
+                      "Skill_Research": {
+                        "type": "string"
+                      },
+                      "Skill_Sales": {
+                        "type": "string"
+                      },
+                      "Skill_Teamwork": {
+                        "type": "string"
+                      },
+                      "Time_Interest": {
+                        "type": "string"
+                      },
+                      "USDT": {
+                        "type": "string"
+                      },
+                      "Understand_Days": {
+                        "type": "string"
+                      },
+                      "Zip_Code": {
+                        "type": "string"
+                      },
+                      "_gotcha": {
+                        "type": "string"
+                      },
+                      "budget": {
+                        "type": "string"
+                      },
+                      "campaign": {
+                        "type": "string"
+                      },
+                      "formType": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "pageName": {
+                        "type": "string"
+                      },
+                      "recaptcha_response": {
+                        "type": "string"
+                      },
+                      "score": {
+                        "type": "string"
+                      },
+                      "speedTestResult": {
+                        "type": "string"
+                      },
+                      "test": {
+                        "type": "string"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "website": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "kind": "Http",
+      "type": "Request"
+    }
+  }
+}
