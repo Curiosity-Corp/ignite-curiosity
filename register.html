@@ -52,6 +52,9 @@
 		// Best-effort token prefetch. Submit-time grecaptcha.execute in
 		// js/custom.register.validate.js is authoritative; this block must
 		// never throw (e.g. when an ad blocker prevents recaptcha loading).
+		// Action string must stay identical to RECAPTCHA_ACTION in
+		// js/custom.register.validate.js - formfunnel verifies the action
+		// and rejects tokens minted for a different (or missing) action.
 		try {
 			if (typeof grecaptcha !== 'undefined' && grecaptcha && grecaptcha.ready) {
 				grecaptcha.ready(function() {
@@ -955,7 +958,7 @@ list-style-type: none;
 	<script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/common_scripts_min.js"></script>
 <script src="js/functions.js"></script>
-	<script src="assets/validate.js"></script>
+	<script src="assets/validate.js?v=20260929a"></script>
 
 	<!-- SENDMAIL -->
 	<!-- <script src="js/vendor/validator.min.js"></script> -->
@@ -975,8 +978,8 @@ list-style-type: none;
 	<!-- MAIN JS -->
 	<script src="js/script.js"></script>
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
-	<script src="js/validate.min.js"></script>
-	<script src="js/custom.register.validate.js"></script>
+	<script src="js/validate.min.js?v=20260929a"></script>
+	<script src="js/custom.register.validate.js?v=20260929a"></script>
 
 	
 	<script src="assets/tel2/build/js/intlTelInput.js"></script>

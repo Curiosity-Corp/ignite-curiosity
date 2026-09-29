@@ -276,7 +276,7 @@ function handleFormSubmit(form, input) {
         showSuccess();
     } else {
         // console log the errors
-        console.log(errors);
+        regLog('validation-errors', JSON.stringify(errors));
         formError();
         submitMSG(false, "Did you fill in the form properly?");
     }
@@ -352,26 +352,56 @@ function resetForm() {
 }
 
 
-// Show a clear, non-silent error when bot verification cannot run.
-function showRecaptchaError(msg) {
+// Registration submit configuration. Bump REGISTER_SCRIPT_VERSION whenever
+// this file or register.html changes so cached copies are invalidated
+// (script tags carry ?v=REGISTER_SCRIPT_VERSION for cache-busting).
+// RECAPTCHA_ACTION must exactly match the action verified server-side by
+// formfunnel; the page prefetch in register.html uses the same string.
+// Tokens minted for a different action (or no action) are rejected as
+// invalid-token (HTTP 400).
+var RECAPTCHA_ACTION = 'TLI Member Registration';
+var REGISTER_SCRIPT_VERSION = '20260929a';
+
+// Structured submit-path log. Stages: validation-passed, stale-page,
+// recaptcha-unavailable, token-ready, missing-token, posting, post-success,
+// post-error, invalid-token, network. Never logs the token itself.
+function regLog(stage, detail) {
+    try {
+        console.log('[registerSubmit v' + REGISTER_SCRIPT_VERSION + '] ' + stage + (detail ? ' :: ' + detail : ''));
+    } catch (logErr) { /* logging must never break submission */ }
+}
+
+// Distinct submit errors: kind is one of stale-page, missing-token,
+// invalid-token, network, server-error, unexpected-status. Each kind gets its
+// own popup title and inline message so users (and ops) can tell a local
+// verification problem from a server token rejection from a connectivity
+// failure instead of seeing a single generic popup.
+function showSubmitError(kind, msg, title) {
+    regLog(kind, msg);
     submitMSG(false, msg);
     try {
         if (typeof Swal !== 'undefined' && Swal && Swal.fire) {
             Swal.fire({
-                title: 'Verification failed',
+                title: title,
                 html: msg,
                 type: 'error',
                 confirmButtonText: 'OK'
             });
-        } else if (typeof swal !== 'undefined' && swal && swal.fire) {
+            return;
+        }
+    } catch (alertErr) {
+        console.log('alert fallback failed', alertErr);
+    }
+    try {
+        if (typeof swal !== 'undefined' && swal && swal.fire) {
             swal.fire({
-                title: 'Verification failed',
+                title: title,
                 type: 'error',
                 confirmButtonText: 'Ok'
             });
         }
-    } catch (alertErr) {
-        console.log('alert fallback failed', alertErr);
+    } catch (legacyErr) {
+        console.log('legacy alert failed', legacyErr);
     }
 }
 
@@ -411,91 +441,133 @@ function showAlertSuccess() {
     }
 }
 
-function showAlertError(title) {
-    try {
-        if (typeof Swal !== 'undefined' && Swal && Swal.fire) {
-            Swal.fire({
-                title: title,
-                type: 'error',
-                confirmButtonText: 'Ok'
-            });
-            return;
-        }
-    } catch (alertErr) {
-        console.log('error alert failed', alertErr);
-    }
-    try {
-        if (typeof swal !== 'undefined' && swal && swal.fire) {
-            swal.fire({
-                title: title,
-                type: 'error',
-                confirmButtonText: 'Ok'
-            });
-        }
-    } catch (legacyErr) {
-        console.log('legacy error alert failed', legacyErr);
-    }
-}
-
 // this function handles success if form is valid
 function showSuccess() {
     submitMSG(true, 'Submitting... please wait.');
+    regLog('validation-passed', 'field validation OK, starting bot verification');
     var tokenInput = document.querySelector('input[name=token]');
     var recaptchaInput = document.getElementById('recaptchaResponse');
+    var submitBtn = document.querySelector('form#registerForm button[type=submit]');
+
+    if (!tokenInput || !recaptchaInput) {
+        // Stale-cached page: the expected hidden fields are absent from the
+        // DOM, so a submit could never carry a token. Force a reload.
+        showSubmitError(
+            'stale-page',
+            'This registration page is out of date (missing security fields). Please hard-reload (Ctrl+Shift+R), fill the form once more, and submit.',
+            'Page out of date - please reload'
+        );
+        return;
+    }
 
     function doSubmit(token) {
-        if (!token) {
-            showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+        if (!token || !token.length) {
+            // MISSING-TOKEN (client): verification ran but produced no token.
+            showSubmitError(
+                'missing-token',
+                'Verification did not produce a security token (missing-token). Please disable any ad blocker, reload the page, and retry. If it persists, try another browser.',
+                'Verification missing - reload required'
+            );
             return;
         }
-        if (tokenInput) {
-            tokenInput.value = token;
-        }
-        if (recaptchaInput) {
-            recaptchaInput.value = token;
-        }
+        // Always populate BOTH hidden fields before serializing the form.
+        tokenInput.value = token;
+        recaptchaInput.value = token;
+        regLog('token-ready', 'token length=' + token.length + '; token + recaptcha_response populated');
+        if (submitBtn) { submitBtn.disabled = true; }
         let a = $('form#registerForm');
+        regLog('posting', a.attr('method') + ' ' + a.attr('action'));
         $.ajax({
             type: a.attr('method'),
             url: a.attr('action'),
             data: a.serialize(),
+            timeout: 30000,
             success: function (data, textStatus, xhr) {
-                console.log(xhr.status)
+                regLog('post-success', 'status=' + xhr.status);
+                if (submitBtn) { submitBtn.disabled = false; }
                 if (xhr.status === 200) {
                     showAlertSuccess();
                     submitMSG(true, 'Registration received - pending coach approval. Watch your email (and Spam) for next steps.')
                     resetForm();
                 } else {
-                    showAlertError('Some Error Occurred!');
+                    showSubmitError(
+                        'unexpected-status',
+                        'Server returned an unexpected response (HTTP ' + xhr.status + '). Please retry; if it persists, contact a coach.',
+                        'Unexpected server response'
+                    );
                 }
             },
-            error: function (data) {
-                showAlertError('An unexpected Error Occurred!');
+            error: function (xhr, textStatus) {
+                var status = xhr ? xhr.status : 'unknown';
+                if (submitBtn) { submitBtn.disabled = false; }
+                if (status === 400) {
+                    // INVALID-TOKEN (server): formfunnel rejected the token.
+                    var body = '';
+                    try { body = (xhr.responseText || '').slice(0, 200); } catch (bodyErr) {}
+                    showSubmitError(
+                        'invalid-token',
+                        'Security check was rejected (invalid-token). Your verification expired or was issued for an old page version. Please reload the page and submit once more.',
+                        'Security check expired - reload and retry'
+                    );
+                    regLog('invalid-token', '400 body=' + body);
+                } else if (status === 0 || textStatus === 'timeout') {
+                    // NETWORK: no response reached us at all.
+                    showSubmitError(
+                        'network',
+                        'Network error - could not reach the registration service. Check your connection and retry.',
+                        'Network error - retry'
+                    );
+                } else {
+                    showSubmitError(
+                        'server-error',
+                        'Registration service error (HTTP ' + status + '). Please wait a minute and retry; if it persists, contact a coach.',
+                        'Service error - retry shortly'
+                    );
+                }
             },
         })
     }
 
     try {
         if (typeof grecaptcha === 'undefined' || !grecaptcha || !grecaptcha.execute || !grecaptcha.ready) {
-            showRecaptchaError('Verification failed to load (ad blocker or network issue). Please disable your ad blocker, reload the page, and retry.');
+            showSubmitError(
+                'missing-token',
+                'Verification failed to load - ad blocker or network issue (missing-token). Please disable your ad blocker, reload the page, and retry.',
+                'Verification missing - reload required'
+            );
             return;
         }
         grecaptcha.ready(function () {
             try {
-                grecaptcha.execute("6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO").then(function (token) {
+                regLog('recaptcha-ready', 'executing action=' + RECAPTCHA_ACTION);
+                // Pass the action explicitly: it must match the action
+                // verified server-side or the token is rejected as invalid.
+                grecaptcha.execute("6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO", {action: RECAPTCHA_ACTION}).then(function (token) {
                     doSubmit(token);
                 }, function (execErr) {
-                    console.log('grecaptcha execute failed', execErr);
-                    showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+                    showSubmitError(
+                        'missing-token',
+                        'Verification failed to run (missing-token). Please disable any ad blocker, reload the page, and retry.',
+                        'Verification missing - reload required'
+                    );
+                    regLog('missing-token', 'grecaptcha execute failed: ' + execErr);
                 });
             } catch (execSyncErr) {
-                console.log('grecaptcha execute threw', execSyncErr);
-                showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+                showSubmitError(
+                    'missing-token',
+                    'Verification threw an error (missing-token). Please disable any ad blocker, reload the page, and retry.',
+                    'Verification missing - reload required'
+                );
+                regLog('missing-token', 'grecaptcha execute threw: ' + execSyncErr);
             }
         });
     } catch (readyErr) {
-        console.log('grecaptcha ready failed', readyErr);
-        showRecaptchaError('Verification failed - please disable any ad blocker, reload the page, and retry.');
+        showSubmitError(
+            'missing-token',
+            'Verification failed to start (missing-token). Please disable any ad blocker, reload the page, and retry.',
+            'Verification missing - reload required'
+        );
+        regLog('missing-token', 'grecaptcha ready failed: ' + readyErr);
     }
 }
 
