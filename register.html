@@ -40,7 +40,7 @@
 
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-	<script src="https://www.google.com/recaptcha/api.js?render=6LfBPhgtAAAAAOxWLMZ-tQgSGOBJPN-f_zwTswqq"></script>
+	<script src="https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO"></script>
 	
 	<!-- Blue CSS -->
 	<link rel="stylesheet" type="text/css" href="css/blue.css">
@@ -59,11 +59,16 @@
 		// spaced string 'TLI Member Registration' is unmintable and made
 		// every prefetch fail. Canonical action is 'USIVA_OPT_Application',
 		// matching formfunnel RecaptchaExpectedAction.
+		// NOTE 2026-09-29: site key MUST be the classic v3 key below.
+		// formfunnel currently verifies via classic v3 siteverify (Enterprise
+		// assessment is disabled server-side), and the Enterprise site key has
+		// no classic secret: tokens minted with it are rejected as
+		// invalid-input-response for humans and bots alike (verified live).
 		try {
 			if (typeof grecaptcha !== 'undefined' && grecaptcha && grecaptcha.ready) {
 				grecaptcha.ready(function() {
 					try {
-						grecaptcha.execute('6LfBPhgtAAAAAOxWLMZ-tQgSGOBJPN-f_zwTswqq', {action: 'USIVA_OPT_Application'})
+						grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'USIVA_OPT_Application'})
 						.then(function(token) {
 							var recaptchaResponse = document.getElementById('recaptchaResponse');
 							if (recaptchaResponse) {
@@ -962,7 +967,7 @@ list-style-type: none;
 	<script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/common_scripts_min.js"></script>
 <script src="js/functions.js"></script>
-	<script src="assets/validate.js?v=20260929b"></script>
+	<script src="assets/validate.js?v=20260929c"></script>
 
 	<!-- SENDMAIL -->
 	<!-- <script src="js/vendor/validator.min.js"></script> -->
@@ -982,8 +987,8 @@ list-style-type: none;
 	<!-- MAIN JS -->
 	<script src="js/script.js"></script>
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
-	<script src="js/validate.min.js?v=20260929b"></script>
-	<script src="js/custom.register.validate.js?v=20260929b"></script>
+	<script src="js/validate.min.js?v=20260929c"></script>
+	<script src="js/custom.register.validate.js?v=20260929c"></script>
 
 	
 	<script src="assets/tel2/build/js/intlTelInput.js"></script>

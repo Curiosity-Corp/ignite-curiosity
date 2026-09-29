@@ -363,9 +363,17 @@ function resetForm() {
 // 'USIVA_OPT_Application', matching the formfunnel default; the historic
 // spaced string 'TLI Member Registration' is unmintable in any browser and
 // can never match a real token. Tokens minted for a different action (or no
-// action) are rejected as invalid-token (HTTP 400).
+// action) are rejected as invalid-token (HTTP 568).
+// SITE KEY (2026-09-29): classic v3 key 6LcHIYcU... - formfunnel verifies via
+// classic v3 siteverify while its Enterprise assessment path is disabled, and
+// the Enterprise site key has no classic secret. Minting with the Enterprise
+// key produced siteverify invalid-input-response for every token (proven by
+// live synthetic submit 2026-09-29: HTTP 400 error-codes
+// ["invalid-input-response"]). If formfunnel ever re-enables Enterprise
+// assessment, this key must be revisited together with the server config;
+// until then the classic key is the only one whose tokens can verify.
 var RECAPTCHA_ACTION = 'USIVA_OPT_Application';
-var REGISTER_SCRIPT_VERSION = '20260929b';
+var REGISTER_SCRIPT_VERSION = '20260929c';
 
 // Structured submit-path log. Stages: validation-passed, stale-page,
 // recaptcha-unavailable, token-ready, missing-token, posting, post-success,
@@ -547,7 +555,7 @@ function showSuccess() {
                 regLog('recaptcha-ready', 'executing action=' + RECAPTCHA_ACTION);
                 // Pass the action explicitly: it must match the action
                 // verified server-side or the token is rejected as invalid.
-                grecaptcha.execute("6LfBPhgtAAAAAOxWLMZ-tQgSGOBJPN-f_zwTswqq", {action: RECAPTCHA_ACTION}).then(function (token) {
+                grecaptcha.execute("6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO", {action: RECAPTCHA_ACTION}).then(function (token) {
                     doSubmit(token);
                 }, function (execErr) {
                     showSubmitError(
