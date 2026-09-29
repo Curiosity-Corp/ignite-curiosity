@@ -355,12 +355,17 @@ function resetForm() {
 // Registration submit configuration. Bump REGISTER_SCRIPT_VERSION whenever
 // this file or register.html changes so cached copies are invalidated
 // (script tags carry ?v=REGISTER_SCRIPT_VERSION for cache-busting).
-// RECAPTCHA_ACTION must exactly match the action verified server-side by
-// formfunnel; the page prefetch in register.html uses the same string.
-// Tokens minted for a different action (or no action) are rejected as
-// invalid-token (HTTP 400).
-var RECAPTCHA_ACTION = 'TLI Member Registration';
-var REGISTER_SCRIPT_VERSION = '20260929a';
+// RECAPTCHA_ACTION must exactly match RecaptchaExpectedAction verified
+// server-side by formfunnel; the page prefetch in register.html uses the same
+// string. Charset is constrained by Google: A-Za-z/_ ONLY (no spaces - a
+// spaced action makes grecaptcha.execute throw 'Invalid action name' and
+// yield no token at all, verified live 2026-09-29). The canonical action is
+// 'USIVA_OPT_Application', matching the formfunnel default; the historic
+// spaced string 'TLI Member Registration' is unmintable in any browser and
+// can never match a real token. Tokens minted for a different action (or no
+// action) are rejected as invalid-token (HTTP 400).
+var RECAPTCHA_ACTION = 'USIVA_OPT_Application';
+var REGISTER_SCRIPT_VERSION = '20260929b';
 
 // Structured submit-path log. Stages: validation-passed, stale-page,
 // recaptcha-unavailable, token-ready, missing-token, posting, post-success,
@@ -542,7 +547,7 @@ function showSuccess() {
                 regLog('recaptcha-ready', 'executing action=' + RECAPTCHA_ACTION);
                 // Pass the action explicitly: it must match the action
                 // verified server-side or the token is rejected as invalid.
-                grecaptcha.execute("6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO", {action: RECAPTCHA_ACTION}).then(function (token) {
+                grecaptcha.execute("6LfBPhgtAAAAAOxWLMZ-tQgSGOBJPN-f_zwTswqq", {action: RECAPTCHA_ACTION}).then(function (token) {
                     doSubmit(token);
                 }, function (execErr) {
                     showSubmitError(

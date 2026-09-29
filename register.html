@@ -40,7 +40,7 @@
 
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-	<script src="https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO"></script>
+	<script src="https://www.google.com/recaptcha/api.js?render=6LfBPhgtAAAAAOxWLMZ-tQgSGOBJPN-f_zwTswqq"></script>
 	
 	<!-- Blue CSS -->
 	<link rel="stylesheet" type="text/css" href="css/blue.css">
@@ -55,11 +55,15 @@
 		// Action string must stay identical to RECAPTCHA_ACTION in
 		// js/custom.register.validate.js - formfunnel verifies the action
 		// and rejects tokens minted for a different (or missing) action.
+		// NOTE: Google allows A-Za-z/_ only (no spaces); the historic
+		// spaced string 'TLI Member Registration' is unmintable and made
+		// every prefetch fail. Canonical action is 'USIVA_OPT_Application',
+		// matching formfunnel RecaptchaExpectedAction.
 		try {
 			if (typeof grecaptcha !== 'undefined' && grecaptcha && grecaptcha.ready) {
 				grecaptcha.ready(function() {
 					try {
-						grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'TLI Member Registration'})
+						grecaptcha.execute('6LfBPhgtAAAAAOxWLMZ-tQgSGOBJPN-f_zwTswqq', {action: 'USIVA_OPT_Application'})
 						.then(function(token) {
 							var recaptchaResponse = document.getElementById('recaptchaResponse');
 							if (recaptchaResponse) {
@@ -958,7 +962,7 @@ list-style-type: none;
 	<script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/common_scripts_min.js"></script>
 <script src="js/functions.js"></script>
-	<script src="assets/validate.js?v=20260929a"></script>
+	<script src="assets/validate.js?v=20260929b"></script>
 
 	<!-- SENDMAIL -->
 	<!-- <script src="js/vendor/validator.min.js"></script> -->
@@ -978,8 +982,8 @@ list-style-type: none;
 	<!-- MAIN JS -->
 	<script src="js/script.js"></script>
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
-	<script src="js/validate.min.js?v=20260929a"></script>
-	<script src="js/custom.register.validate.js?v=20260929a"></script>
+	<script src="js/validate.min.js?v=20260929b"></script>
+	<script src="js/custom.register.validate.js?v=20260929b"></script>
 
 	
 	<script src="assets/tel2/build/js/intlTelInput.js"></script>
