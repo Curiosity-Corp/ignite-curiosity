@@ -876,7 +876,7 @@
             "path": "/v1.0/users/@{encodeURIComponent(variables('Azure ID'))}/manager/$ref"
           },
           "runAfter": {
-            "Broadcast_Message_to_Dream_Quest_if_Found": [
+            "Add_User_to_Dream_Quest_Security_Group": [
               "Succeeded"
             ]
           },
