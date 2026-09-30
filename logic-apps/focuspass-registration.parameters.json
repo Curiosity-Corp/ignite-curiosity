@@ -1,0 +1,36 @@
+{
+  "$connections": {
+    "value": {
+      "azuread_1": {
+        "connectionId": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/resourceGroups/TLI-Analytics-Group/providers/Microsoft.Web/connections/azuread-1",
+        "connectionName": "azuread-1",
+        "id": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/providers/Microsoft.Web/locations/eastus/managedApis/azuread"
+      },
+      "dynamicscrmonline": {
+        "connectionId": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/resourceGroups/TLI-Analytics-Group/providers/Microsoft.Web/connections/dynamicscrmonline",
+        "connectionName": "dynamicscrmonline",
+        "id": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/providers/Microsoft.Web/locations/eastus/managedApis/dynamicscrmonline"
+      },
+      "excelonlinebusiness": {
+        "connectionId": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/resourceGroups/TLI-Analytics-Group/providers/Microsoft.Web/connections/excelonlinebusiness",
+        "connectionName": "excelonlinebusiness",
+        "id": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/providers/Microsoft.Web/locations/eastus/managedApis/excelonlinebusiness"
+      },
+      "office365": {
+        "connectionId": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/resourceGroups/TLI-Analytics-Group/providers/Microsoft.Web/connections/office365-3",
+        "connectionName": "office365-3",
+        "id": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/providers/Microsoft.Web/locations/eastus/managedApis/office365"
+      },
+      "teams": {
+        "connectionId": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/resourceGroups/FocusPass/providers/Microsoft.Web/connections/teams",
+        "connectionName": "teams",
+        "id": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/providers/Microsoft.Web/locations/eastus/managedApis/teams"
+      },
+      "twilio": {
+        "connectionId": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/resourceGroups/TLI-Analytics-Group/providers/Microsoft.Web/connections/twilio",
+        "connectionName": "twilio",
+        "id": "/subscriptions/6e60a8fd-9992-4ff7-8a3e-db96b4dfed4f/providers/Microsoft.Web/locations/eastus/managedApis/twilio"
+      }
+    }
+  }
+}

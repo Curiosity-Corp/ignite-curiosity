@@ -277,7 +277,7 @@
         },
         "host": {
           "connection": {
-            "name": "@parameters('$connections')['teams_1']['connectionId']"
+            "name": "@parameters('$connections')['teams']['connectionId']"
           }
         },
         "path": "/v1.0/teams/conversation/gatherinput/poster/Flow bot/location/@{encodeURIComponent('Group chat')}/$subscriptions"
@@ -977,7 +977,7 @@
             },
             "host": {
               "connection": {
-                "name": "@parameters('$connections')['teams_1']['connectionId']"
+                "name": "@parameters('$connections')['teams']['connectionId']"
               }
             },
             "method": "post",
@@ -1018,7 +1018,7 @@
           "inputs": {
             "host": {
               "connection": {
-                "name": "@parameters('$connections')['teams_1']['connectionId']"
+                "name": "@parameters('$connections')['teams']['connectionId']"
               }
             },
             "method": "get",
@@ -1035,7 +1035,7 @@
           "inputs": {
             "host": {
               "connection": {
-                "name": "@parameters('$connections')['teams_1']['connectionId']"
+                "name": "@parameters('$connections')['teams']['connectionId']"
               }
             },
             "method": "get",
@@ -1412,7 +1412,7 @@
             },
             "host": {
               "connection": {
-                "name": "@parameters('$connections')['teams_1']['connectionId']"
+                "name": "@parameters('$connections')['teams']['connectionId']"
               }
             },
             "method": "post",
