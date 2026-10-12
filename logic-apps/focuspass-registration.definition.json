@@ -448,16 +448,26 @@
           {
             "name": "Internet Speed",
             "type": "String",
-            "value": "@{first(split(triggerFormDataValue('speedTestResult'), '.'))}"
+            "value": "@{if(and(not(empty(outputs('Internet_Speed_Raw'))), empty(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(outputs('Internet_Speed_Raw'), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', ''))), outputs('Internet_Speed_Raw'), '0')}"
           }
         ]
       },
+      "runAfter": {
+        "Internet_Speed_Raw": [
+          "Succeeded"
+        ]
+      },
+      "type": "InitializeVariable"
+    },
+    "Internet_Speed_Raw": {
+      "description": "Integer part of the website speed test result. The form posts an empty speedTestResult when the browser speed test does not complete; Internet_Speed normalizes anything non-numeric to '0' so the int() colour logic on the approval cards can never fail.",
+      "inputs": "@first(split(trim(coalesce(triggerFormDataValue('speedTestResult'), '')), '.'))",
       "runAfter": {
         "Resume": [
           "Succeeded"
         ]
       },
-      "type": "InitializeVariable"
+      "type": "Compose"
     },
     "Intro_Video": {
       "inputs": {
