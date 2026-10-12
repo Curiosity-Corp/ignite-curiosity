@@ -1686,7 +1686,7 @@
           {
             "name": "Total_Skills",
             "type": "integer",
-            "value": "@add(add(add(int(variables('Skill_Communication')), int(variables('Skill_Leadership'))), add(int(variables('Skill_Research')), int(variables('Skill_Project_Management')))), add(add(int(variables('Skill_Sales')), int(variables('Skill_Agile_Development'))), add(int(variables('Skill_Office_365')), int(variables('Skill_Teamwork')))))"
+            "value": "@add(add(add(int(if(isInt(variables('Skill_Communication')), variables('Skill_Communication'), '0')), int(if(isInt(variables('Skill_Leadership')), variables('Skill_Leadership'), '0'))), add(int(if(isInt(variables('Skill_Research')), variables('Skill_Research'), '0')), int(if(isInt(variables('Skill_Project_Management')), variables('Skill_Project_Management'), '0')))), add(add(int(if(isInt(variables('Skill_Sales')), variables('Skill_Sales'), '0')), int(if(isInt(variables('Skill_Agile_Development')), variables('Skill_Agile_Development'), '0'))), add(int(if(isInt(variables('Skill_Office_365')), variables('Skill_Office_365'), '0')), int(if(isInt(variables('Skill_Teamwork')), variables('Skill_Teamwork'), '0')))))"
           }
         ]
       },
