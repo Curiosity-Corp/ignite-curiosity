@@ -610,7 +610,7 @@
         "Add_User_to_AI_Usage": {
           "inputs": {
             "body": {
-              "API Keys": "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",
+              "API Keys": "not-provisioned",
               "Banksy": "0",
               "Cat Prompt": "0",
               "Cat Response": "0",
