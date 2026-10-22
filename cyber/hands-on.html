@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hands-on Defense: Labs, CTFs &amp; Blue Team | SHIELD 2040 | Ignite Curiosity</title>
+    <meta name="description" content="Free labs, CTFs and blue-team practice, a home lab built with free tools, and the ethics of legal hacking, with costs and age eligibility marked.">
+    <meta name="keywords" content="campaign, cause, charity, donate, donations, event, foundation, fund, fundraising, kids, ngo, non-profit, organization, volunteer">
+    <meta name="author" content="ignitecuriosity.org"> 
+	
+	<!-- ==============================================
+	Favicons
+	=============================================== -->
+	<link rel="shortcut icon" href="../images/favicon.png">
+	<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png">
+	
+	<!-- ==============================================
+	CSS VENDOR
+	=============================================== -->
+	<link rel="stylesheet" type="text/css" href="../css/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="../fonts/awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/owl.theme.default.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/magnific-popup.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/animate.min.css">
+	
+	<!-- ==============================================
+	Custom Stylesheet
+	=============================================== -->
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	
+    <script src="../js/vendor/modernizr.min.js"></script>
+
+	<base href="../">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139076987-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-139076987-1');
+</script>
+
+</head>
+
+
+<body>
+
+	<!-- LOAD PAGE -->
+	<div class="animationload">
+		<div class="loader"></div>
+	</div>
+	
+	<!-- BACK TO TOP SECTION -->
+	<a href="#0" class="cd-top cd-is-visible cd-fade-out">Top</a>
+
+	<!-- HEADER -->
+    <div class="header header-2">
+
+	    <!-- NAVBAR SECTION -->
+		<div class="navbar-main">
+			<div class="container">
+			    <nav class="navbar navbar-expand-lg">
+			        
+					<!-- Logo -->
+						<a href="index.html">
+							<div>
+								<div class="navbar-brand">
+									<object data="images/logo.svg" width="300px"  height="60px" type="image/svg+xml" class="ignitecuriosity_logo">
+									<img src="images/logo.png" />
+									</object>
+							 </div>
+							 </div>
+						</a>
+
+			        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			            <span class="navbar-toggler-icon">
+							<svg class="icon-hamburger icon-menu" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 30 30">
+								<title>menu</title>
+								<path d="M2 6h28v6h-28zM2 14h28v6h-28zM2 22h28v6h-28z"></path>
+							</svg>
+						</span>
+			        </button>
+			        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+			            <ul class="navbar-nav ml-auto">
+			                <li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-about" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								ABOUT
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="../spark.html">SPARK Learning System</a>
+								<a class="dropdown-item" href="../whatwedo.html">What We Do</a>
+								<!-- <a class="dropdown-item" href="../score.html">Curiosity Scores</a> -->
+								<a class="dropdown-item" href="../team.html">Our Team</a>
+							</div>
+							</li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="index.html" id="navbarDropdown-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								SPARK
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="spark/orientation.html">Orientation</a>	
+								<a class="dropdown-item" href="../skills/soft.html">Soft Skills</a>
+								<a class="dropdown-item" href="spark/business.html">Business Development</a>
+								<a class="dropdown-item" href="spark/creative.html">Fine Arts & Creativity</a>
+								<a class="dropdown-item" href="spark/finance.html">Wealth &amp; Finance</a>
+								<a class="dropdown-item" href="spark/growth.html">Sales &amp; Growth Hacking</a>
+								<a class="dropdown-item" href="spark/hr.html">Human Resources</a>
+								<a class="dropdown-item" href="spark/programming.html">Computer Science &amp; Programming</a>
+								<a class="dropdown-item" href="spark/publishing.html">Publishing &amp; Storytelling</a>
+								<a class="dropdown-item" href="spark/retail.html">Lifestyle &amp; Retail</a>
+								<a class="dropdown-item" href="spark/ux.html">UX Research &amp; Data Science</a>
+								<a class="dropdown-item" href="../agile-learning.html">Agile Learning</a>
+								<a class="dropdown-item" href="../artificial-intelligence.html">Artificial Intelligence</a>
+								<a class="dropdown-item" href="../security.html">Security</a>
+								<a class="dropdown-item" href="../neural-engineering.html">Neural Engineering</a>
+								<a class="dropdown-item" href="../cryptography.html">Cryptography</a>
+								<a class="dropdown-item" href="pilot/index.html">PILOT: Agentic PM Track</a>
+								<a class="dropdown-item" href="ai-atlas/index.html">AI Academy Atlas</a>
+								<a class="dropdown-item" href="quantum/index.html">QUBIT Quest: Quantum</a>
+								<a class="dropdown-item" href="cyber/index.html">SHIELD 2040: Cyber</a>
+							</div>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-involved" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									GET INVOLVED
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">	
+									<a class="dropdown-item" href="https://curiosityhive.org/" target="_blank">Join a Community</a>
+									<a class="dropdown-item" href="../get-involved.html">Volunteer with Us</a>
+									<a class="dropdown-item" href="../coach.html">Become a Coach</a>
+									<a class="dropdown-item" href="../partnerships.html">Create a Partnership</a>
+								</div>
+							</li>
+							<li class="nav-item">
+			                    <a class="nav-link" href="../shop.html" id="navbarDropdown-link" role="button" aria-haspopup="true" aria-expanded="false">
+						          SHOP
+								</a>
+			                </li>
+			            </ul>
+						 <a href="https://curiosityhive.org/" target="_blank" class="btn btn-secondary no-display-mobile btn-nav ml-auto">JOIN</a> 
+			            <a href="https://outlook.office365.com/owa/calendar/coaching@ignitecuriosity.org/bookings/" class="btn btn-primary btn-nav ml-auto">BOOK A COACH</a>
+			        </div>
+			    </nav>
+			</div>
+		</div> 
+    </div>
+	<!-- BANNER -->
+	<div class="section banner-page top100" data-background="img/corporate/Events-Details.jpg">
+		<div class="content-wrap-20 pos-relative">
+			<div class="d-flex justify-content-center bd-highlight mb-3">
+				<div class="title-page">Hands-on Defense</div>
+			</div>
+			<div class="d-flex justify-content-center bd-highlight mb-3">
+			    <nav aria-label="breadcrumb">
+				  <ol class="breadcrumb ">
+				    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+				    <li class="breadcrumb-item"><a href="cyber/index.html">SHIELD 2040</a></li>
+				    <li class="breadcrumb-item active" aria-current="page">Hands-on Defense</li>
+				  </ol>
+				</nav>
+		  	</div>
+		</div>
+	</div>
+
+	<!-- COURSE CONTENT -->
+	<div class="section">
+		<div class="content-wrap-20">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 col-md-8">
+
+						<!-- INTRO -->
+						<h2 class="section-heading">
+							<span>Practice</span> makes defenders: <span>Labs, CTFs &amp; Blue Team</span>
+						</h2>
+						<p class="section-subheading">Cybersecurity is a practice skill. You learn it by trying it, safely, in places built for it. In 2026 employers look for people who can show what they have done: a solved challenge, a home lab, an incident write-up. This page is pillar <strong>H</strong> of SHIELD 2040, <em>Hands-on defense</em>. It collects free practice platforms, competitions with their real costs and age rules, a home lab you can build with free tools, and the ethics that keep you on the right side of the law.</p>
+						<div class="spacer-30"></div>
+
+						<!-- WHAT YOU'LL BE ABLE TO DO -->
+						<h3 class="color-secondary">What you'll be able to do</h3>
+						<div class="spacer-10"></div>
+						<div class="row">
+								<div class="col-sm-6 col-md-6">
+									<div class="box-icon-2">
+										<div class="icon"><i class="fas fa-terminal"></i></div>
+										<div class="body-content">
+											<h4 class="title">Use the command line safely</h4>
+											<p>Solve beginner wargames and puzzles that teach Linux commands, files and permissions in a legal sandbox.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-6">
+									<div class="box-icon-2">
+										<div class="icon"><i class="fas fa-flag"></i></div>
+										<div class="body-content">
+											<h4 class="title">Capture your first flag</h4>
+											<p>Work through a capture-the-flag (CTF) challenge from reading the clue to submitting the answer.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-6">
+									<div class="box-icon-2">
+										<div class="icon"><i class="fas fa-search"></i></div>
+										<div class="body-content">
+											<h4 class="title">Investigate like a defender</h4>
+											<p>Read logs and network captures, and write down what happened in an incident timeline.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-6">
+									<div class="box-icon-2">
+										<div class="icon"><i class="fas fa-desktop"></i></div>
+										<div class="body-content">
+											<h4 class="title">Build a home lab</h4>
+											<p>Run virtual machines on your own computer with free tools, so you can practice without risking anything real.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-6">
+									<div class="box-icon-2">
+										<div class="icon"><i class="fas fa-heartbeat"></i></div>
+										<div class="body-content">
+											<h4 class="title">Monitor and detect</h4>
+											<p>Collect logs with Wazuh, Security Onion or Splunk and spot a suspicious pattern.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-6">
+									<div class="box-icon-2">
+										<div class="icon"><i class="fas fa-balance-scale"></i></div>
+										<div class="body-content">
+											<h4 class="title">Hack legally and ethically</h4>
+											<p>Explain authorization, scope and responsible disclosure, and know where the legal line is.</p>
+										</div>
+									</div>
+								</div>
+						</div>
+						<div class="spacer-30"></div>
+
+						<h3 class="color-secondary">Free practice <span class="color-primary">platforms</span></h3>
+						<p class="section-subheading">Everything here has a free way in. Some platforms limit what the free tier includes, and those limits change, so we say what we confirmed and what you should check. Hours are our own estimates. Ages are marked on every card. <strong>Only practice on systems these platforms give you.</strong></p>
+						<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-terminal"></i></div>
+								<div class="body-content">
+									<h4 class="title">OverTheWire wargames</h4>
+									<p><strong>Provider:</strong> OverTheWire. <strong>You earn:</strong> skills practice only (no certificate). Start with the <em>Bandit</em> wargame to learn Linux basics through puzzles you solve over SSH. <strong>Cost:</strong> <span class="color-primary">Free course</span> &middot; <strong>Level:</strong> Beginner &middot; <strong>About 10 to 20 hours for Bandit (estimate)</strong> <strong>Age:</strong> no age limit stated; recommended with a coach for under-13s.</p>
+								<a href="https://overthewire.org/wargames/" class="btn btn-primary" target="_blank" rel="noopener">Start the wargames</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-flag"></i></div>
+								<div class="body-content">
+									<h4 class="title">picoCTF / CyLab Security Academy (Carnegie Mellon University)</h4>
+									<p><strong>Provider:</strong> Carnegie Mellon CyLab. <strong>You earn:</strong> skills practice and annual competitions (no certificate). picoCTF.org is now the free CyLab Security Academy, run by the same CMU team, with a challenge library, learning paths and a CTF primer. <strong>Cost:</strong> <span class="color-primary">Free course</span> &middot; <strong>Level:</strong> Beginner to Intermediate &middot; <strong>Open-ended; about 10 hours to start (estimate)</strong> <strong>Age (youth-friendly):</strong> reports say accounts need users to be 13 or older, with parental consent for 13 to 17. Some competition prizes are limited to U.S. middle and high school students. Confirm on the site.</p>
+								<a href="https://picoctf.org/" class="btn btn-primary" target="_blank" rel="noopener">Open picoCTF</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-laptop-code"></i></div>
+								<div class="body-content">
+									<h4 class="title">TryHackMe: free rooms</h4>
+									<p><strong>Provider:</strong> TryHackMe. <strong>You earn:</strong> skills practice. The free plan includes a set of free rooms and a limited daily AttackBox browser machine. Completion certificates and the full library need a paid plan, and free-tier limits change, so check the site. <strong>Free certificate: no.</strong> <strong>Cost:</strong> <span class="color-primary">Free course (limited free tier)</span> &middot; <strong>Level:</strong> Beginner &middot; <strong>About 5 to 15 hours of free rooms (estimate)</strong> <strong>Age:</strong> minimum age not confirmed; use with a coach for under-18s.</p>
+								<a href="https://tryhackme.com/" class="btn btn-primary" target="_blank" rel="noopener">Open TryHackMe</a>
+								<a href="https://tryhackme.com/resources/blog/best-free-vs-paid-cybersecurity-learning-platforms-in-2026" class="btn btn-secondary" target="_blank" rel="noopener">Free vs paid (TryHackMe blog)</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-cube"></i></div>
+								<div class="body-content">
+									<h4 class="title">Hack The Box: Academy free modules and free tier</h4>
+									<p><strong>Provider:</strong> Hack The Box. <strong>You earn:</strong> skills practice. HTB's help center says the Tier 0 modules in HTB Academy are completely free (each costs Cubes that are refunded when you finish). Starting Point machines are the beginner lab category. Most other Academy content is paid. <strong>Cost:</strong> <span class="color-primary">Free course (Tier 0 modules)</span> &middot; <strong>Level:</strong> Beginner &middot; <strong>About 10 hours (estimate)</strong> <strong>Age:</strong> minimum age not confirmed; use with a coach for under-18s.</p>
+								<a href="https://academy.hackthebox.com/" class="btn btn-primary" target="_blank" rel="noopener">HTB Academy</a>
+								<a href="https://help.hackthebox.com/en/articles/12256202-introduction-to-htb-academy" class="btn btn-secondary" target="_blank" rel="noopener">How Academy works</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-shield-alt"></i></div>
+								<div class="body-content">
+									<h4 class="title">CyberDefenders: free blue-team labs</h4>
+									<p><strong>Provider:</strong> CyberDefenders. <strong>You earn:</strong> skills practice. Free accounts include a library of free blue-team labs (digital forensics, threat hunting, SOC work) with limited cloud time. The full library needs a paid plan. <strong>Cost:</strong> <span class="color-primary">Free course (limited free tier)</span> &middot; <strong>Level:</strong> Beginner to Intermediate &middot; <strong>About 1 to 3 hours per lab (estimate)</strong> <strong>Age:</strong> not stated; recommended for ages 16 and up with a coach (our guidance).</p>
+								<a href="https://cyberdefenders.org/blue-team-labs/" class="btn btn-primary" target="_blank" rel="noopener">Free blue-team labs</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-binoculars"></i></div>
+								<div class="body-content">
+									<h4 class="title">LetsDefend: free tier</h4>
+									<p><strong>Provider:</strong> LetsDefend. <strong>You earn:</strong> skills practice in a simulated SOC. Reports say the free tier includes some alert investigations and a SOC Analyst learning path; confirm what is free at sign-up because limits change. <strong>Cost:</strong> <span class="color-primary">Free course (limited free tier)</span> &middot; <strong>Level:</strong> Beginner to Intermediate &middot; <strong>About 10 hours (estimate)</strong> <strong>Age:</strong> not stated; recommended for ages 16 and up with a coach (our guidance).</p>
+								<a href="https://letsdefend.io/" class="btn btn-primary" target="_blank" rel="noopener">Open LetsDefend</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-clipboard-list"></i></div>
+								<div class="body-content">
+									<h4 class="title">Blue Team Labs Online</h4>
+									<p><strong>Provider:</strong> Security Blue Team. <strong>You earn:</strong> skills practice with investigation challenges. A set of challenges is free; the full lab library is paid. We could not confirm the current free-tier size, so check the site. <strong>Cost:</strong> <span class="color-primary">Free course (limited free tier)</span> &middot; <strong>Level:</strong> Beginner to Intermediate &middot; <strong>About 1 to 2 hours per challenge (estimate)</strong> <strong>Age:</strong> not stated; recommended for ages 16 and up with a coach (our guidance).</p>
+								<a href="https://blueteamlabs.online/" class="btn btn-primary" target="_blank" rel="noopener">Open Blue Team Labs Online</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+						<div class="spacer-30"></div>
+
+						<h3 class="color-secondary">Competitions and <span class="color-primary">youth programs</span></h3>
+						<p class="section-subheading">Competitions are a great way to practice with a deadline and a team. Check the cost and the eligibility line on each card first, because several are for students only.</p>
+						<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-trophy"></i></div>
+								<div class="body-content">
+									<h4 class="title">National Cyber League (NCL)</h4>
+									<p><strong>Provider:</strong> Cyber Skyline. <strong>You earn:</strong> a scouting report and skills ranking from individual and team games. <strong>Not free by default:</strong> regular registration is $45 for the season ($55 late). NCL's donation page says donations fund free registrations, so ask NCL about a waiver. Fall 2026 registration has closed (late registration ended Oct. 13), so plan for the next season. <strong>Cost:</strong> <span class="color-primary">Paid registration ($45; waivers via NCL)</span> &middot; <strong>Level:</strong> Beginner to Advanced &middot; <strong>Season-long, about 20 hours (estimate)</strong> <strong>Age (youth and students):</strong> must be 13 or older and a student in high school, college, an apprenticeship, an academic boot camp, or a transitioning veteran. U.S. and Canada only.</p>
+								<a href="https://nationalcyberleague.org/" class="btn btn-primary" target="_blank" rel="noopener">National Cyber League</a>
+								<a href="https://nationalcyberleague.org/competition/faq" class="btn btn-secondary" target="_blank" rel="noopener">NCL FAQ</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-flag-usa"></i></div>
+								<div class="body-content">
+									<h4 class="title">CyberPatriot (Air Force Association)</h4>
+									<p><strong>Provider:</strong> Air Force Association. <strong>You earn:</strong> team competition experience and a path toward scholarships and careers. <strong>Teams pay a registration fee</strong> (see the official Schedule and Fees page), so it is not a free course; some states and sponsors help with fees. <strong>Cost:</strong> <span class="color-primary">Team fee applies</span> &middot; <strong>Level:</strong> Beginner &middot; <strong>Season-long (about 3 hours per week, estimate)</strong> <strong>Age (youth only):</strong> Open Division for high school students, All Service Division for JROTC, Civil Air Patrol and Sea Cadets, and a Middle School Division. Teams have 2 to 6 students and one adult coach.</p>
+								<a href="https://www.uscyberpatriot.org/" class="btn btn-primary" target="_blank" rel="noopener">CyberPatriot</a>
+								<a href="https://www.uscyberpatriot.org/competition-schedule/" class="btn btn-secondary" target="_blank" rel="noopener">Schedule and fees</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-user-secret"></i></div>
+								<div class="body-content">
+									<h4 class="title">NSA Codebreaker Challenge</h4>
+									<p><strong>Provider:</strong> National Security Agency. <strong>You earn:</strong> points, awards and a standing among peers for the highest-scoring students. The 2026 challenge runs September 25, 2026 to January 20, 2027. We found <strong>no fee</strong> on the official pages. A certificate is not part of it. <strong>Cost:</strong> <span class="color-primary">No fee listed</span> &middot; <strong>Level:</strong> Intermediate to Advanced &middot; <strong>Self-paced, about 20 to 60 hours (estimate)</strong> <strong>Age (students):</strong> open to anyone with an email address from a recognized U.S. school or university. Only students earn points and awards.</p>
+								<a href="https://nsa-codebreaker.org/home" class="btn btn-primary" target="_blank" rel="noopener">NSA Codebreaker Challenge</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-medal"></i></div>
+								<div class="body-content">
+									<h4 class="title">US Cyber Games</h4>
+									<p><strong>Provider:</strong> US Cyber Games (Katzcy, with NIST NICE). <strong>You earn:</strong> free qualifier events, practice and, for top athletes, a place on the US Cyber Team. Season VI is current. The open event was free and open to everyone in the reports we found; the team application has stricter rules. <strong>Cost:</strong> <span class="color-primary">Free course (open events)</span> &middot; <strong>Level:</strong> Beginner to Advanced &middot; <strong>Varies</strong> <strong>Age:</strong> open events reported as no age limit. The US Cyber Team application requires U.S. citizenship and a birth date on or after January 1, 2000 (reported). Confirm on the official site.</p>
+								<a href="https://www.uscybergames.com/" class="btn btn-primary" target="_blank" rel="noopener">US Cyber Games</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-campground"></i></div>
+								<div class="body-content">
+									<h4 class="title">US Cyber Challenge</h4>
+									<p><strong>Provider:</strong> US Cyber Challenge. <strong>You earn:</strong> its Cyber Quests (online competitions) and Cyber Camps (week-long training). <strong>Current status not confirmed:</strong> the site describes both, but we found no current dates, cost or eligibility, so check with the organizers before you plan around it. <strong>Cost:</strong> <span class="color-primary">Cost not confirmed</span> &middot; <strong>Level:</strong> Intermediate &middot; <strong>Varies</strong></p>
+								<a href="https://uscyberchallenge.org/" class="btn btn-primary" target="_blank" rel="noopener">US Cyber Challenge</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+						<div class="spacer-30"></div>
+
+						<h3 class="color-secondary">Build your <span class="color-primary">home lab</span> with free tools</h3>
+						<p class="section-subheading">A home lab is a few virtual computers on your own machine that you are allowed to break. All of these tools are free to download. Build in this order and keep the lab on a private virtual network, not connected to the internet.</p>
+						<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-cubes"></i></div>
+								<div class="body-content">
+									<h4 class="title">Step 1 &middot; VirtualBox</h4>
+									<p>Free, open-source virtualization from Oracle. It runs your lab computers inside your own computer. Start with 8 GB of RAM or more if you can. <strong>Level:</strong> Beginner &middot; <strong>About 2 hours</strong> (estimate)</p>
+								<a href="https://www.virtualbox.org/wiki/Downloads" class="btn btn-primary" target="_blank" rel="noopener">Download VirtualBox</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-dragon"></i></div>
+								<div class="body-content">
+									<h4 class="title">Step 2 &middot; Kali Linux</h4>
+									<p>A free Linux distribution with security tools preinstalled. Use it <em>only</em> against machines you own or have written permission to test. Kali publishes ready-made virtual machine images for VirtualBox. <strong>Level:</strong> Beginner to Intermediate &middot; <strong>About 3 hours</strong> to set up and explore (estimate)</p>
+								<a href="https://www.kali.org/get-kali/" class="btn btn-primary" target="_blank" rel="noopener">Get Kali</a>
+								<a href="https://www.kali.org/docs/" class="btn btn-secondary" target="_blank" rel="noopener">Kali docs</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-wave-square"></i></div>
+								<div class="body-content">
+									<h4 class="title">Step 3 &middot; Wireshark</h4>
+									<p>Free network protocol analyzer. Capture traffic between your lab machines, then filter for DNS, HTTP and the TCP handshake to see networking in action. <strong>Level:</strong> Beginner &middot; <strong>About 5 hours</strong> (estimate)</p>
+								<a href="https://www.wireshark.org/download.html" class="btn btn-primary" target="_blank" rel="noopener">Download Wireshark</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-heartbeat"></i></div>
+								<div class="body-content">
+									<h4 class="title">Step 4 &middot; Wazuh</h4>
+									<p>Free, open-source security monitoring (host intrusion detection, log analysis, file integrity). Use the official quickstart to run it, then install the agent on a lab machine and watch the alerts. <strong>Level:</strong> Intermediate &middot; <strong>About 6 hours</strong> (estimate)</p>
+								<a href="https://documentation.wazuh.com/current/quickstart.html" class="btn btn-primary" target="_blank" rel="noopener">Wazuh quickstart</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-layer-group"></i></div>
+								<div class="body-content">
+									<h4 class="title">Step 5 &middot; Security Onion</h4>
+									<p>Free, open-source platform for network security monitoring, intrusion detection and log management, built for defenders. It needs more memory than the other tools, so plan a dedicated virtual machine. <strong>Level:</strong> Intermediate &middot; <strong>About 8 hours</strong> (estimate)</p>
+								<a href="https://securityonionsolutions.com/software" class="btn btn-primary" target="_blank" rel="noopener">Security Onion software</a>
+								<a href="https://docs.securityonion.net/en/2.4/" class="btn btn-secondary" target="_blank" rel="noopener">Documentation</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+
+							<div class="box-icon-2">
+								<div class="icon"><i class="fas fa-chart-bar"></i></div>
+								<div class="body-content">
+									<h4 class="title">Step 6 &middot; Splunk: free trial and free security courses</h4>
+									<p>Splunk offers a 60-day free trial of Splunk Enterprise (500 MB per day, no credit card), which you can convert to a perpetual free license, and a free self-paced eLearning library that includes security courses such as <em>SOC Essentials</em>. Check Splunk's current license terms for the free license limits. <strong>Level:</strong> Intermediate &middot; <strong>About 8 hours</strong> (estimate)</p>
+								<a href="https://www.splunk.com/en_us/download/splunk-enterprise.html" class="btn btn-primary" target="_blank" rel="noopener">Splunk Enterprise free trial</a>
+								<a href="https://www.splunk.com/en_us/training/free-courses/overview.html" class="btn btn-secondary" target="_blank" rel="noopener">Free Splunk courses</a>
+								</div>
+							</div>
+							<div class="spacer-10"></div>
+						<div class="spacer-30"></div>
+
+						<h3 class="color-secondary">Safety and <span class="color-primary">ethics</span></h3>
+						<p class="section-subheading">Cyber defenders are trusted with powerful skills. The rule is simple: <strong>only test what you own or have clear, written permission to test.</strong> Breaking into other people's systems is illegal in most countries, even if you mean no harm.</p>
+						<div class="spacer-10"></div>
+						<ul>
+							<li><strong>Stay in the sandbox.</strong> Use the platforms above and your own isolated lab. Never scan or attack a school, a business or a stranger's network.</li>
+							<li><strong>Know the scope.</strong> A CTF or bug-bounty program tells you exactly what you may test. Stay inside it.</li>
+							<li><strong>Disclose responsibly.</strong> If you ever find a real weakness, stop, do not access data, and report it privately to the owner. <a href="https://www.cisa.gov/coordinated-vulnerability-disclosure-process" target="_blank" rel="noopener">CISA's coordinated vulnerability disclosure process</a> explains how, and <a href="https://disclose.io/" target="_blank" rel="noopener">disclose.io</a> promotes safe-harbor policies.</li>
+							<li><strong>Learn the rules for hackers.</strong> <a href="https://hackerone.com/hacker101" target="_blank" rel="noopener">Hacker101</a> is a free course on web security and ethical bug hunting. Laws differ by country, so ask your coach before you take part in any real-world program.</li>
+							<li><strong>Protect people.</strong> Never share other people's data, passwords or private details, even inside a lab.</li>
+						</ul>
+						<div class="spacer-30"></div>
+
+						<h3 class="color-secondary">For Curiosity <span class="color-primary">Coaches</span></h3>
+						<p class="section-subheading">Use this page once a learner has finished the first steps of <a href="cyber/foundations.html">Cyber Security Foundations</a>. Always read the safety section out loud before the first lab.</p>
+						<div class="spacer-10"></div>
+						<h5 class="color-primary">Discussion prompts</h5>
+						<ul>
+							<li>What is the difference between a defender and an attacker? Why do defenders need to think like attackers?</li>
+							<li>Where is the legal line? Describe a case where &quot;I was just curious&quot; would still be wrong.</li>
+							<li>After a lab, ask: what evidence did you find, and what would you tell a manager?</li>
+						</ul>
+						<h5 class="color-primary">A 4-week hands-on plan</h5>
+						<ul>
+							<li><strong>Week 1:</strong> OverTheWire Bandit, levels 0 to 10. Learn ls, cat, find and permissions.</li>
+							<li><strong>Week 2:</strong> picoCTF or TryHackMe free rooms. Solve three challenges and write a short walkthrough for each.</li>
+							<li><strong>Week 3:</strong> install VirtualBox and Wireshark. Capture a web page load and explain each step.</li>
+							<li><strong>Week 4:</strong> one free CyberDefenders or LetsDefend investigation, written up as a timeline. Optional: Wazuh in the lab.</li>
+						</ul>
+						<h5 class="color-primary">Age and level fit</h5>
+						<ul>
+							<li><strong>Ages 10 to 12:</strong> OverTheWire and picoCTF puzzles side by side with a coach. No account creation without a parent.</li>
+							<li><strong>Ages 13 to 17:</strong> picoCTF, TryHackMe free rooms and a school-based team (CyberPatriot, NCL if eligible). Parental consent needed where platforms require it.</li>
+							<li><strong>Adults and career-changers:</strong> the full home lab and the blue-team platforms, then NSA Codebreaker or US Cyber Games if eligible.</li>
+						</ul>
+						<div class="spacer-30"></div>
+
+						<h3 class="color-secondary">Free resource <span class="color-primary">library</span></h3>
+						<div class="spacer-10"></div>
+						<div class="row">
+							<div class="col-sm-6 col-md-6">
+								<h5 class="color-primary">Practice platforms</h5>
+								<ul>
+									<li><a href="https://overthewire.org/wargames/" target="_blank" rel="noopener">OverTheWire wargames</a></li>
+									<li><a href="https://picoctf.org/" target="_blank" rel="noopener">picoCTF / CyLab Security Academy</a></li>
+									<li><a href="https://tryhackme.com/" target="_blank" rel="noopener">TryHackMe</a></li>
+									<li><a href="https://academy.hackthebox.com/" target="_blank" rel="noopener">Hack The Box Academy</a></li>
+									<li><a href="https://cyberdefenders.org/" target="_blank" rel="noopener">CyberDefenders</a></li>
+									<li><a href="https://letsdefend.io/" target="_blank" rel="noopener">LetsDefend</a></li>
+									<li><a href="https://blueteamlabs.online/" target="_blank" rel="noopener">Blue Team Labs Online</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<h5 class="color-primary">Competitions</h5>
+								<ul>
+									<li><a href="https://nationalcyberleague.org/" target="_blank" rel="noopener">National Cyber League</a></li>
+									<li><a href="https://www.uscyberpatriot.org/" target="_blank" rel="noopener">CyberPatriot</a></li>
+									<li><a href="https://nsa-codebreaker.org/home" target="_blank" rel="noopener">NSA Codebreaker Challenge</a></li>
+									<li><a href="https://www.uscybergames.com/" target="_blank" rel="noopener">US Cyber Games</a></li>
+									<li><a href="https://uscyberchallenge.org/" target="_blank" rel="noopener">US Cyber Challenge</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<h5 class="color-primary">Home-lab tools</h5>
+								<ul>
+									<li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">VirtualBox</a></li>
+									<li><a href="https://www.kali.org/get-kali/" target="_blank" rel="noopener">Kali Linux</a></li>
+									<li><a href="https://www.wireshark.org/download.html" target="_blank" rel="noopener">Wireshark</a></li>
+									<li><a href="https://documentation.wazuh.com/current/quickstart.html" target="_blank" rel="noopener">Wazuh quickstart</a></li>
+									<li><a href="https://securityonionsolutions.com/software" target="_blank" rel="noopener">Security Onion</a></li>
+									<li><a href="https://www.splunk.com/en_us/download/splunk-enterprise.html" target="_blank" rel="noopener">Splunk free trial</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<h5 class="color-primary">Ethics and next steps</h5>
+								<ul>
+									<li><a href="https://www.cisa.gov/coordinated-vulnerability-disclosure-process" target="_blank" rel="noopener">CISA coordinated vulnerability disclosure</a></li>
+									<li><a href="https://disclose.io/" target="_blank" rel="noopener">disclose.io</a></li>
+									<li><a href="https://hackerone.com/hacker101" target="_blank" rel="noopener">Hacker101</a></li>
+									<li><a href="cyber/foundations.html">Cyber Security Foundations (this site)</a></li>
+									<li><a href="cyber/index.html">SHIELD 2040 hub (this site)</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="spacer-10"></div>
+
+					</div>
+
+					<!-- SIDEBAR -->
+					<div class="col-sm-4 col-md-4">
+						<div class="widget text">
+						    <div class="widget-title">
+						        <h3>Hands-on FAQ</h3>
+						    </div>
+						    <div class="panel-group panel-faq" id="cyberHandsFaqAccordion">
+						        <div class="panel panel-default">
+						            <div class="panel-heading">
+						                <h4 class="panel-title">
+						                    <a data-toggle="collapse" data-parent="#cyberHandsFaqAccordion" href="#cyberHandsFaq1" aria-expanded="true" aria-controls="cyberHandsFaq1">
+						                        Is it really free?
+						                    </a>
+						                </h4>
+						            </div>
+						            <div id="cyberHandsFaq1" class="panel-collapse collapse in" role="tabpanel">
+						                <div class="panel-body">
+						                    OverTheWire, picoCTF, the home-lab tools and the free tiers are $0. NCL ($45 per season) and CyberPatriot (team fee) are not free by default, and we say so on each card. Free tiers on TryHackMe, Hack The Box, CyberDefenders, LetsDefend and Blue Team Labs are limited.
+						                </div>
+						            </div>
+						        </div>
+						        <div class="panel panel-default">
+						            <div class="panel-heading">
+						                <h4 class="panel-title">
+						                    <a class="collapsed" data-toggle="collapse" data-parent="#cyberHandsFaqAccordion" href="#cyberHandsFaq2" aria-expanded="false" aria-controls="cyberHandsFaq2">
+						                        Is hacking practice legal?
+						                    </a>
+						                </h4>
+						            </div>
+						            <div id="cyberHandsFaq2" class="panel-collapse collapse" role="tabpanel">
+						                <div class="panel-body">
+						                    Yes, when you only test systems you own or have written permission to test, such as a CTF platform or your own lab. Anything else can be illegal. Read the Safety and ethics section first.
+						                </div>
+						            </div>
+						        </div>
+						        <div class="panel panel-default">
+						            <div class="panel-heading">
+						                <h4 class="panel-title">
+						                    <a class="collapsed" data-toggle="collapse" data-parent="#cyberHandsFaqAccordion" href="#cyberHandsFaq3" aria-expanded="false" aria-controls="cyberHandsFaq3">
+						                        Where should a total beginner start?
+						                    </a>
+						                </h4>
+						            </div>
+						            <div id="cyberHandsFaq3" class="panel-collapse collapse" role="tabpanel">
+						                <div class="panel-body">
+						                    OverTheWire Bandit or picoCTF, then a free TryHackMe path. Pair them with the Foundations page so the words make sense.
+						                </div>
+						            </div>
+						        </div>
+						        <div class="panel panel-default">
+						            <div class="panel-heading">
+						                <h4 class="panel-title">
+						                    <a class="collapsed" data-toggle="collapse" data-parent="#cyberHandsFaqAccordion" href="#cyberHandsFaq4" aria-expanded="false" aria-controls="cyberHandsFaq4">
+						                        Are there youth options?
+						                    </a>
+						                </h4>
+						            </div>
+						            <div id="cyberHandsFaq4" class="panel-collapse collapse" role="tabpanel">
+						                <div class="panel-body">
+						                    Yes. CyberPatriot (middle and high school teams, fee applies), NCL (13+ students), and picoCTF (accounts 13+, reported). Each card marks age and eligibility.
+						                </div>
+						            </div>
+						        </div>
+						        <div class="panel panel-default">
+						            <div class="panel-heading">
+						                <h4 class="panel-title">
+						                    <a class="collapsed" data-toggle="collapse" data-parent="#cyberHandsFaqAccordion" href="#cyberHandsFaq5" aria-expanded="false" aria-controls="cyberHandsFaq5">
+						                        Do these give certificates?
+						                    </a>
+						                </h4>
+						            </div>
+						            <div id="cyberHandsFaq5" class="panel-collapse collapse" role="tabpanel">
+						                <div class="panel-body">
+						                    Mostly no. These are skills-practice platforms. For credentials, see the Foundations page. TryHackMe certificates are a paid feature.
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+
+						<div class="widget text">
+						    <div class="widget-title">
+						        <h4>Track your progress</h4>
+						    </div>
+						    <p>Keep a lab notebook: one issue per challenge or lab, labeled <code>learning::shield</code>. Write what you tried, what you learned and what you would tell a manager.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- CTA -->
+	<div class="section cta">
+		<div class="content-wrap-20">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<div class="cta-1">
+			              	<div class="body-text">
+			                	<h3>Ready for the next skill? Keep your lab running.</h3>
+			              	</div>
+			              	<div class="body-action">
+			                	<a href="cyber/index.html" class="btn btn-secondary">Back to SHIELD 2040</a>
+			                	<a href="https://outlook.office365.com/owa/calendar/coaching@ignitecuriosity.org/bookings/" class="btn btn-primary" target="_blank" rel="noopener">BOOK A COACH</a>
+			              	</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER SECTION -->
+	<div class="footer" data-background="images/1920/bg-map-dot.jpg">
+		<div class="content-wrap">
+			<div class="container">
+				
+				<div class="row">
+					<div class="col-sm-3 col-md-3">
+						<div class="footer-item">
+							<object data="images/logo.svg" width="100%"  height="60px" type="image/svg+xml" class="ignitecuriosity_logo">
+								<img src="images/logo.png" />
+								</object>
+						<div class="spacer-30"></div>
+						<p>Ignite Curiosity is a learning community with a focus to make STEAM cool for students of all ages. We share passion, excitement, and a love for learning with our international community.</p>
+					</div>
+				</div>
+
+				<div class="col-sm-3 col-md-3">
+					<div class="footer-item">
+						<div class="footer-title">
+							WHO WE ARE
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-6 col-md-6">
+								<ul class="list">
+									<li><a href="about2.html" title="About us">About us</a></li>
+									<li><a href="https://curiosityhive.org/" target="_blank" title="Community">Join the Community</a></li>
+									<li><a href="testimonials.html" title="Testimonials">Testimonials</a></li>
+									<li><a class="nav-link" target="_blank" href="https://app.powerbi.com/view?r=eyJrIjoiYmQ1ODZjYmUtMTAyMC00Mzk5LThkZmYtMzc4M2I4MWQzY2U2IiwidCI6IjJmZWJlOTBkLTg3MmUtNGUzMS1iMWVlLTc4OThhYWMwMTU5YyJ9">See Usage</a></li>
+									<li><a href="whatwedo.html" title="Faq">Faq</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<ul class="list">
+									<li><a href="team.html" title="Our Team">Our Team</a></li>
+									<li><a href="#" title="Events">Events</a></li>
+									<li><a href="contact.html" title="Contact Us">Contact Us</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3 col-md-3">
+					<div class="footer-item">
+						<div class="footer-title">
+							WHERE WE WORK
+						</div>
+						<ul class="list-info">
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-map-marker"></span>
+								</div>
+								<div class="info-text">125 Frederick St<br> Marietta OH 45750</div> </li>
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-phone"></span>
+								</div>
+								<div class="info-text">929-229-2917</div>
+							</li>
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-envelope"></span>
+								</div>
+								<div class="info-text">info@ignitecuriosity.org</div>
+							</li>
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-clock-o"></span>
+								</div>
+								<div class="info-text">Mon - Sat 09:00 - 17:00</div>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+				
+				<div class="col-sm-3 col-md-3">
+					<div class="footer-item">
+						<div class="footer-title">
+							A PROGRAM OF
+						</div>
+						<a href="https://curiositycorp.org" target="_blank">
+							<div>
+								<div class="navbar-brand">
+									<object data="images/logo_tli_dark.svg"  width="100%" height="50px" type="image/svg+xml" class="ignitecuriosity_logo">
+									<img src="images/logo_white350.png" />
+									</object>
+							 </div>
+							 </div>
+						</a>
+							<p>Curiosity Research Corporation is a Non Profit Organization designed to advance education in a P-20+ Initiative.</p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="fcopy">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<p class="ftex">Copyright 2024 &copy; <span class="color-primary">Ignite Curiosity</span>. Designed by <span class="color-primary"><a href="https://curiositycorp.org">Curiosity Research Corporation</a>.</span></p> 
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<!-- JS VENDOR -->
+	<script src="../js/vendor/jquery.min.js"></script>
+	<script src="../js/vendor/bootstrap.min.js"></script>
+	<script src="../js/vendor/owl.carousel.js"></script>
+	<script src="../js/vendor/jquery.magnific-popup.min.js"></script>
+
+	<!-- SENDMAIL -->
+	<script src="../js/vendor/validator.min.js"></script>
+	<script src="../js/vendor/form-scripts.js"></script>
+	
+	<!-- MAIN JS -->
+	<script src="../js/script.js"></script>
+
+		
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quantum Programming: Qiskit, Cirq, Q#, PennyLane &amp; more | QUBIT Quest | Ignite Curiosity</title>
+    <meta name="description" content="We Ignite Curiosity Worldwide and make STEAM Education cool.  We are a non-profit literacy program that focuses on all subjects for all ages.">
+    <meta name="keywords" content="campaign, cause, charity, donate, donations, event, foundation, fund, fundraising, kids, ngo, non-profit, organization, volunteer">
+    <meta name="author" content="ignitecuriosity.org"> 
+	
+	<!-- ==============================================
+	Favicons
+	=============================================== -->
+	<link rel="shortcut icon" href="../images/favicon.png">
+	<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png">
+	
+	<!-- ==============================================
+	CSS VENDOR
+	=============================================== -->
+	<link rel="stylesheet" type="text/css" href="../css/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="../fonts/awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/owl.theme.default.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/magnific-popup.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor/animate.min.css">
+	
+	<!-- ==============================================
+	Custom Stylesheet
+	=============================================== -->
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	
+    <script src="../js/vendor/modernizr.min.js"></script>
+
+	<base href="../">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139076987-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-139076987-1');
+</script>
+
+</head>
+
+
+<body>
+
+	<!-- LOAD PAGE -->
+	<div class="animationload">
+		<div class="loader"></div>
+	</div>
+	
+	<!-- BACK TO TOP SECTION -->
+	<a href="#0" class="cd-top cd-is-visible cd-fade-out">Top</a>
+
+	<!-- HEADER -->
+    <div class="header header-2">
+
+	    <!-- NAVBAR SECTION -->
+		<div class="navbar-main">
+			<div class="container">
+			    <nav class="navbar navbar-expand-lg">
+			        
+					<!-- Logo -->
+						<a href="index.html">
+							<div>
+								<div class="navbar-brand">
+									<object data="images/logo.svg" width="300px"  height="60px" type="image/svg+xml" class="ignitecuriosity_logo">
+									<img src="images/logo.png" />
+									</object>
+							 </div>
+							 </div>
+						</a>
+
+			        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			            <span class="navbar-toggler-icon">
+							<svg class="icon-hamburger icon-menu" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 30 30">
+								<title>menu</title>
+								<path d="M2 6h28v6h-28zM2 14h28v6h-28zM2 22h28v6h-28z"></path>
+							</svg>
+						</span>
+			        </button>
+			        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+			            <ul class="navbar-nav ml-auto">
+			                <li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-about" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								ABOUT
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="../spark.html">SPARK Learning System</a>
+								<a class="dropdown-item" href="../whatwedo.html">What We Do</a>
+								<!-- <a class="dropdown-item" href="../score.html">Curiosity Scores</a> -->
+								<a class="dropdown-item" href="../team.html">Our Team</a>
+							</div>
+							</li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="index.html" id="navbarDropdown-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								SPARK
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="spark/orientation.html">Orientation</a>	
+								<a class="dropdown-item" href="../skills/soft.html">Soft Skills</a>
+								<a class="dropdown-item" href="spark/business.html">Business Development</a>
+								<a class="dropdown-item" href="spark/creative.html">Fine Arts & Creativity</a>
+								<a class="dropdown-item" href="spark/finance.html">Wealth &amp; Finance</a>
+								<a class="dropdown-item" href="spark/growth.html">Sales &amp; Growth Hacking</a>
+								<a class="dropdown-item" href="spark/hr.html">Human Resources</a>
+								<a class="dropdown-item" href="spark/programming.html">Computer Science &amp; Programming</a>
+								<a class="dropdown-item" href="spark/publishing.html">Publishing &amp; Storytelling</a>
+								<a class="dropdown-item" href="spark/retail.html">Lifestyle &amp; Retail</a>
+								<a class="dropdown-item" href="spark/ux.html">UX Research &amp; Data Science</a>
+								<a class="dropdown-item" href="../agile-learning.html">Agile Learning</a>
+								<a class="dropdown-item" href="../artificial-intelligence.html">Artificial Intelligence</a>
+								<a class="dropdown-item" href="../security.html">Security</a>
+								<a class="dropdown-item" href="../neural-engineering.html">Neural Engineering</a>
+								<a class="dropdown-item" href="../cryptography.html">Cryptography</a>
+								<a class="dropdown-item" href="pilot/index.html">PILOT: Agentic PM Track</a>
+								<a class="dropdown-item" href="ai-atlas/index.html">AI Academy Atlas</a>
+								<a class="dropdown-item" href="quantum/index.html">QUBIT Quest: Quantum</a>
+								<a class="dropdown-item" href="cyber/index.html">SHIELD 2040: Cyber</a>
+							</div>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-involved" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									GET INVOLVED
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">	
+									<a class="dropdown-item" href="https://curiosityhive.org/" target="_blank">Join a Community</a>
+									<a class="dropdown-item" href="../get-involved.html">Volunteer with Us</a>
+									<a class="dropdown-item" href="../coach.html">Become a Coach</a>
+									<a class="dropdown-item" href="../partnerships.html">Create a Partnership</a>
+								</div>
+							</li>
+							<li class="nav-item">
+			                    <a class="nav-link" href="../shop.html" id="navbarDropdown-link" role="button" aria-haspopup="true" aria-expanded="false">
+						          SHOP
+								</a>
+			                </li>
+			            </ul>
+						 <a href="https://curiosityhive.org/" target="_blank" class="btn btn-secondary no-display-mobile btn-nav ml-auto">JOIN</a> 
+			            <a href="https://outlook.office365.com/owa/calendar/coaching@ignitecuriosity.org/bookings/" class="btn btn-primary btn-nav ml-auto">BOOK A COACH</a>
+			        </div>
+			    </nav>
+			</div>
+		</div> 
+    </div>
+	<!-- BANNER -->
+	<div class="section banner-page top100" data-background="img/corporate/Events-Details.jpg">
+		<div class="content-wrap-20 pos-relative">
+			<div class="d-flex justify-content-center bd-highlight mb-3">
+				<div class="title-page">Quantum Programming</div>
+			</div>
+			<div class="d-flex justify-content-center bd-highlight mb-3">
+			    <nav aria-label="breadcrumb">
+				  <ol class="breadcrumb ">
+				    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+				    <li class="breadcrumb-item"><a href="quantum/index.html">QUBIT Quest</a></li>
+				    <li class="breadcrumb-item active" aria-current="page">Quantum Programming</li>
+				  </ol>
+				</nav>
+		  	</div>
+		</div>
+	</div>
+
+	<!-- COURSE CONTENT -->
+	<div class="section">
+		<div class="content-wrap-20">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 col-md-8">
+<h2 class="section-heading">
+	<span>Build</span> your first <span>quantum circuit</span> this week
+</h2>
+<p class="section-subheading">You do not need a physics degree or a quantum computer to start programming one. In 2026 the major toolkits are free and open source, several companies let you run small circuits on real hardware at no cost, and a browser is enough to begin. The skill that grows from here is simple to name: describe a problem as a circuit, run it, read noisy results honestly, and improve it. That habit points toward 2040, when error-corrected machines may need people who think in both classical and quantum code. Today's devices are still small and noisy, so we teach this as exploration and craft, not as a promise of instant speedups. This page is the <strong>B</strong> in <a href="quantum/index.html">QUBIT Quest</a>: <strong>B</strong>uilding circuits.</p>
+<div class="spacer-30"></div>
+
+<h3 class="color-secondary">What you'll be able to do</h3>
+<div class="spacer-10"></div>
+<div class="row">
+<div class="col-sm-6 col-md-6">
+	<div class="box-icon-2">
+		<div class="icon"><i class="fas fa-project-diagram"></i></div>
+		<div class="body-content">
+			<h4 class="title">Build and draw a circuit</h4>
+			<p>Create a Bell-state circuit in code, draw it as a diagram and explain what each gate does to the qubits.</p>
+		</div>
+	</div>
+</div>
+<div class="col-sm-6 col-md-6">
+	<div class="box-icon-2">
+		<div class="icon"><i class="fas fa-chart-bar"></i></div>
+		<div class="body-content">
+			<h4 class="title">Run it and read the results</h4>
+			<p>Simulate a circuit thousands of times, plot the counts and explain why the answers are a spread of outcomes, not one number.</p>
+		</div>
+	</div>
+</div>
+<div class="col-sm-6 col-md-6">
+	<div class="box-icon-2">
+		<div class="icon"><i class="fas fa-microchip"></i></div>
+		<div class="body-content">
+			<h4 class="title">Try real hardware</h4>
+			<p>Send a tiny job to a real quantum processor and compare its noisy results with a perfect simulator.</p>
+		</div>
+	</div>
+</div>
+<div class="col-sm-6 col-md-6">
+	<div class="box-icon-2">
+		<div class="icon"><i class="fas fa-balance-scale"></i></div>
+		<div class="body-content">
+			<h4 class="title">Choose a toolkit sensibly</h4>
+			<p>Compare Qiskit, Cirq, Q#, PennyLane, CUDA-Q, pytket and others by language, goal and cost, then pick one for your next project.</p>
+		</div>
+	</div>
+</div>
+<div class="col-sm-6 col-md-6">
+	<div class="box-icon-2">
+		<div class="icon"><i class="fas fa-laptop-code"></i></div>
+		<div class="body-content">
+			<h4 class="title">Work without installing anything</h4>
+			<p>Use a browser composer, a hosted notebook or Google Colab to code quantum programs on a school Chromebook.</p>
+		</div>
+	</div>
+</div>
+<div class="col-sm-6 col-md-6">
+	<div class="box-icon-2">
+		<div class="icon"><i class="fas fa-brain"></i></div>
+		<div class="body-content">
+			<h4 class="title">Connect circuits to AI</h4>
+			<p>Wrap a small circuit in PennyLane and train it like a model, as a first step toward quantum machine learning (see our <a href="quantum/algorithms.html">algorithms page</a>).</p>
+		</div>
+	</div>
+</div>
+</div>
+<div class="spacer-30"></div>
+
+<h3 class="color-secondary">Compare the free toolkits</h3>
+<p class="section-subheading">All of the toolkits below are free to download. The "first program" column is the exercise we suggest for your first hour. Costs for cloud hardware are noted honestly in the next section. Facts were checked against each provider's official pages in October 2026, so confirm current limits before you plan a session.</p>
+<div class="table-responsive">
+<table class="table table-striped table-bordered">
+<thead><tr><th>Platform</th><th>Language</th><th>Best for</th><th>Free learning</th><th>First program</th></tr></thead>
+<tbody>
+<tr><td><strong>IBM Qiskit</strong> + IBM Quantum Platform</td><td>Python</td><td>The most widely used toolkit; real IBM hardware on the free plan</td><td>IBM Quantum Learning courses, Qiskit docs and tutorials</td><td>Bell state: H then CNOT, run on the simulator, then on a real backend</td></tr>
+<tr><td><strong>Google Cirq</strong> + Quantum AI</td><td>Python</td><td>Hardware-aware circuits and research-style experiments</td><td>Cirq basics and tutorials; Colab notebooks</td><td>Build a 2-qubit circuit, simulate and print the measurement histogram</td></tr>
+<tr><td><strong>Microsoft QDK</strong> (Q#) + Azure Quantum</td><td>Q#, plus Python, Qiskit, Cirq and OpenQASM support</td><td>A purpose-built quantum language; resource estimation</td><td>Microsoft Learn docs and quickstarts</td><td>Q# "Hello Quantum": allocate a qubit, apply H, measure, repeat</td></tr>
+<tr><td><strong>Amazon Braket</strong></td><td>Python</td><td>One cloud for several hardware vendors (paid use)</td><td>AWS docs and the amazon-braket-examples notebooks</td><td>Run a Bell circuit on the free local simulator in the SDK</td></tr>
+<tr><td><strong>Xanadu PennyLane</strong></td><td>Python</td><td>Quantum machine learning and hybrid quantum-classical code</td><td>PennyLane Codebook, demos and docs</td><td>Make a one-qubit variational circuit and tune a rotation angle by gradient descent</td></tr>
+<tr><td><strong>NVIDIA CUDA-Q</strong></td><td>Python or C++</td><td>Fast GPU simulation and hybrid HPC workflows</td><td>CUDA-Q Academic notebooks</td><td>Write a kernel that prepares a GHZ state and sample it</td></tr>
+<tr><td><strong>Quantinuum pytket</strong></td><td>Python</td><td>Compiling and optimizing circuits for many different devices</td><td>pytket docs and user guide</td><td>Build a Bell circuit, then compile it for a simulated device and compare gate counts</td></tr>
+<tr><td><strong>Classiq</strong></td><td>Python (high-level model)</td><td>Describing what you want and letting software design the circuit</td><td>Classiq docs and open GitHub algorithm library</td><td>Run one notebook from the classiq-library tutorials</td></tr>
+</tbody>
+</table>
+</div>
+<div class="spacer-30"></div>
+
+<h3 class="color-secondary">Your free learning path</h3>
+<p class="section-subheading">Pick one toolkit first and go deep, then sample a second. Every step below is <strong>free</strong>. Hours are our own estimates. Where a certificate is not confirmed on the official page, we say so.</p>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-atom"></i></div>
+	<div class="body-content">
+		<h4 class="title">Step 1 &middot; IBM Qiskit and the IBM Quantum Platform</h4>
+		<p><strong>Provider:</strong> IBM. <strong>You earn:</strong> working Qiskit skills. The IBM Quantum Learning course <em>Basics of quantum information</em> is the first in a four-course series, and IBM offers an optional badge exam at IBM Training; <strong>the exam price is not confirmed</strong> on the course pages, so check before you book it. <strong>Free plan:</strong> the Open Plan lists up to 10 minutes of real quantum computer (QPU) time. IBM's docs describe this as per 28-day rolling window; the pricing page words it as per month. Active users may be eligible to request more time. <strong>Cost:</strong> <span class="color-primary">Free course</span> &middot; <strong>About 10 hours (estimate)</strong> &middot; Level: <strong>Beginner</strong></p>
+		<a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information" class="btn btn-primary" target="_blank" rel="noopener">Open the course</a><a href="https://quantum.cloud.ibm.com/docs/guides/plans-overview" class="btn btn-secondary" target="_blank" rel="noopener">See the free plan</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-search"></i></div>
+	<div class="body-content">
+		<h4 class="title">Step 2 &middot; Google Cirq tutorials</h4>
+		<p><strong>Provider:</strong> Google Quantum AI. <strong>You earn:</strong> Cirq skills (no certificate). Start with <em>Cirq basics</em>, which builds and simulates your first circuit. Cirq is free and open source. Note that running on Google's own processors is restricted to an approved group, so treat Cirq as a simulator and learning tool for now. <strong>Cost:</strong> <span class="color-primary">Free course</span> &middot; <strong>About 4 hours (estimate)</strong> &middot; Level: <strong>Intermediate</strong> (assumes some quantum background)</p>
+		<a href="https://quantumai.google/cirq/start/basics" class="btn btn-primary" target="_blank" rel="noopener">Cirq basics</a><a href="https://quantumai.google/cirq/tutorials" class="btn btn-secondary" target="_blank" rel="noopener">More tutorials</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-code"></i></div>
+	<div class="body-content">
+		<h4 class="title">Step 3 &middot; Microsoft Quantum Development Kit (Q#)</h4>
+		<p><strong>Provider:</strong> Microsoft. <strong>You earn:</strong> Q# skills (certificate not confirmed). The QDK is free and open source, and you do not need an Azure account to use it. Follow the Q# quickstart, then the Grover search tutorial. Azure Quantum itself needs an Azure account and workspace for real hardware, and <strong>we could not confirm a current free-credits offer</strong>, so check the Azure Quantum pricing page before relying on one. <strong>Cost:</strong> <span class="color-primary">Free course</span> (QDK and docs) &middot; <strong>About 5 hours (estimate)</strong> &middot; Level: <strong>Intermediate</strong></p>
+		<a href="https://learn.microsoft.com/en-us/azure/quantum/qsharp-quickstart" class="btn btn-primary" target="_blank" rel="noopener">Q# quickstart</a><a href="https://learn.microsoft.com/en-us/azure/quantum/pricing" class="btn btn-secondary" target="_blank" rel="noopener">Azure Quantum pricing</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-brain"></i></div>
+	<div class="body-content">
+		<h4 class="title">Step 4 &middot; Xanadu PennyLane Codebook and demos</h4>
+		<p><strong>Provider:</strong> Xanadu. <strong>You earn:</strong> a strong foundation in quantum computing and QML through 15 listed Codebook modules, from single-qubit gates to Shor's algorithm and Hamiltonian simulation (certificate not confirmed). PennyLane runs on many simulators and hardware backends. <strong>Cost:</strong> <span class="color-primary">Free course</span> &middot; <strong>About 20 hours (estimate)</strong> &middot; Level: <strong>Beginner to Intermediate</strong></p>
+		<a href="https://pennylane.ai/codebook" class="btn btn-primary" target="_blank" rel="noopener">Open the Codebook</a><a href="https://pennylane.ai/qml/demonstrations" class="btn btn-secondary" target="_blank" rel="noopener">Browse demos</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-bolt"></i></div>
+	<div class="body-content">
+		<h4 class="title">Step 5 &middot; NVIDIA CUDA-Q Academic</h4>
+		<p><strong>Provider:</strong> NVIDIA. <strong>You earn:</strong> hands-on skill in hybrid quantum-classical code (certificate not confirmed). CUDA-Q Academic is an open curriculum of Jupyter notebooks with a Quick Start to Quantum for beginners and advanced paths up to error correction. Notebooks can run locally or on qBraid, CoCalc or Google Colab. <strong>Cost:</strong> <span class="color-primary">Free course</span> &middot; <strong>About 8 hours (estimate)</strong> &middot; Level: <strong>Beginner to Advanced</strong></p>
+		<a href="https://nvidia.github.io/cuda-q-academic/" class="btn btn-primary" target="_blank" rel="noopener">Open CUDA-Q Academic</a><a href="https://developer.nvidia.com/cuda-q" class="btn btn-secondary" target="_blank" rel="noopener">About CUDA-Q</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-route"></i></div>
+	<div class="body-content">
+		<h4 class="title">Step 6 &middot; Quantinuum pytket</h4>
+		<p><strong>Provider:</strong> Quantinuum. <strong>You earn:</strong> skill at compiling the same circuit for different devices (no certificate). pytket installs from PyPI with pip, and the docs include a user guide and getting started page. Access to Quantinuum hardware is a commercial offering; <strong>we could not confirm a free hardware tier</strong>, so use the open-source toolkit with simulators. <strong>Cost:</strong> <span class="color-primary">Free course</span> (open-source docs) &middot; <strong>About 4 hours (estimate)</strong> &middot; Level: <strong>Intermediate</strong></p>
+		<a href="https://docs.quantinuum.com/tket/user-guide/" class="btn btn-primary" target="_blank" rel="noopener">pytket user guide</a><a href="https://docs.quantinuum.com/tket/api-docs/getting_started.html" class="btn btn-secondary" target="_blank" rel="noopener">Getting started</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-magic"></i></div>
+	<div class="body-content">
+		<h4 class="title">Step 7 &middot; Classiq (optional)</h4>
+		<p><strong>Provider:</strong> Classiq. <strong>You earn:</strong> a taste of high-level quantum design (certificate not confirmed). The open <em>classiq-library</em> on GitHub and the docs are free to read. <strong>We could not verify a free tier</strong> for the Classiq platform itself: its academia page lists education programs but states no price, so ask Classiq or your school before counting on free access. <strong>Cost:</strong> <span class="color-primary">Free course</span> (docs and library only; platform pricing not confirmed) &middot; <strong>About 3 hours (estimate)</strong> &middot; Level: <strong>Intermediate</strong></p>
+		<a href="https://docs.classiq.io/latest/getting-started/" class="btn btn-primary" target="_blank" rel="noopener">Classiq docs</a><a href="https://github.com/Classiq/classiq-library" class="btn btn-secondary" target="_blank" rel="noopener">Open the library</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-cloud"></i></div>
+	<div class="body-content">
+		<h4 class="title">Later, when sponsored &middot; Amazon Braket</h4>
+		<p><strong>Provider:</strong> Amazon Web Services. Braket is a <strong>paid</strong> cloud service for running circuits on several vendors' hardware. AWS lists one hour of included on-demand simulation per month for the first twelve months of using Braket, and a free local simulator in the Braket SDK. Hardware tasks are billed per use, so check the official pricing page for real prices before any session. For learners, the free local simulator and the example notebooks are the right place to begin. <strong>Cost:</strong> <span class="color-primary">Free local simulator</span>; cloud use is paid &middot; <strong>About 4 hours (estimate)</strong> &middot; Level: <strong>Intermediate</strong></p>
+		<a href="https://aws.amazon.com/braket/pricing/" class="btn btn-secondary" target="_blank" rel="noopener">Braket pricing (paid)</a><a href="https://github.com/amazon-braket/amazon-braket-examples" class="btn btn-primary" target="_blank" rel="noopener">Example notebooks</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="spacer-10"></div>
+<h3 class="color-secondary">Hands-on: install-free <span class="color-primary">labs</span></h3>
+<p class="section-subheading">These run in a browser, so they work on a school laptop. Most need a free account.</p>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-puzzle-piece"></i></div>
+	<div class="body-content">
+		<h4 class="title">IBM Quantum Composer</h4>
+		<p>Drag gates onto qubit lines, watch probabilities and the Q-sphere update, then switch to the code editor, which supports OpenQASM 2 and 3. Sign in to save your work. Try it first: make a Bell state and predict the outcomes before you press run.</p>
+		<a href="https://quantum.cloud.ibm.com/composer" class="btn btn-primary" target="_blank" rel="noopener">Open Composer</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-server"></i></div>
+	<div class="body-content">
+		<h4 class="title">qBraid Lab (free plan)</h4>
+		<p>A web-based IDE for quantum computing with ready-made environments for machine learning, chemistry and error correction. qBraid documents a free plan with a monthly CPU-hour allowance; its pricing page and docs list slightly different limits, so read the current numbers when you sign up. Free here means free of qBraid credits: jobs on some partner devices bill to a separate account.</p>
+		<a href="https://docs.qbraid.com/v2/lab/user-guide/usage-limits" class="btn btn-primary" target="_blank" rel="noopener">Check free limits</a><a href="https://qbraid.com/" class="btn btn-secondary" target="_blank" rel="noopener">qBraid</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-book-open"></i></div>
+	<div class="body-content">
+		<h4 class="title">Google Colab notebooks</h4>
+		<p>Colab gives you a free hosted notebook in the browser, with nothing to install except the toolkit with one pip command. Google publishes a Cirq getting-started notebook that opens in Colab, and CUDA-Q Academic lists Colab as a way to run its lessons.</p>
+		<a href="https://colab.research.google.com/github/quantumlib/Cirq/blob/main/docs/tutorials/google/start.ipynb" class="btn btn-primary" target="_blank" rel="noopener">Cirq notebook in Colab</a><a href="https://colab.research.google.com/" class="btn btn-secondary" target="_blank" rel="noopener">Google Colab</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="box-icon-2">
+	<div class="icon"><i class="fas fa-flask"></i></div>
+	<div class="body-content">
+		<h4 class="title">PennyLane demos and the QDK playground</h4>
+		<p>PennyLane demonstrations are runnable tutorials, from a first variational circuit to quantum chemistry. Microsoft's QDK also links a browser playground that opens in vscode.dev. Both let you read, change and rerun real code in minutes.</p>
+		<a href="https://pennylane.ai/qml/demonstrations" class="btn btn-primary" target="_blank" rel="noopener">PennyLane demos</a><a href="https://quantum.microsoft.com/" class="btn btn-secondary" target="_blank" rel="noopener">Microsoft Quantum</a>
+	</div>
+</div>
+<div class="spacer-10"></div>
+<div class="spacer-30"></div>
+
+<h3 class="color-secondary">For Curiosity <span class="color-primary">Coaches</span></h3>
+<p class="section-subheading">Coaches do not need to be quantum experts. Your job is to keep learners curious, help them run the code and ask good questions.</p>
+<div class="row">
+<div class="col-sm-6 col-md-6">
+<h5 class="color-primary">Discussion prompts</h5>
+<ul>
+<li>Why does the same circuit give different counts each run? What does that tell us about measurement?</li>
+<li>How is a quantum program like a recipe, and how is it not?</li>
+<li>The real machine gave "wrong" answers the simulator did not. What might cause that?</li>
+<li>If you could choose only one toolkit for a school club, which would you pick and why?</li>
+</ul>
+</div>
+<div class="col-sm-6 col-md-6">
+<h5 class="color-primary">4-week plan (about 1 hour per week)</h5>
+<ul>
+<li><strong>Week 1:</strong> Composer. Build and explain a Bell state without code.</li>
+<li><strong>Week 2:</strong> Recreate it in Qiskit or PennyLane in a notebook and plot the counts.</li>
+<li><strong>Week 3:</strong> Run on a real device if the learner has a free IBM account, then compare with the simulator.</li>
+<li><strong>Week 4:</strong> Try a second toolkit and write three sentences on which felt better.</li>
+</ul>
+</div>
+</div>
+<p><strong>Age and level fit:</strong> Composer and the Week 1 activity suit curious teens (about 13+) with no coding. Python notebooks suit learners comfortable with basic Python, such as high school and above. Cirq, pytket and Q# are better for intermediate learners and career changers. Always check each provider's age rules before a learner makes an account.</p>
+<div class="spacer-30"></div>
+
+<h3 class="color-secondary">Free resource <span class="color-primary">library</span></h3>
+<div class="spacer-10"></div>
+<div class="row">
+<div class="col-sm-6 col-md-6">
+<h5 class="color-primary">Qiskit and IBM</h5>
+<ul>
+<li><a href="https://quantum.cloud.ibm.com/learning" target="_blank" rel="noopener">IBM Quantum Learning</a></li>
+<li><a href="https://quantum.cloud.ibm.com/docs/en/guides/install-qiskit" target="_blank" rel="noopener">Install Qiskit</a></li>
+<li><a href="https://quantum.cloud.ibm.com/docs/en/tutorials" target="_blank" rel="noopener">Qiskit tutorials</a></li>
+<li><a href="https://quantum.cloud.ibm.com/docs/en/guides/online-lab-environments" target="_blank" rel="noopener">Online lab environments</a></li>
+<li><a href="https://github.com/Qiskit/qiskit" target="_blank" rel="noopener">Qiskit on GitHub</a></li>
+<li><a href="https://www.youtube.com/@qiskit" target="_blank" rel="noopener">Qiskit on YouTube</a></li>
+</ul>
+</div>
+<div class="col-sm-6 col-md-6">
+<h5 class="color-primary">Cirq, Q# and PennyLane</h5>
+<ul>
+<li><a href="https://quantumai.google/cirq/start/install" target="_blank" rel="noopener">Install Cirq</a></li>
+<li><a href="https://github.com/quantumlib/Cirq" target="_blank" rel="noopener">Cirq on GitHub</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/quantum/install-overview-qdk" target="_blank" rel="noopener">Set up the Microsoft QDK</a></li>
+<li><a href="https://github.com/microsoft/qsharp" target="_blank" rel="noopener">QDK and Q# on GitHub</a></li>
+<li><a href="https://pennylane.ai/install" target="_blank" rel="noopener">Install PennyLane</a></li>
+<li><a href="https://docs.pennylane.ai/en/stable/" target="_blank" rel="noopener">PennyLane docs</a></li>
+</ul>
+</div>
+<div class="col-sm-6 col-md-6">
+<h5 class="color-primary">CUDA-Q, pytket and Classiq</h5>
+<ul>
+<li><a href="https://nvidia.github.io/cuda-quantum/latest/using/quick_start.html" target="_blank" rel="noopener">CUDA-Q quick start</a></li>
+<li><a href="https://github.com/NVIDIA/cuda-quantum" target="_blank" rel="noopener">CUDA-Q on GitHub</a></li>
+<li><a href="https://docs.quantinuum.com/tket/api-docs/install.html" target="_blank" rel="noopener">Install pytket</a></li>
+<li><a href="https://github.com/CQCL/tket" target="_blank" rel="noopener">tket on GitHub</a></li>
+<li><a href="https://docs.classiq.io/latest/user-guide/" target="_blank" rel="noopener">Classiq user guide</a></li>
+</ul>
+</div>
+<div class="col-sm-6 col-md-6">
+<h5 class="color-primary">Cloud and community</h5>
+<ul>
+<li><a href="https://docs.aws.amazon.com/braket/latest/developerguide/braket-get-started.html" target="_blank" rel="noopener">Amazon Braket: get started</a></li>
+<li><a href="https://docs.aws.amazon.com/braket/latest/developerguide/braket-devices.html" target="_blank" rel="noopener">Amazon Braket devices</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/quantum/overview-azure-quantum" target="_blank" rel="noopener">What is Azure Quantum?</a></li>
+<li><a href="https://unitary.fund/" target="_blank" rel="noopener">Unitary Foundation</a> (open-source quantum community)</li>
+<li><a href="https://qworld.net/" target="_blank" rel="noopener">QWorld</a> (education community)</li>
+</ul>
+</div>
+</div>
+<div class="spacer-10"></div>
+<p>Related on this site: <a href="quantum/algorithms.html">Quantum Algorithms &amp; Quantum Machine Learning</a>, the <strong>I</strong> in QUBIT Quest.</p>
+
+					</div>
+					<!-- SIDEBAR -->
+					<div class="col-sm-4 col-md-4">
+<div class="widget text">
+    <div class="widget-title"><h3>Quantum Programming FAQ</h3></div>
+<div class="panel-group panel-faq" id="qprog">
+<div class="panel panel-default">
+<div class="panel-heading"><h4 class="panel-title">
+<a data-toggle="collapse" data-parent="#qprog" href="#qprogFaq1" aria-expanded="true" aria-controls="qprogFaq1">Do I need a quantum computer?</a>
+</h4></div>
+<div id="qprogFaq1" class="panel-collapse collapse in" role="tabpanel"><div class="panel-body">No. Every toolkit here runs a simulator on an ordinary laptop or in the browser. Real hardware is a bonus, not a requirement.</div></div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading"><h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#qprog" href="#qprogFaq2" aria-expanded="false" aria-controls="qprogFaq2">How much real hardware time is free?</a>
+</h4></div>
+<div id="qprogFaq2" class="panel-collapse collapse" role="tabpanel"><div class="panel-body">IBM's Open Plan lists up to 10 minutes of QPU time. That is enough for many small experiments, because each job often runs for seconds. IBM's docs describe it per 28-day rolling window while its pricing page says per month. Check IBM's plans overview for the current rule.</div></div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading"><h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#qprog" href="#qprogFaq3" aria-expanded="false" aria-controls="qprogFaq3">Which toolkit should a beginner pick?</a>
+</h4></div>
+<div id="qprogFaq3" class="panel-collapse collapse" role="tabpanel"><div class="panel-body">Qiskit has the most tutorials and a free real-hardware plan. PennyLane is a gentle choice if you already like machine learning. You can learn the ideas in one and carry them to another.</div></div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading"><h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#qprog" href="#qprogFaq4" aria-expanded="false" aria-controls="qprogFaq4">Is Amazon Braket free?</a>
+</h4></div>
+<div id="qprogFaq4" class="panel-collapse collapse" role="tabpanel"><div class="panel-body">No, it is a paid cloud service. The Braket SDK includes a free local simulator, and AWS lists one hour of included on-demand simulation per month for the first twelve months. Hardware use is billed.</div></div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading"><h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#qprog" href="#qprogFaq5" aria-expanded="false" aria-controls="qprogFaq5">Can I learn without knowing Python?</a>
+</h4></div>
+<div id="qprogFaq5" class="panel-collapse collapse" role="tabpanel"><div class="panel-body">Yes, to start. IBM Quantum Composer lets you build circuits by dragging gates. Add Python later; basic loops and functions are enough for most first programs.</div></div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading"><h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#qprog" href="#qprogFaq6" aria-expanded="false" aria-controls="qprogFaq6">Will this get me a job?</a>
+</h4></div>
+<div id="qprogFaq6" class="panel-collapse collapse" role="tabpanel"><div class="panel-body">It builds real skills and a portfolio of small projects, which is what quantum teams look at. Treat it as a strong start, then follow the Transition steps in QUBIT Quest.</div></div>
+</div>
+</div>
+</div>
+
+<div class="widget text">
+    <div class="widget-title"><h4>Honest note</h4></div>
+    <p>Free allowances change. We checked the official pages in October 2026, but always read the current terms before you plan a class around a quota.</p>
+</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- CTA -->
+	<div class="section cta">
+		<div class="content-wrap-20">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<div class="cta-1">
+							<div class="body-text">
+								<h3>Stay curious. The next qubit is yours.</h3>
+							</div>
+							<div class="body-action">
+								<a href="quantum/index.html" class="btn btn-secondary">Back to QUBIT Quest</a>
+								<a href="https://outlook.office365.com/owa/calendar/coaching@ignitecuriosity.org/bookings/" class="btn btn-primary" target="_blank" rel="noopener">BOOK A COACH</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER SECTION -->
+	<div class="footer" data-background="images/1920/bg-map-dot.jpg">
+		<div class="content-wrap">
+			<div class="container">
+				
+				<div class="row">
+					<div class="col-sm-3 col-md-3">
+						<div class="footer-item">
+							<object data="images/logo.svg" width="100%"  height="60px" type="image/svg+xml" class="ignitecuriosity_logo">
+								<img src="images/logo.png" />
+								</object>
+						<div class="spacer-30"></div>
+						<p>Ignite Curiosity is a learning community with a focus to make STEAM cool for students of all ages. We share passion, excitement, and a love for learning with our international community.</p>
+					</div>
+				</div>
+
+				<div class="col-sm-3 col-md-3">
+					<div class="footer-item">
+						<div class="footer-title">
+							WHO WE ARE
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-6 col-md-6">
+								<ul class="list">
+									<li><a href="about2.html" title="About us">About us</a></li>
+									<li><a href="https://curiosityhive.org/" target="_blank" title="Community">Join the Community</a></li>
+									<li><a href="testimonials.html" title="Testimonials">Testimonials</a></li>
+									<li><a class="nav-link" target="_blank" href="https://app.powerbi.com/view?r=eyJrIjoiYmQ1ODZjYmUtMTAyMC00Mzk5LThkZmYtMzc4M2I4MWQzY2U2IiwidCI6IjJmZWJlOTBkLTg3MmUtNGUzMS1iMWVlLTc4OThhYWMwMTU5YyJ9">See Usage</a></li>
+									<li><a href="whatwedo.html" title="Faq">Faq</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<ul class="list">
+									<li><a href="team.html" title="Our Team">Our Team</a></li>
+									<li><a href="#" title="Events">Events</a></li>
+									<li><a href="contact.html" title="Contact Us">Contact Us</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3 col-md-3">
+					<div class="footer-item">
+						<div class="footer-title">
+							WHERE WE WORK
+						</div>
+						<ul class="list-info">
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-map-marker"></span>
+								</div>
+								<div class="info-text">125 Frederick St<br> Marietta OH 45750</div> </li>
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-phone"></span>
+								</div>
+								<div class="info-text">929-229-2917</div>
+							</li>
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-envelope"></span>
+								</div>
+								<div class="info-text">info@ignitecuriosity.org</div>
+							</li>
+							<li>
+								<div class="info-icon">
+									<span class="fa fa-clock-o"></span>
+								</div>
+								<div class="info-text">Mon - Sat 09:00 - 17:00</div>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+				
+				<div class="col-sm-3 col-md-3">
+					<div class="footer-item">
+						<div class="footer-title">
+							A PROGRAM OF
+						</div>
+						<a href="https://curiositycorp.org" target="_blank">
+							<div>
+								<div class="navbar-brand">
+									<object data="images/logo_tli_dark.svg"  width="100%" height="50px" type="image/svg+xml" class="ignitecuriosity_logo">
+									<img src="images/logo_white350.png" />
+									</object>
+							 </div>
+							 </div>
+						</a>
+							<p>Curiosity Research Corporation is a Non Profit Organization designed to advance education in a P-20+ Initiative.</p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="fcopy">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<p class="ftex">Copyright 2024 &copy; <span class="color-primary">Ignite Curiosity</span>. Designed by <span class="color-primary"><a href="https://curiositycorp.org">Curiosity Research Corporation</a>.</span></p> 
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<!-- JS VENDOR -->
+	<script src="../js/vendor/jquery.min.js"></script>
+	<script src="../js/vendor/bootstrap.min.js"></script>
+	<script src="../js/vendor/owl.carousel.js"></script>
+	<script src="../js/vendor/jquery.magnific-popup.min.js"></script>
+
+	<!-- SENDMAIL -->
+	<script src="../js/vendor/validator.min.js"></script>
+	<script src="../js/vendor/form-scripts.js"></script>
+	
+	<!-- MAIN JS -->
+	<script src="../js/script.js"></script>
+
+		
+</body>
+</html>
