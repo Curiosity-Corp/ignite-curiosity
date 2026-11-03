@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "path": "logic-apps/sms-guard/signalwire_sms.py",
+      "rules": [
+        "messages-json-url",
+        "laml-messages-url",
+        "accounts-messages-url",
+        "messages-segment",
+        "form-body-field"
+      ],
+      "reason": "Vendored generator that writes the guarded send action into Logic App definitions; it builds request text but never calls the API itself.",
+      "ref": "WorldEnterpriseGroup/focushive#1",
+      "expires": "2027-04-21"
+    }
+  ]
+}

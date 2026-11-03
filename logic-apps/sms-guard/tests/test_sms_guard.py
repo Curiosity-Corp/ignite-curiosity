@@ -51,9 +51,25 @@ class Definition(unittest.TestCase):
         return found
 
     def test_every_send_is_guarded_and_current(self) -> None:
-        for where, act in self.sends():
-            with self.subTest(where=where):
-                self.assertEqual(gen.guard_errors({"actions": {"x": act}}), [])
+        self.sends()
+        self.assertEqual(gen.guard_errors(json.loads(DEFINITION.read_text())), [])
+
+    def test_gate_marker_and_brand_parameter(self) -> None:
+        """launch-sequence sms-brand-gate: the marker in the send action description and
+        SMS_BRAND_NAME on another line of the file (the declared workflow parameter)."""
+        definition = json.loads(DEFINITION.read_text())
+        self.assertEqual(definition["parameters"]["SMS_BRAND_NAME"], {"type": "String", "defaultValue": "Focus Hive"})
+        for _, act in self.sends():
+            self.assertIn(gen.MARKER, act["description"])
+        lines = DEFINITION.read_text().splitlines()
+        marker = [i for i, line in enumerate(lines) if gen.MARKER in line]
+        other = [i for i, line in enumerate(lines) if "SMS_BRAND_NAME" in line and i not in marker]
+        self.assertTrue(marker and other)
+
+    def test_signature_reads_the_parameter_and_a_blank_one_falls_back(self) -> None:
+        expr = gen.guard_expression(wdl_mini.literal("Hi! Check your email."))
+        self.assertEqual(wdl_mini.evaluate(expr, params={"SMS_BRAND_NAME": "Acme"}), "Hi! Check your email.\n- Acme")
+        self.assertEqual(wdl_mini.evaluate(expr, params={"SMS_BRAND_NAME": "  "}), "Hi! Check your email.\n- Focus Hive")
 
     def test_guarded_text_is_unchanged_because_it_names_the_brand(self) -> None:
         for _, act in self.sends():

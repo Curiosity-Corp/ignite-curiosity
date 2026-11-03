@@ -1,6 +1,6 @@
 """A tiny evaluator for the subset of Logic Apps workflow-definition-language
 expressions the SMS brand guard uses (concat, toLower, replace, contains, trim, if,
-equals, encodeUriComponent, variables). It exists so tests can run the generated
+equals, empty, encodeUriComponent, variables, parameters). It exists so tests can run the generated
 expression text itself against the contract vectors.
 
 `ci=True` makes contains and replace case-insensitive. The guard lower-cases first and
@@ -83,19 +83,23 @@ class _Parser:
             out.append(c)
 
 
-def evaluate(expr: str, variables: dict[str, str] | None = None, ci: bool = False) -> Any:
+DEFAULT_PARAMETERS = {"SMS_BRAND_NAME": "Focus Hive"}  # the declared defaultValue
+
+
+def evaluate(expr: str, variables: dict[str, str] | None = None, ci: bool = False,
+             params: dict[str, str] | None = None) -> Any:
     tree = _Parser(expr).parse()
-    return _eval(tree, variables or {}, ci)
+    return _eval(tree, variables or {}, ci, DEFAULT_PARAMETERS if params is None else params)
 
 
-def _eval(node: Any, variables: dict[str, str], ci: bool) -> Any:
+def _eval(node: Any, variables: dict[str, str], ci: bool, params: dict[str, str]) -> Any:
     if node[0] == "str":
         return node[1]
     _, name, raw = node
     if name == "if":  # lazy, like Logic Apps
-        cond = _eval(raw[0], variables, ci)
-        return _eval(raw[1] if cond else raw[2], variables, ci)
-    args = [_eval(a, variables, ci) for a in raw]
+        cond = _eval(raw[0], variables, ci, params)
+        return _eval(raw[1] if cond else raw[2], variables, ci, params)
+    args = [_eval(a, variables, ci, params) for a in raw]
     if name == "concat":
         return "".join(str(a) for a in args)
     if name == "toLower":
@@ -104,8 +108,12 @@ def _eval(node: Any, variables: dict[str, str], ci: bool) -> Any:
         return args[0].strip()
     if name == "equals":
         return args[0] == args[1]
+    if name == "empty":
+        return len(args[0]) == 0
     if name == "variables":
         return variables[args[0]]
+    if name == "parameters":
+        return params[args[0]]
     if name == "encodeUriComponent":
         return urllib.parse.quote(args[0], safe="-_.!~*'()")
     if name == "replace":

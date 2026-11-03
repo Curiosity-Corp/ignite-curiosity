@@ -16,8 +16,11 @@ so run history shows neither.
 Brand signature (CEO mandate 2026-11-03, focushive#1): the message text inside the
 send action is wrapped in a guard, a Logic Apps expression that appends "\\n- Focus Hive"
 when the brand is missing. See "SMS brand signature" in README.md and
-docs/sms-policy.md. The brand comes from SMS_BRAND_NAME (default "Focus Hive") when
-the definitions are generated; the committed definitions are the default brand.
+docs/sms-policy.md. The appended name is the workflow parameter SMS_BRAND_NAME (declared
+by the generator with the default "Focus Hive"; a blank value falls back to the generated
+brand); the presence check is generated from the brand words, so a different brand means
+SMS_BRAND_NAME=... regenerate. The send action's description carries the sender marker
+(MARKER below) that the launch-sequence sms-brand-gate looks for.
 
 Action names must not end in token/secret/key/password: snapshot.py redacts a
 runAfter list under such a key name.
@@ -134,6 +137,22 @@ def _destroyed(token: str) -> str:
     return token[0] + "#" + token[2:]
 
 
+PARAMETER = "SMS_BRAND_NAME"
+MANAGED_PARAMETERS = (PARAMETER,)  # estate.py apply declares these next to the managed actions
+# Written in two pieces: this generator is not a sender, so it must not carry the marker itself.
+MARKER = "sms-brand-guard:" + " sender"
+DESCRIPTION = (MARKER + " (the text is wrapped in the brand signature guard; docs/sms-policy.md; "
+               "launch-sequence sms-brand-gate)")
+
+
+def brand_value(name: str) -> str:
+    """The signature's brand name: the workflow parameter SMS_BRAND_NAME, falling back to
+    the generated brand when the parameter is blank (a blank setting must not switch the
+    signature off, same as sms_brand.brand_name())."""
+    p = f"parameters('{PARAMETER}')"
+    return f"if(empty(trim({p})), {q(name)}, trim({p}))"
+
+
 def guard_expression(expr: str, brand: str | None = None) -> str:
     """The bare expression (no leading @) that returns `expr` unchanged when the brand
     is present and the signed text otherwise. `expr` is itself a bare expression."""
@@ -154,7 +173,7 @@ def guard_expression(expr: str, brand: str | None = None) -> str:
         norm = f"replace({norm}, {q(ch + canon)}, {q(ch + broken)})"
     for ch in RIGHT_FORBIDDEN:
         norm = f"replace({norm}, {q(canon + ch)}, {q(broken + ch)})"
-    signed = f"trim(concat(trim({expr}), {q(sms_brand.SIGNATURE_PREFIX + name)}))"
+    signed = f"trim(concat(trim({expr}), {q(sms_brand.SIGNATURE_PREFIX)}, {brand_value(name)}))"
     return f"if(contains({norm}, {q(canon)}), {expr}, {signed})"
 
 
@@ -245,11 +264,23 @@ def send_actions(actions: dict[str, Any], path: str = "") -> list[tuple[str, dic
     return found
 
 
+def parameter_declaration(brand: str | None = None) -> dict[str, Any]:
+    return {"type": "String", "defaultValue": brand or sms_brand.brand_name()}
+
+
 def guard_errors(definition: dict[str, Any], brand: str | None = None) -> list[str]:
     """Problems that mean an SMS can leave without the brand. Used by estate.py validate."""
     errors: list[str] = []
-    for where, act in send_actions(definition.get("actions") or {}):
+    sends = send_actions(definition.get("actions") or {})
+    declared = (definition.get("parameters") or {}).get(PARAMETER)
+    if sends and declared != parameter_declaration(brand):
+        errors.append(f"workflow parameter {PARAMETER} is not declared as {parameter_declaration(brand)} "
+                      "(run signalwire_sms.py regenerate / guard-file)")
+    for where, act in sends:
         inputs = act["inputs"]
+        if act.get("description") != DESCRIPTION:
+            errors.append(f"{where}: SMS send lacks the sms-brand-gate marker description "
+                          "(run signalwire_sms.py regenerate / guard-file)")
         if act["type"] == "Http":
             form = inputs.get("body")
             if not isinstance(form, str) or not form.startswith("@concat(") or FORM_BODY_MARK not in form:
@@ -280,6 +311,7 @@ def build_actions(to: str, body: str) -> dict[str, Any]:
         "Get_SignalWire_API_Credential": kv_get("signalwire-api-token"),
         "Send_SMS_via_SignalWire": {
             "type": "Http", "runAfter": ready, "runtimeConfiguration": SECURE,
+            "description": DESCRIPTION,
             "inputs": {
                 "method": "POST",
                 "uri": "@concat('https://', body('Get_SignalWire_Space')?['value'], "
@@ -303,6 +335,7 @@ def migrate(stem: Path) -> None:
     old = send["actions"]["Send_Text_Message_(SMS)"]
     body = old["inputs"]["body"]
     send["actions"] = build_actions(body["to"], body["body"])
+    definition.setdefault("parameters", {})[PARAMETER] = parameter_declaration()
     keys = [k for k, v in conns["$connections"].items() if v["connectionName"].lower().startswith("twilio")]
     if not keys:
         raise SystemExit(f"{stem}: no twilio connection key")
@@ -316,39 +349,52 @@ def migrate(stem: Path) -> None:
     print(f"migrated {stem.parent.name}/{stem.name} (dropped {keys})")
 
 
-def _swap_literal(text: str, old: str, new: str, where: str) -> str:
-    """Replace the JSON string literal `old` with `new` in the file text, so only the
-    guarded send body changes and the rest of the file keeps its exact formatting."""
-    for ensure_ascii in (False, True):
-        literal = json.dumps(old, ensure_ascii=ensure_ascii)
-        if text.count(literal) >= 1:
-            return text.replace(literal, json.dumps(new, ensure_ascii=ensure_ascii))
-    raise SystemExit(f"{where}: cannot find the send body literal in the file text")
+def _dump_like(original: str, obj: Any, where: str) -> str:
+    """`obj` serialised the way `original` was (indent 2, ASCII-escaped or not, trailing
+    newline or not), so a regenerate changes only the lines that changed. Refuses a file
+    whose layout it cannot reproduce rather than reformatting it."""
+    loaded = json.loads(original)
+    for ensure_ascii in (True, False):
+        for tail in ("\n", ""):
+            if json.dumps(loaded, indent=2, ensure_ascii=ensure_ascii) + tail == original:
+                return json.dumps(obj, indent=2, ensure_ascii=ensure_ascii) + tail
+    raise SystemExit(f"{where}: the file is not plain json.dumps(indent=2) output; format it first")
 
 
-def guard_file(path: Path, brand: str | None = None) -> int:
-    """Guard (or regenerate the guard of) every SMS send in a definition file. Returns
-    the number of sends whose body changed."""
-    text = path.read_text()
-    sends = send_actions(json.loads(text).get("actions") or {})
+def apply_guard(definition: dict[str, Any], brand: str | None = None) -> int:
+    """Guard every SMS send in a definition (body, marker description) and declare the
+    SMS_BRAND_NAME parameter. Returns the number of sends changed."""
+    sends = send_actions(definition.get("actions") or {})
     changed = 0
     for where, act in sends:
         inputs = act["inputs"]
+        before = json.dumps(act, sort_keys=True)
         if act["type"] == "Http":
-            old = inputs["body"]
-            new = guard_form(old, brand)
+            inputs["body"] = guard_form(inputs["body"], brand)
         else:
             old = inputs["body"]["body"]
             raw = old[1:] if old.startswith("@") and not old.startswith("@{") else None
             split = split_guard(raw, brand) if raw is not None else None
             expr = split[0] if split else (raw if raw is not None else as_expression(old))
-            new = "@" + guard_expression(expr, brand)
-        if new != old:
-            text = _swap_literal(text, old, new, f"{path}:{where}")
-            changed += 1
+            inputs["body"]["body"] = "@" + guard_expression(expr, brand)
+        act["description"] = DESCRIPTION
+        changed += before != json.dumps(act, sort_keys=True)
+    if sends and definition.setdefault("parameters", {}).get(PARAMETER) != parameter_declaration(brand):
+        definition["parameters"][PARAMETER] = parameter_declaration(brand)
+        changed += 1
+    return changed
+
+
+def guard_file(path: Path, brand: str | None = None) -> int:
+    """Guard (or regenerate the guard of) every SMS send in a definition file. Returns
+    the number of changes made."""
+    text = path.read_text()
+    definition = json.loads(text)
+    count = len(send_actions(definition.get("actions") or {}))
+    changed = apply_guard(definition, brand)
     if changed:
-        path.write_text(text)
-    print(f"{path}: {len(sends)} SMS send(s), {changed} changed")
+        path.write_text(_dump_like(text, definition, str(path)))
+    print(f"{path}: {count} SMS send(s), {changed} changed")
     return changed
 
 
