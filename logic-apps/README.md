@@ -10,7 +10,7 @@ No SMS/MMS leaves our systems without the brand name "Focus Hive". The send's me
 wrapped in a guard, a Logic Apps expression that returns the text unchanged when the brand is
 present and otherwise appends `\n- Focus Hive`. The rule, its 20 test vectors and the STOP/HELP
 policy are in FocusApiary/infrastructure `docs/sms-policy.md`; the brand is the single setting
-`SMS_BRAND_NAME` (default "Focus Hive") read when the definition is generated.
+`SMS_BRAND_NAME` (default "Focus Hive"), declared as a workflow parameter in the definition and read by the signature expression. The send action's `description` carries the `sms-brand-guard: sender` marker the launch-sequence `sms-brand-gate` job requires; `.sms-brand-allowlist.json` lists the vendored generator, which mentions the endpoint but sends nothing.
 
 `sms-guard/` is a vendored copy of the generator, the reference module, the vectors and the
 expression evaluator. Do not edit the guard by hand:
