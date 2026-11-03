@@ -1,0 +1,15 @@
+# SMS brand guard gate (CEO mandate 2026-11-03): the Logic App's SMS send must keep the
+# "Focus Hive" signature guard, and the guard must pass the contract vectors.
+stages: [validate]
+
+sms-brand-guard:
+  stage: validate
+  image: harbor.focuscell.org/dockerhub-proxy/library/python:3.12-slim
+  variables:
+    PYTHONDONTWRITEBYTECODE: "1"
+  script:
+    - python3 -I logic-apps/sms-guard/signalwire_sms.py check logic-apps/focuspass-registration.definition.json
+    - (cd logic-apps/sms-guard/tests && python3 -I -m unittest -v)
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

@@ -1,0 +1,127 @@
+{
+  "brand": "Focus Hive",
+  "signature_format": "\\n- <Brand>",
+  "presence_regex_python": "(?<![A-Za-z0-9@./])focus[\\s_.\\-]*hive(?![A-Za-z0-9])(?!\\.[A-Za-z])",
+  "cases": [
+    {
+      "name": "brand at start",
+      "body": "Focus Hive: your code is 123456",
+      "brand_present": true,
+      "expected": "Focus Hive: your code is 123456"
+    },
+    {
+      "name": "brand in middle",
+      "body": "Hi Dana, this is Sean from Focus Hive. Confirming 2 PM.",
+      "brand_present": true,
+      "expected": "Hi Dana, this is Sean from Focus Hive. Confirming 2 PM."
+    },
+    {
+      "name": "brand at end",
+      "body": "Your appointment is confirmed. - Focus Hive",
+      "brand_present": true,
+      "expected": "Your appointment is confirmed. - Focus Hive"
+    },
+    {
+      "name": "lowercase",
+      "body": "thanks from focus hive",
+      "brand_present": true,
+      "expected": "thanks from focus hive"
+    },
+    {
+      "name": "uppercase",
+      "body": "THANKS FROM FOCUS HIVE",
+      "brand_present": true,
+      "expected": "THANKS FROM FOCUS HIVE"
+    },
+    {
+      "name": "camel FocusHive",
+      "body": "Hello from FocusHive",
+      "brand_present": true,
+      "expected": "Hello from FocusHive"
+    },
+    {
+      "name": "hyphen variant",
+      "body": "Hello from Focus-Hive",
+      "brand_present": true,
+      "expected": "Hello from Focus-Hive"
+    },
+    {
+      "name": "missing",
+      "body": "Your code is 123456",
+      "brand_present": false,
+      "expected": "Your code is 123456\n- Focus Hive"
+    },
+    {
+      "name": "missing trailing newline",
+      "body": "Your code is 123456\n",
+      "brand_present": false,
+      "expected": "Your code is 123456\n- Focus Hive"
+    },
+    {
+      "name": "empty body",
+      "body": "",
+      "brand_present": false,
+      "expected": "- Focus Hive"
+    },
+    {
+      "name": "whitespace only body",
+      "body": "   ",
+      "brand_present": false,
+      "expected": "- Focus Hive"
+    },
+    {
+      "name": "email domain is not the brand",
+      "body": "Contact matthew@focushive.com for help",
+      "brand_present": false,
+      "expected": "Contact matthew@focushive.com for help\n- Focus Hive"
+    },
+    {
+      "name": "url host is not the brand",
+      "body": "See https://focushive.com/help",
+      "brand_present": false,
+      "expected": "See https://focushive.com/help\n- Focus Hive"
+    },
+    {
+      "name": "brand inside longer word",
+      "body": "Unfocus Hiven is not us",
+      "brand_present": false,
+      "expected": "Unfocus Hiven is not us\n- Focus Hive"
+    },
+    {
+      "name": "STOP confirmation",
+      "body": "You have been unsubscribed and will receive no more messages. Reply START to resubscribe.",
+      "brand_present": false,
+      "expected": "You have been unsubscribed and will receive no more messages. Reply START to resubscribe.\n- Focus Hive"
+    },
+    {
+      "name": "HELP reply with brand",
+      "body": "Focus Hive: Reply to this text and a member of our team will respond. Msg&data rates may apply. Reply STOP to opt out.",
+      "brand_present": true,
+      "expected": "Focus Hive: Reply to this text and a member of our team will respond. Msg&data rates may apply. Reply STOP to opt out."
+    },
+    {
+      "name": "HELP reply without brand",
+      "body": "Reply to this text and our team will respond. Reply STOP to opt out.",
+      "brand_present": false,
+      "expected": "Reply to this text and our team will respond. Reply STOP to opt out.\n- Focus Hive"
+    },
+    {
+      "name": "unicode body",
+      "body": "Café ☕ see you at 3",
+      "brand_present": false,
+      "expected": "Café ☕ see you at 3\n- Focus Hive"
+    },
+    {
+      "name": "multiline missing",
+      "body": "Line one\nLine two",
+      "brand_present": false,
+      "expected": "Line one\nLine two\n- Focus Hive"
+    },
+    {
+      "name": "already ends with signature line",
+      "body": "Thanks!\n- Focus Hive",
+      "brand_present": true,
+      "expected": "Thanks!\n- Focus Hive"
+    }
+  ]
+}
