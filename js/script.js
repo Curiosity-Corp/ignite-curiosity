@@ -8,12 +8,48 @@ $(document).ready(function(){
 	$(".loader").delay(400).fadeOut();
     $(".animationload").delay(400).fadeOut("fast");
 
-    var bgi = $("[data-background]");
-    bgi.length > 0 && bgi.each(function() {
-    	var e = $(this),
+    // Section backgrounds: set them as the element nears the viewport, so images far below the fold are not
+    // downloaded up front. Without IntersectionObserver they are set immediately, as before.
+    var applyBackground = function(el) {
+    	var e = $(el),
     	t = e.attr('data-background');
     	e.css({'background-image': 'url(' + t + ')'});
-    });
+    };
+    var bgi = $("[data-background]");
+    if (bgi.length > 0) {
+    	if ('IntersectionObserver' in window) {
+    		var bgObserver = new IntersectionObserver(function(entries, observer) {
+    			entries.forEach(function(entry) {
+    				if (entry.isIntersecting) {
+    					applyBackground(entry.target);
+    					observer.unobserve(entry.target);
+    				}
+    			});
+    		}, {rootMargin: '600px 0px'});
+    		bgi.each(function() { bgObserver.observe(this); });
+    	} else {
+    		bgi.each(function() { applyBackground(this); });
+    	}
+    }
+
+    // Embedded iframes that declare data-src (video players) get their src when they near the viewport.
+    var deferredFrames = $("iframe[data-src]");
+    if (deferredFrames.length > 0) {
+    	var loadFrame = function(el) { el.setAttribute('src', el.getAttribute('data-src')); };
+    	if ('IntersectionObserver' in window) {
+    		var frameObserver = new IntersectionObserver(function(entries, observer) {
+    			entries.forEach(function(entry) {
+    				if (entry.isIntersecting) {
+    					loadFrame(entry.target);
+    					observer.unobserve(entry.target);
+    				}
+    			});
+    		}, {rootMargin: '200px 0px'});
+    		deferredFrames.each(function() { frameObserver.observe(this); });
+    	} else {
+    		deferredFrames.each(function() { loadFrame(this); });
+    	}
+    }
 
     var progressBar = $('.progress-bar');
     progressBar.length > 0 && progressBar.each(function() {
