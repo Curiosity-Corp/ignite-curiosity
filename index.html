@@ -22,6 +22,10 @@
 	<!-- ==============================================
 	CSS VENDOR
 	=============================================== -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lora:400,700|Roboto:400,500&amp;display=swap">
+	<link rel="preload" as="image" href="images/1920/keystype.webp" type="image/webp" fetchpriority="high">
 	<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="fonts/awesome/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="css/vendor/owl.carousel.min.css">
@@ -33,8 +37,16 @@
 	Custom Stylesheet
 	=============================================== -->
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
-	
-    <script src="js/vendor/modernizr.min.js"></script>
+
+	<!-- Reserve the banner's final box before owl.carousel runs, so the content below does not jump (CLS).
+	     Same rules the initialised carousel gets (.banner.owl-carousel: float, 100% height, full width). -->
+	<style>
+	#oc-fullslider.owl-carousel:not(.owl-loaded){display:block;overflow:hidden}
+	#oc-fullslider.owl-carousel:not(.owl-loaded) img{display:none}
+	#oc-fullslider.owl-carousel:not(.owl-loaded) .owl-slide:first-child{background-image:url(images/1920/keystype.webp)}
+	</style>
+
+    <script defer src="js/vendor/modernizr.min.js"></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139076987-1"></script>
@@ -158,7 +170,7 @@
 	<div id="oc-fullslider" class="banner owl-carousel">
 		<div class="owl-slide">
         	<div class="item">
-	            <img src="images/1920/keystype.jpg" alt="Person typing on keyboard exploring digital learning opportunities">
+	            <img src="images/1920/keystype.webp" alt="Person typing on keyboard exploring digital learning opportunities">
 	            <div class="slider-pos">
 		            <div class="container">
 		            	<div class="wrap-caption right">
@@ -175,7 +187,7 @@
         </div>
 		<div class="owl-slide">
         	<div class="item">
-	            <img src="images/1920/lab.jpg" alt="Students engaged in hands-on STEAM learning activities in a collaborative lab environment">
+	            <img src="images/1920/lab.webp" alt="Students engaged in hands-on STEAM learning activities in a collaborative lab environment">
 	            <div class="slider-pos">
 		            <div class="container">
 		            	<div class="wrap-caption right">
@@ -190,7 +202,7 @@
 		</div>
 		<div class="owl-slide">
         	<div class="item">
-	            <img src="images/1920/wallkids2.jpg" alt="Diverse group of lifelong learners collaborating on creative projects together">
+	            <img src="images/1920/wallkids2.webp" alt="Diverse group of lifelong learners collaborating on creative projects together">
 	            <div class="slider-pos">
 		            <div class="container">
 		            	<div class="wrap-caption right">
@@ -225,7 +237,8 @@
 							<p>STEAM is an educational approach to learning that uses the top fields needed in the workforce as access points for guiding student inquiry, dialogue, and critical thinking. We don't just teach it: <span class="color-primary">We Make STEAM Cool</span>!</p>
 							
 							<div class="embed-responsive embed-responsive-16by9">
-								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/videoseries?list=PL_db-R23vflvFp3-d3eL5-a3s2o2-2yqS"></iframe>
+								<iframe class="embed-responsive-item" data-src="https://www.youtube.com/embed/videoseries?list=PL_db-R23vflvFp3-d3eL5-a3s2o2-2yqS" loading="lazy"></iframe>
+							<noscript><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/videoseries?list=PL_db-R23vflvFp3-d3eL5-a3s2o2-2yqS"></iframe></noscript>
 								
 							</div>
 							<div class="spacer-30"></div>
@@ -322,7 +335,7 @@
 		</div>
 
 	<!-- URGENT CAUSE -->
-	<div class="section" data-background="images/girlknees2.jpg">
+	<div class="section" data-background="images/girlknees2.webp">
 		<div class="content-wrap">
 			<div class="container">
 				<div class="row">
@@ -352,7 +365,7 @@
 					<div class="col-sm-6 col-md-6">
 						<div class="img-video">
 							<a href="https://www.youtube.com/watch?v=videoseries?list=PL_db-R23vflvFp3-d3eL5-a3s2o2-2yqS" class="popup-youtube play-video"><i class="fa fa-play fa-2x"></i></a>
-							<img src="images/books600.jpg" alt="Stack of educational books representing lifelong learning resources">
+							<img src="images/books600.webp" width="599" height="401" loading="lazy" decoding="async" alt="Stack of educational books representing lifelong learning resources">
 							<div class="ripple"></div>
 						</div>
 					</div>
@@ -378,7 +391,7 @@
 					<div class="col-sm-4 col-md-4">
 			            <div class="box-fundraising">
 		              		<div class="media">
-		                		<a href="whatwedo.html"><img src="images/600/woohoo.jpg" alt="Enthusiastic learner celebrating discovery at Curiosity Camp">
+		                		<a href="whatwedo.html"><img src="images/600/woohoo.webp" width="601" height="400" loading="lazy" decoding="async" alt="Enthusiastic learner celebrating discovery at Curiosity Camp">
 		              		</div>
 		              		<div class="body-content">
 		              			<p class="title"><a href="#">CURIOSITY CAMPS</a></p>
@@ -397,7 +410,7 @@
 					<div class="col-sm-4 col-md-4">
 			            <div class="box-fundraising">
 		              		<div class="media">
-		                		<a href="whatwedo.html"><img src="images/600/smileprogram.jpg" alt="Curious learners exploring together in the Curiosity Hive">
+		                		<a href="whatwedo.html"><img src="images/600/smileprogram.webp" width="600" height="400" loading="lazy" decoding="async" alt="Curious learners exploring together in the Curiosity Hive">
 		              		</div>
 		              		<div class="body-content">
 		              			<p class="title"><a href="#">CURIOSITY HIVE</a></p>
@@ -416,7 +429,7 @@
 					<div class="col-sm-4 col-md-4">
 			            <div class="box-fundraising">
 		              		<div class="media">
-		                		<a href="whatwedo.html"><img src="images/600/solecottage.jpg" alt="Peaceful Smile Space providing a quiet environment for self-guided learning">
+		                		<a href="whatwedo.html"><img src="images/600/solecottage.webp" width="600" height="400" loading="lazy" decoding="async" alt="Peaceful Smile Space providing a quiet environment for self-guided learning">
 		              		</div>
 		              		<div class="body-content">
 		              			<p class="title"><a href="#">LEARNING SPACES</a></p>
@@ -536,7 +549,7 @@
 	</div>
 
 		<!-- WELCOME TO Ignite Curiosity-->
-		<div class="section services" data-background="images/1920/wallkids0.jpg">
+		<div class="section services" data-background="images/1920/wallkids0.webp">
 			<div class="content-wrap-20">
 				<div class="container">
 					<div class="row">
@@ -595,7 +608,7 @@
 		</div>
 
 	<!-- FUN FACT -->
-	<div class="section cta" data-background="images/1920/bg-map-dot.jpg">
+	<div class="section cta" data-background="images/1920/bg-map-dot.webp">
 		<div class="content-wrap content-wrap">
 			<div class="container">
 				<div class="row">
@@ -629,7 +642,7 @@
 					<div class="col-sm-3 col-md-3">
 						<div class="rs-team-1">
 							<!-- <a href="mustafa.html"> -->
-							<div class="media"><img src="./images/600/lyra400.jpg" alt="Lyra Su - Certified Curiosity Coach specializing in childhood education"></div>
+							<div class="media"><img src="./images/600/lyra400.webp" width="401" height="401" loading="lazy" decoding="async" alt="Lyra Su - Certified Curiosity Coach specializing in childhood education"></div>
 							<div class="body">
 								<div class="title">Lyra Su</div>
 								<!-- <div class="position">Childhood Education</div> -->
@@ -646,7 +659,7 @@
 					<div class="col-sm-3 col-md-3">
 						<div class="rs-team-1">
 							<!-- <a href="melinda.html"> -->
-							<div class="media"><img src="./images/600/baylee400.jpg" alt="Baylee Stokes - Curiosity Coach helping learners discover their spark"></div>
+							<div class="media"><img src="./images/600/baylee400.webp" width="400" height="400" loading="lazy" decoding="async" alt="Baylee Stokes - Curiosity Coach helping learners discover their spark"></div>
 							<div class="body">
 								<div class="title">Baylee Stokes</div>
 								<!-- <div class="position">Vibe Coach</div> -->
@@ -664,7 +677,7 @@
 					<div class="col-sm-3 col-md-3">
 						<div class="rs-team-1">
 							<!-- <a href="zain.html"> -->
-							<div class="media"><img src="./images/600/felicia400.jpg" alt="Felicia Swinney - Experienced Curiosity Coach guiding learners of all ages"></div>
+							<div class="media"><img src="./images/600/felicia400.webp" width="400" height="400" loading="lazy" decoding="async" alt="Felicia Swinney - Experienced Curiosity Coach guiding learners of all ages"></div>
 							<div class="body">
 								<div class="title">Felicia Swinney</div>
 								<!-- <div class="position">Childhood Education</div> -->
@@ -679,7 +692,7 @@
 					</div>
 					
 					<div class="col-sm-3 col-md-3">
-						<div class="promo-ads" data-background="./images/lapstudy.jpg">
+						<div class="promo-ads" data-background="./images/lapstudy.webp">
 							<div class="content font__color-white text-center">
 								<i class="fab fa-centos fa-2x"></i>
 								<h4 class="title">Curiosity Sessions</h4>
@@ -698,7 +711,7 @@
 	</div>
 
 	<!-- EVENTS -->
-	<div class="section" data-background="images/1920/maniac.jpg">
+	<div class="section" data-background="images/1920/maniac.webp">
 		<div class="content-wrap">
 			<div class="container">
 				<div class="row">
@@ -776,22 +789,22 @@
 				</div>
 				<div class="row gutter-5 ">
 					<div class="col-6 col-md-3 text-center">
-						<a href="https://education.microsoft.com/en-us" target="_blank"><img src="./images/icons/microsoft_aep.jpg" alt="" class="img-fluid img-border"></a>
+						<a href="https://education.microsoft.com/en-us" target="_blank"><img src="./images/icons/microsoft_aep.webp" width="524" height="107" loading="lazy" decoding="async" alt="" class="img-fluid img-border"></a>
 					</div>
 					<div class="col-6 col-md-3 text-center">
-						<a href="https://grow.google" target="_blank"><img src="./images/icons/grow_google.png" alt="" class="img-fluid img-border"></a>
+						<a href="https://grow.google" target="_blank"><img src="./images/icons/grow_google.webp" width="524" height="107" loading="lazy" decoding="async" alt="" class="img-fluid img-border"></a>
 					</div>
 					<div class="col-6 col-md-3 text-center">
-						<a href="https://www.unrealengine.com/en-US/onlinelearning-courses" target="_blank"><img src="./images/icons/unreal.png" alt="" class="img-fluid img-border"></a>
+						<a href="https://www.unrealengine.com/en-US/onlinelearning-courses" target="_blank"><img src="./images/icons/unreal.webp" width="202" height="127" loading="lazy" decoding="async" alt="" class="img-fluid img-border"></a>
 					</div>
 					<div class="col-6 col-md-3 text-center">
-						<a href="https://training.sap.com/" target="_blank"><img src="./images/icons/logo_sap.png" alt="" class="img-fluid img-border"></a>
+						<a href="https://training.sap.com/" target="_blank"><img src="./images/icons/logo_sap.webp" width="202" height="126" loading="lazy" decoding="async" alt="" class="img-fluid img-border"></a>
 					</div>
 					<div class="col-6 col-md-3 text-center">
-						<a href="https://trailhead.salesforce.com/" target="_blank"><img src="./images/icons/salesforce.png" alt="" class="img-fluid img-border"></a>
+						<a href="https://trailhead.salesforce.com/" target="_blank"><img src="./images/icons/salesforce.webp" width="202" height="127" loading="lazy" decoding="async" alt="" class="img-fluid img-border"></a>
 					</div>
 					<div class="col-6 col-md-3 text-center">
-						<a href="https://edex.adobe.com/" target="_blank"><img src="./images/icons/adobe-logo.png" alt="" class="img-fluid img-border"></a>
+						<a href="https://edex.adobe.com/" target="_blank"><img src="./images/icons/adobe-logo.webp" width="202" height="127" loading="lazy" decoding="async" alt="" class="img-fluid img-border"></a>
 					</div>
 				</div>
 			</div>
@@ -819,7 +832,7 @@
 	</div>
 
 	<!-- FOOTER SECTION -->
-	<div class="footer" data-background="images/1920/bg-map-dot.jpg">
+	<div class="footer" data-background="images/1920/bg-map-dot.webp">
 		<div class="content-wrap">
 			<div class="container">
 			<div class="row">
