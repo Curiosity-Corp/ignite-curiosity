@@ -1,4 +1,4 @@
-# robots.txt for Curiosity Website
+# robots.txt for ignitecuriosity.org
 
 User-agent: *
 Allow: /
@@ -21,4 +21,4 @@ Disallow: /_include/
 Disallow: /info/
 
 # Sitemap location
-Sitemap: https://curiosityinitiative.org/sitemap.xml
+Sitemap: https://ignitecuriosity.org/sitemap.xml

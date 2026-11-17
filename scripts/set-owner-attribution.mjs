@@ -31,8 +31,9 @@ const RULES = [
     'older footer (GUIDE STAR column, no "A PROGRAM OF"): owner line under the site description',
     /(<p>Ignite Curiosity is a learning community[^<]*<\/p>(?:\s*<a [^>]*><i class="fa fa-angle-right"><\/i> Read More<\/a>)?)/,
     `$1\n\t\t\t\t\t\t\t<div class="footer-title" style="margin-top:24px;">A PROGRAM OF</div>\n\t\t\t\t\t\t\t${OWNER_LINK}`,
-    // Only on pages that still have no owner line at all; the GUIDE STAR seal
-    // (Tao Learning Institute's charity profile) is left as it is (needs::decision).
+    // Only on pages that still have no owner line at all. The GUIDE STAR seal
+    // (another organisation's charity profile) was removed by
+    // scripts/apply-site-decisions.mjs (#19 decision 4); the gate blocks it.
     (src) => !src.includes('class="footer-owner"') && src.includes('GUIDE STAR'),
   ],
   [
