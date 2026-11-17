@@ -61,7 +61,7 @@ function loadAllowlist() {
 const allow = loadAllowlist();
 const files = execFileSync('git', ['ls-files'], { encoding: 'utf8' })
   .split('\n')
-  .filter((f) => f && f !== ALLOWLIST);
+  .filter((f) => f && f !== ALLOWLIST && f !== MARKS); // the gate's own data files
 
 const hits = [];
 for (const file of files) {
