@@ -25,3 +25,12 @@ check:no-placeholders:
         echo "ERROR: unfilled copy markers above" >&2; exit 1
       fi
       echo "OK: no unfilled copy markers"
+
+# The site is a program of Curiosity Research Corporation (curiositycorp.org).
+# No published file may bring back the previous owner attribution
+# outside scripts/old-attribution-allowlist.txt (Curiosity-Corp/ignite-curiosity#18).
+check:no-old-attribution:
+  image: node:26.7.0-trixie
+  script:
+    - node scripts/check-old-attribution.mjs
+    - node scripts/set-owner-attribution.mjs --check
