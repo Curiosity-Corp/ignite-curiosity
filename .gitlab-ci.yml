@@ -14,3 +14,14 @@ check:local-refs:
     - |
       if [ -n "${CI_MERGE_REQUEST_DIFF_BASE_SHA:-}" ]; then base=$CI_MERGE_REQUEST_DIFF_BASE_SHA; else base=$(git rev-parse HEAD^1); fi
       bash scripts/check-new-missing-refs.sh "$base"
+
+# No page may ship with an unfilled copy marker such as {{STAGE1_NAME}}
+# (Curiosity-Corp/ignite-curiosity#17: copy waits for its approved source).
+check:no-placeholders:
+  image: node:26.7.0-trixie
+  script:
+    - |
+      if grep -rnE '\{\{[A-Z0-9_]+\}\}' --include='*.html' .; then
+        echo "ERROR: unfilled copy markers above" >&2; exit 1
+      fi
+      echo "OK: no unfilled copy markers"

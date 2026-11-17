@@ -47,11 +47,14 @@ for (const file of walk(root)) {
     process.exitCode = 1;
     continue;
   }
-  for (const raw of refs(file, text)) {
+  // Resolve the way a browser does, so "../" above the site root clamps to the root,
+  // and honour the page's first <base href> the way a browser does.
+  let page = new URL('http://site/' + relative(root, file).split('\\').join('/'));
+  const baseTag = file.endsWith('.html') ? text.match(/<base\s[^>]*href\s*=\s*["']([^"']+)["']/i) : null;
+  if (baseTag && isLocal(baseTag[1].trim())) page = new URL(baseTag[1].trim(), page);
+  for (const raw of refs(file, text).filter((r) => !(baseTag && r === baseTag[1]))) {
     const u = raw.trim().split(/[?#]/)[0];
     if (!isLocal(raw.trim()) || !u) continue;
-    // Resolve the way a browser does, so "../" above the site root clamps to the root.
-    const page = new URL('http://site/' + relative(root, file).split('\\').join('/'));
     let pathname;
     try { pathname = decodeURIComponent(new URL(u, page).pathname); } catch { pathname = new URL(u, page).pathname; }
     const target = join(root, pathname);
