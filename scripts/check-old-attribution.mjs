@@ -7,7 +7,9 @@
 // GitHub Pages) for:
 //   - "Tao Learning" / "Tao Learner(s)" / "taolearning" (any case, any
 //     space, "-" or "_" between the words), and
-//   - "TLI" as a whole, upper-case word (the org's acronym).
+//   - "TLI" as a whole, upper-case word (the org's acronym), and
+//   - "Dan Hup" (any case, optional space/"-"/"_"): CEO rule 2026-11-17, the
+//     internship material says "our career placement team" instead.
 // A hit fails the job unless scripts/old-attribution-allowlist.txt allows it
 // (one entry per use: path, text on that line, reason; text "*" allows the
 // whole file and is meant only for this gate's own tooling).
@@ -19,7 +21,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
 const ALLOWLIST = 'scripts/old-attribution-allowlist.txt';
-const PATTERNS = [/tao[\s_-]*learn(?:ing|ers?)\b/i, /\bTLI\b/];
+const PATTERNS = [/tao[\s_-]*learn(?:ing|ers?)\b/i, /\bTLI\b/, /dan[\s_-]*hup/i];
 
 function readText(file) {
   let buf;
@@ -72,10 +74,10 @@ for (const h of hits) console.error(`OLD ATTRIBUTION  ${h}`);
 for (const e of stale) console.error(`STALE ALLOW-LIST ${ALLOWLIST}:${e.lineNo}: ${e.path} "${e.needle}" matches nothing`);
 if (hits.length || stale.length) {
   console.error(
-    `ERROR: ${hits.length} old-attribution hit(s), ${stale.length} stale allow-list entr(y/ies). ` +
+    `ERROR: ${hits.length} old-attribution/Dan Hup hit(s), ${stale.length} stale allow-list entr(y/ies). ` +
       'The site is a program of Curiosity Research Corporation (https://curiositycorp.org); ' +
       `run node scripts/set-owner-attribution.mjs, or allow a non-attribution use in ${ALLOWLIST} with its reason.`,
   );
   process.exit(1);
 }
-console.log(`OK: no old "Tao Learning"/TLI attribution in ${files.length} tracked files (${allow.length} allow-listed uses)`);
+console.log(`OK: no old "Tao Learning"/TLI attribution or "Dan Hup" in ${files.length} tracked files (${allow.length} allow-listed uses)`);
