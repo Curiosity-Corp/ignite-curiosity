@@ -34,3 +34,14 @@ check:no-old-attribution:
   script:
     - node scripts/check-old-attribution.mjs
     - node scripts/set-owner-attribution.mjs --check
+    # Admiral decisions on #19 stay applied (GuideStar seal, See Usage link,
+    # non-profit clause, old reCAPTCHA action, info/ template wording).
+    - node scripts/apply-site-decisions.mjs --check
+
+# sitemap.xml lists exactly the real pages on https://ignitecuriosity.org/
+# (reachable from the home page, minus robots.txt rules) and robots.txt points
+# at it (Curiosity-Corp/ignite-curiosity#19, decision 7).
+check:sitemap:
+  image: node:26.7.0-trixie
+  script:
+    - node scripts/build-sitemap.mjs --check

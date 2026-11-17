@@ -35,22 +35,11 @@
 
 	<script src="../js/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-	<script src='https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO'></script>
 	
 	<!-- Blue CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/blue.css">
 	
 
-	<script>
-		grecaptcha.ready(function() {
-		grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'TLI Member Registration'})
-		.then(function(token) {
-		var recaptchaResponse = document.getElementById('recaptchaResponse');
-        recaptchaResponse.value = token;
-		// Verify the token on the server.
-		});
-		});
-	</script>
 	<style>
 ul {
 list-style-type: none;
@@ -427,7 +416,6 @@ list-style-type: none;
 									<li><a href="../whatwedo.html" title="About us">What We Do</a></li>
 									<li><a href="../start.html" title="Community">Get Started</a></li>
 									<li><a href="../testimonials.html" title="Testimonials">Testimonials</a></li>
-									<li><a class="nav-link" target="_blank" href="https://app.powerbi.com/view?r=eyJrIjoiYmQ1ODZjYmUtMTAyMC00Mzk5LThkZmYtMzc4M2I4MWQzY2U2IiwidCI6IjJmZWJlOTBkLTg3MmUtNGUzMS1iMWVlLTc4OThhYWMwMTU5YyJ9">See Usage</a></li>
 									<li><a href="../whatwedo.html" title="Faq">Faq</a></li>
 								</ul>
 							</div>

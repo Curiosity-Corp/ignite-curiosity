@@ -10,14 +10,18 @@
 //   - "TLI" as a whole, upper-case word (the org's acronym), and
 //   - "Dan Hup" (any case, optional space/"-"/"_"): CEO rule 2026-11-17, the
 //     internship material says "our career placement team" instead.
+//   - "door.taolearning.org" (old registration backend), the GuideStar profile
+//     https://www.guidestar.org/Profile/9759491 and "tli-usage" (removed report):
+//     Admiral decisions 4 and 5 on Curiosity-Corp/ignite-curiosity#19.
 // A hit fails the job unless scripts/old-attribution-allowlist.txt allows it
 // (one entry per use: path, text on that line, reason; text "*" allows the
 // whole file and is meant only for this gate's own tooling).
 // An allow-list entry that no longer matches anything also fails, so the
 // list stays exact.
 //
-// It also fails if any tracked file is byte-identical to a removed Tao Learning
-// mark listed in scripts/old-attribution-marks.sha256.
+// It also fails if any tracked file is byte-identical to a removed file listed in
+// scripts/old-attribution-marks.sha256 (Tao Learning marks, the GuideStar seal,
+// the TLI usage report).
 //
 //   node scripts/check-old-attribution.mjs
 import { execFileSync } from 'node:child_process';
@@ -25,9 +29,19 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
 const ALLOWLIST = 'scripts/old-attribution-allowlist.txt';
-// Image marks are not text; they are blocked by content hash instead.
+// Removed images and documents are blocked by content hash instead.
 const MARKS = 'scripts/old-attribution-marks.sha256';
-const PATTERNS = [/tao[\s_-]*learn(?:ing|ers?)\b/i, /\bTLI\b/, /dan[\s_-]*hup/i];
+const PATTERNS = [
+  /tao[\s_-]*learn(?:ing|ers?)\b/i,
+  /\bTLI\b/,
+  /dan[\s_-]*hup/i,
+  // #19 decision 5: the old registration backend; sign-ups never post to another organisation's domain.
+  /door\.taolearning\.org/i,
+  // #19 decision 4: GuideStar seal linking to another organisation's charity profile.
+  /guidestar\.org\/Profile\/9759491/i,
+  // #19 decision 5: the removed usage report and any link to it.
+  /tli[\s_-]*usage/i,
+];
 
 function readText(file) {
   let buf;
@@ -75,7 +89,7 @@ for (const file of files) {
   });
 }
 
-// Any tracked file whose bytes equal a removed Tao Learning mark, under any name.
+// Any tracked file whose bytes equal a removed mark or file, under any name.
 const marks = new Map(
   readFileSync(MARKS, 'utf8').split('\n').filter((l) => l && !l.startsWith('#'))
     .map((l) => { const [sha, was] = l.split('\t'); return [sha, was]; }),
@@ -87,7 +101,7 @@ for (const file of files) {
     throw new Error(`cannot read ${file}: ${err.message}`);
   }
   const was = marks.get(createHash('sha256').update(buf).digest('hex'));
-  if (was) hits.push(`${file}: is the removed Tao Learning mark ${was} (${MARKS})`);
+  if (was) hits.push(`${file}: is the removed file ${was} (${MARKS})`);
 }
 
 const stale = allow.filter((e) => !e.used);

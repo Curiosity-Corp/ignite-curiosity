@@ -1,4 +1,4 @@
-# SHA-256 of the Tao Learning marks removed from the site (Curiosity-Corp/ignite-curiosity#18).
+# SHA-256 of the marks and files removed from the site (Curiosity-Corp/ignite-curiosity#18, #19).
 # scripts/check-old-attribution.mjs fails if any tracked file has one of these hashes,
 # whatever its name. Format: sha256<TAB>path it was removed from.
 e1d95273d1130b7c5f35e56591863f9e410bbea421ee0ff0c90582a0669175aa	images/logo_w.png
@@ -14,3 +14,5 @@ b0b864aa3b9aa2288cb36b7e26e7974ea46601439defb5da646eeac1fd80b3a1	images/logo_tli
 d0fa4a15adc1c91bb6d75c96a4da59fdd7dc55168acd2c957425f30daf9377b9	info/images/tao-learning.jpg
 88488ac511395c62d51feb98af4f3b8f3e51774a260f16d1b94f304ea9628432	info/images/tao-learning2.jpg
 9d1b64d52166fd5f511d5251cfb216810ea3b3dc157fd20012ba6e88c2018e3d	info/images/taolearning270.jpg
+91dbc327af867dd78177b997aa3608ad920aa5cc3493398cf923fea75840d007	images/icons/put-platinum2019-seal.png (GuideStar 2019 seal of another organisation, #19 decision 4)
+51c7be7bb7db8a0e96a9d09e1f170e83425287a819bc841abf769c4e59f5fbe6	tli-usage-march2019.pdf (TLI usage report, #19 decision 5)
