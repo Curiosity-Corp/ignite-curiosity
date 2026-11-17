@@ -20,12 +20,20 @@ const OWNER_LINK =
   `<a href="${OWNER_URL}" target="_blank" rel="noopener" class="footer-owner" ` +
   `style="display:block;margin:6px 0 14px;font-size:18px;font-weight:700;line-height:1.3;color:#fff;">${OWNER}</a>`;
 
-// Each rule: [description, pattern, replacement].
+// Each rule: [description, pattern, replacement, optional page predicate].
 const RULES = [
   [
     'footer: Tao Learning mark (logo_tli_dark.svg) -> owner name as text link',
     /<a href="https?:\/\/(?:www\.)?(?:curiositycorp|taolearning)\.org\/?"[^>]*>\s*<div>\s*<div class="navbar-brand">\s*<object data="[^"]*logo_tli_dark\.svg"[^>]*>\s*(?:<img[^>]*>\s*)?<\/object>\s*<\/div>\s*<\/div>\s*<\/a>/g,
     OWNER_LINK,
+  ],
+  [
+    'older footer (GUIDE STAR column, no "A PROGRAM OF"): owner line under the site description',
+    /(<p>Ignite Curiosity is a learning community[^<]*<\/p>(?:\s*<a [^>]*><i class="fa fa-angle-right"><\/i> Read More<\/a>)?)/,
+    `$1\n\t\t\t\t\t\t\t<div class="footer-title" style="margin-top:24px;">A PROGRAM OF</div>\n\t\t\t\t\t\t\t${OWNER_LINK}`,
+    // Only on pages that still have no owner line at all; the GUIDE STAR seal
+    // (Tao Learning Institute's charity profile) is left as it is (needs::decision).
+    (src) => !src.includes('class="footer-owner"') && src.includes('GUIDE STAR'),
   ],
   [
     'body copy: "Tao Management offers you that platform" -> owner',
@@ -69,10 +77,11 @@ for (const file of files) {
     throw new Error(`cannot read ${file}: ${err.message}`);
   }
   let out = src;
-  for (const [desc, re, rep] of RULES) {
+  for (const [desc, re, rep, when] of RULES) {
+    if (when && !when(out)) continue;
     const n = (out.match(re) || []).length;
     if (n) {
-      counts.set(desc, counts.get(desc) + n);
+      counts.set(desc, counts.get(desc) + (re.global ? n : 1));
       out = out.replace(re, rep);
     }
   }
