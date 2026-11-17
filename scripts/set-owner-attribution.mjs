@@ -43,6 +43,11 @@ const RULES = [
     'Join Ignite Curiosity as fresh interns',
   ],
   [
+    'home: event hashtag "#TaoScholarRun" -> "#ScholarRun"',
+    /#TaoScholarRun\b/g,
+    '#ScholarRun',
+  ],
+  [
     'meta author TaoFruit -> ignitecuriosity.org (matches the other pages)',
     /<meta name="author" content="TaoFruit"\s*\/?>/g,
     '<meta name="author" content="ignitecuriosity.org" />',

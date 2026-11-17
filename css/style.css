@@ -5247,8 +5247,9 @@ object{
 .top100 {
   padding-top: 100px;
 }
-/* Home slider: only the first slide caption is the page's h1; the other
-   captions are h2 drawn exactly like it (one h1 per page). */
+/* Home slider: Owl Carousel clones its slides, so the captions are h2 drawn
+   exactly like the old h1 and the page h1 sits outside the slider (sr-only),
+   one h1 per page. */
 .banner h2.caption-heading {
   font-family: "Lora", serif;
   font-weight: 700;
@@ -5263,3 +5264,7 @@ object{
 @media (max-width: 767px) {
   .banner h2.caption-heading {
     font-size: 24px; } }
+
+/* Long event hashtags wrap instead of widening the page at phone width. */
+.event-pin h2 {
+  overflow-wrap: anywhere; }
