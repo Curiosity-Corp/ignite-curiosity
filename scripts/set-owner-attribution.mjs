@@ -36,6 +36,16 @@ const RULES = [
     (src) => !src.includes('class="footer-owner"') && src.includes('GUIDE STAR'),
   ],
   [
+    'older footer: Tao Learning mark (logo_white350.png) -> Ignite Curiosity wordmark',
+    /<img (?:src|href)="((?:\.\.\/)*)images\/logo_white350\.png" alt="logo bottom" class="logo-bottom">/g,
+    '<img src="$1images/logo.svg" alt="Ignite Curiosity" class="logo-bottom" width="250">',
+  ],
+  [
+    'email templates: header logo (was the Tao Learning mark, then a 404) -> Ignite Curiosity wordmark',
+    /<img src="https:\/\/curiositycorp\.org\/img\/logo600\.png"\s+height="60%" alt="" \/>/g,
+    '<img src="https://ignitecuriosity.org/images/logo.png" width="300" alt="Ignite Curiosity" />',
+  ],
+  [
     'body copy: "Tao Management offers you that platform" -> owner',
     /\bTao Management offers you that platform\b/g,
     `${OWNER} offers you that platform`,

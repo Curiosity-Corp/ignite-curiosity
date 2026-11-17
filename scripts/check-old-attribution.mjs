@@ -16,11 +16,17 @@
 // An allow-list entry that no longer matches anything also fails, so the
 // list stays exact.
 //
+// It also fails if any tracked file is byte-identical to a removed Tao Learning
+// mark listed in scripts/old-attribution-marks.sha256.
+//
 //   node scripts/check-old-attribution.mjs
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
 const ALLOWLIST = 'scripts/old-attribution-allowlist.txt';
+// Image marks are not text; they are blocked by content hash instead.
+const MARKS = 'scripts/old-attribution-marks.sha256';
 const PATTERNS = [/tao[\s_-]*learn(?:ing|ers?)\b/i, /\bTLI\b/, /dan[\s_-]*hup/i];
 
 function readText(file) {
@@ -67,6 +73,21 @@ for (const file of files) {
     if (entry) entry.used = true;
     else hits.push(`${file}:${i + 1}: ${line.trim().slice(0, 200)}`);
   });
+}
+
+// Any tracked file whose bytes equal a removed Tao Learning mark, under any name.
+const marks = new Map(
+  readFileSync(MARKS, 'utf8').split('\n').filter((l) => l && !l.startsWith('#'))
+    .map((l) => { const [sha, was] = l.split('\t'); return [sha, was]; }),
+);
+for (const file of files) {
+  let buf;
+  try { buf = readFileSync(file); } catch (err) {
+    if (err.code === 'ENOENT' || err.code === 'EISDIR') continue;
+    throw new Error(`cannot read ${file}: ${err.message}`);
+  }
+  const was = marks.get(createHash('sha256').update(buf).digest('hex'));
+  if (was) hits.push(`${file}: is the removed Tao Learning mark ${was} (${MARKS})`);
 }
 
 const stale = allow.filter((e) => !e.used);
