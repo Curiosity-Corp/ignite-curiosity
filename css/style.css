@@ -5247,3 +5247,19 @@ object{
 .top100 {
   padding-top: 100px;
 }
+/* Home slider: only the first slide caption is the page's h1; the other
+   captions are h2 drawn exactly like it (one h1 per page). */
+.banner h2.caption-heading {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  line-height: normal;
+  color: #ffffff;
+  font-size: 48px;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+.banner h2.caption-heading span {
+  color: #29ABE2; }
+@media (max-width: 767px) {
+  .banner h2.caption-heading {
+    font-size: 24px; } }

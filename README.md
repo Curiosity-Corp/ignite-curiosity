@@ -1,8 +1,11 @@
 <h1 align="center">
   <br>
-  <img src="https://github.com/TaoFruit/curiosity/blob/gh-pages/images/logo.svg" alt="Ignite Curiosity" width="400">
+  <img src="images/logo.svg" alt="Ignite Curiosity" width="400">
 </h1>
  
+### Ownership
+Ignite Curiosity (ignitecuriosity.org) is a program of **Curiosity Research Corporation** (<a href="https://curiositycorp.org">curiositycorp.org</a>). Every page footer says so; `node scripts/set-owner-attribution.mjs` rewrites the footers repeatably, and the CI job `check:no-old-attribution` (`scripts/check-old-attribution.mjs`) fails any MR that brings back the previous owner attribution outside `scripts/old-attribution-allowlist.txt`.
+
 ### The S.P.A.R.K. Learning System™
 Learn with a SPARK (Seek, Play, Apply, Research, Know). Be self-motivated and have an impact while you learn online with us by picking a mentor or internship partner from our community. The SPARK Learning System™ We encourage learning from preschool all the way to career growth. In this method, students go through a multi-step process to encourage themselves, ignite their own curiosity, find inner passions, collaborate with like-minded individuals who share similar goals and who are discovering the same subjects, and finally to engage in community development to share wisdom back with those who need it most. We have trained the same individuals for over 25 years and continue to encourage, inspire, and mentor curious minds of all ages. We curate learning environments to be peaceful, flexible, and all-encompassing with tools in place for the self-motivated to explore. Nobody wants to sit in small desks and get lectured, but on the flipside - teachers do not want to work with students who lack motivation. As a SPARK Student™, you are responsible for your own exploration and your own curiosity. The Curiosity Coach does not hold your hand through the learning process, but instead reminds you how valuable it is to make mistakes and also reminds you to engage in impactful learning. This style of learning has tangible results in your community instead of mundane homework with no real world application. In this fashion, we are able to give internships and opportunities to students of all levels within companies and organizations who are partnered with us.
 ### S.W.A.R.M. Intelligence System™
@@ -36,7 +39,7 @@ Languages/Technologies used in the project:
 
 ### Installation:
 #### Direct Download
-1. Download <a href="https://github.com/TaoFruit/curiosity/archive/gh-pages.zip" target="_blank">Ignite Curiosity.zip</a>
+1. Download <a href="https://git.developerdojo.org/Curiosity-Corp/ignite-curiosity/-/archive/gh-pages/ignite-curiosity-gh-pages.zip" target="_blank">Ignite Curiosity.zip</a>
 2. Extract the zip file.
 3. Open the folder in <b>VS Code</b> or any other <b>Code Editor</b>
 
@@ -74,7 +77,7 @@ Languages/Technologies used in the project:
 ## Contributing
 > We welcome <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">Pull Requests</a> from everyone, whether you are a student, a teacher, or an expert in the field. When first making a pull request, please keep it short &amp; brief as we establish a relationship.
 
-To contribute to the project, fix the <a href="https://github.com/TaoFruit/curiosity/issues"><b>Issues</b></a>, and then make a <a href="https://github.com/TaoFruit/curiosity/pulls"><b>Pull request</b></a>.
+To contribute to the project, fix the <a href="https://git.developerdojo.org/Curiosity-Corp/ignite-curiosity/-/issues"><b>Issues</b></a>, and then make a <a href="https://git.developerdojo.org/Curiosity-Corp/ignite-curiosity/-/merge_requests"><b>Pull request</b></a>.
 
 ## License
 

@@ -1,0 +1,27 @@
+# Allowed uses of "Tao Learning" / "Tao Learner(s)" / "taolearning" / "TLI" on the published site.
+# Read by scripts/check-old-attribution.mjs (CI job check:no-old-attribution).
+# Format, tab-separated: path<TAB>text that appears on the matching line<TAB>reason
+# ("*" as the text allows the whole file; only for the gate's own tooling).
+# None of these is an ownership claim. Ownership: Curiosity Research Corporation,
+# https://curiositycorp.org (Curiosity-Corp/ignite-curiosity#18).
+
+# Gate tooling: these files name the old attribution in order to remove and block it.
+scripts/check-old-attribution.mjs	*	the gate itself
+scripts/set-owner-attribution.mjs	*	the replacement script
+
+# Functional identifiers, not visible text and not attribution.
+register.html	action="https://door.taolearning.org/api/form"	live registration endpoint (answers 403 to GET); moving the form backend is a separate decision, reported on #18
+register.html	'TLI Member Registration' is unmintable	code comment naming the reCAPTCHA action string
+js/custom.register.validate.js	'TLI Member Registration' is unmintable	code comment naming the reCAPTCHA action string
+skills/soft.html	{action: 'TLI Member Registration'}	reCAPTCHA action identifier, not shown to visitors
+skills/soft2.html	{action: 'TLI Member Registration'}	reCAPTCHA action identifier, not shown to visitors
+skills/tech.html	{action: 'TLI Member Registration'}	reCAPTCHA action identifier, not shown to visitors
+js/jquery.validate.js	element.value === 'TAOLEARNING'	accepted registration code value; changing it would reject existing codes
+
+# needs::decision (goal step 3): a charity/non-profit status statement about Tao Learners.
+# Left verbatim; not rewritten into a claim about Curiosity Research Corporation. See #18.
+careers.html	progress of Tao Learners, as a selfless and non-profitable organization	needs::decision: non-profit status statement
+corporate.html	progress of Tao Learners, as a selfless and non-profitable organization	needs::decision: non-profit status statement
+fundraise.html	progress of Tao Learners, as a selfless and non-profitable organization	needs::decision: non-profit status statement
+health.html	progress of Tao Learners, as a selfless and non-profitable organization	needs::decision: non-profit status statement
+whatwedo_old.html	progress of Tao Learners, as a selfless and non-profitable organization	needs::decision: non-profit status statement
