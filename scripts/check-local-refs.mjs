@@ -36,6 +36,19 @@ function refs(file, text) {
   return found;
 }
 
+// Paths that are git submodules (.gitmodules). GitHub Pages checks them out when it
+// builds the site, but a CI clone leaves them empty, so a reference into one cannot
+// be checked here and is not counted as missing.
+let submodules = [];
+if (existsSync(join(root, '.gitmodules'))) {
+  try {
+    submodules = [...readFileSync(join(root, '.gitmodules'), 'utf8').matchAll(/^\s*path\s*=\s*(.+?)\s*$/gm)].map((m) => '/' + m[1].replace(/\/+$/, '') + '/');
+  } catch (err) {
+    console.error(`cannot read .gitmodules: ${err.message}`);
+    process.exitCode = 1;
+  }
+}
+
 let missing = 0;
 let checked = 0;
 for (const file of walk(root)) {
@@ -57,6 +70,7 @@ for (const file of walk(root)) {
     if (!isLocal(raw.trim()) || !u) continue;
     let pathname;
     try { pathname = decodeURIComponent(new URL(u, page).pathname); } catch { pathname = new URL(u, page).pathname; }
+    if (submodules.some((dir) => pathname.startsWith(dir))) continue;
     const target = join(root, pathname);
     checked++;
     const ok = existsSync(target) && (statSync(target).isFile() || existsSync(join(target, 'index.html')));

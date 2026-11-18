@@ -36,16 +36,61 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lora:400,700|Roboto:400,500&amp;display=swap">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom.register.validate.css" />
 
 	
     <script src="js/vendor/modernizr.min.js"></script>
 
+	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+	<script src="https://www.google.com/recaptcha/api.js?render=6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO"></script>
 	
 	<!-- Blue CSS -->
 	<link rel="stylesheet" type="text/css" href="css/blue.css">
+	<link rel="stylesheet" href="assets/tel2/build/css/intlTelInput.css">
 
 		
 
+	<script>
+		// Best-effort token prefetch. Submit-time grecaptcha.execute in
+		// js/custom.register.validate.js is authoritative; this block must
+		// never throw (e.g. when an ad blocker prevents recaptcha loading).
+		// Action string must stay identical to RECAPTCHA_ACTION in
+		// js/custom.register.validate.js - formfunnel verifies the action
+		// and rejects tokens minted for a different (or missing) action.
+		// NOTE: Google allows A-Za-z/_ only (no spaces); the earlier
+		// action string contained spaces, is unmintable and made
+		// every prefetch fail. Canonical action is 'USIVA_OPT_Application',
+		// matching formfunnel RecaptchaExpectedAction.
+		// NOTE 2026-09-29: site key MUST be the classic v3 key below.
+		// formfunnel currently verifies via classic v3 siteverify (Enterprise
+		// assessment is disabled server-side), and the Enterprise site key has
+		// no classic secret: tokens minted with it are rejected as
+		// invalid-input-response for humans and bots alike (verified live).
+		try {
+			if (typeof grecaptcha !== 'undefined' && grecaptcha && grecaptcha.ready) {
+				grecaptcha.ready(function() {
+					try {
+						grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'USIVA_OPT_Application'})
+						.then(function(token) {
+							var recaptchaResponse = document.getElementById('recaptchaResponse');
+							if (recaptchaResponse) {
+								recaptchaResponse.value = token;
+							}
+						}, function(err) {
+							console.log('recaptcha prefetch failed', err);
+						});
+					} catch (prefetchErr) {
+						console.log('recaptcha prefetch threw', prefetchErr);
+					}
+				});
+			} else {
+				console.log('recaptcha unavailable at load; submit-time verification will report it');
+			}
+		} catch (loadErr) {
+			console.log('recaptcha prefetch skipped', loadErr);
+		}
+	</script>
 	<style>
 ul {
 list-style-type: none;
@@ -163,7 +208,7 @@ list-style-type: none;
 	<div class="section banner-page top100" data-background="images/1920/learnblock2.jpg">
 		<div class="content-wrap-20 pos-relative">
 			<div class="d-flex justify-content-center bd-highlight mb-3">
-				<h1 class="title-page">Register</h1>
+				<div class="title-page">Register</div>
 			</div>
 			<div class="d-flex justify-content-center bd-highlight mb-3">
 			    <nav aria-label="breadcrumb">
@@ -193,8 +238,514 @@ list-style-type: none;
 				</div>
 	<div class="row">
 		<div class="col-sm-9 col-md-9">
-				<div class="content registration-moving" id="registration-moving">
-					<p style="font-size:20px;line-height:1.6;overflow-wrap:anywhere;margin-bottom:50px;">Registration is moving. Please email us at <a href="mailto:info@ignitecuriosity.org">info@ignitecuriosity.org</a>.</p>
+				<div class="content">
+					<form enctype="application/json" method="POST" action="https://door.taolearning.org/api/form" id="registerForm" class="contactForm" data-toggle="validator" novalidate="true">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<div class="title">
+										<h3>Personal Details</h3>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<input type="text" class="form-control styled required" id="Prefix" name="Prefix" placeholder="Prefix" required="">
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="form-group">
+										<input type="text" class="form-control styled required" id="First_Name" name="First_Name" placeholder="First Name" required="">
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="form-group">
+										<input type="text" class="form-control styled required" id="Last_Name" name="Last_Name" placeholder="Last Name" required="">
+									</div>
+								</div>
+							</div><!-- End row -->
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="text" class="form-control styled required" id="Display_Name" name="Display_Name" placeholder="Display Name" required="">
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="email" class="form-control styled required" id="Email" name="Email" placeholder="Email Address" required="">
+									</div>
+								</div>
+							</div><!-- End row -->
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<input class="form-control styled required" id="Phone_Number" type="tel" name="Phone_Number" placeholder="Phone Number">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="text" class="form-control styled required" id="Birth_Date" name="Birth_Date"  placeholder="Date of Birth mm/dd/yyyy">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<select name="Gender" id="Gender" class="form-control styled required">
+											<option value="">Select Gender</option>
+											<option value="Male">Male</option>
+											<option value="Female">Female</option>
+											<option value="Other">Other</option>
+										</select>
+									</div>
+								</div>
+							</div><!-- End row -->
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="Driver_License">Have a Driver's License? <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Do you currently hold a valid driver's license? Having a License improves your candidacy at many companies."></i></label><br>
+										<label><input class="form-control styled required" id="driverLicenseYes" type="radio" name="Driver_License" value="Yes"> Yes &nbsp; &nbsp; &nbsp; &nbsp;</label>
+										<label><input class="form-control styled required" id="driverLicenseNo" type="radio" name="Driver_License" value="No"> No</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="Backgound_Check">Open to Background Check? <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Are you open to obtaining a background check? Potential Employers may require this."></i></label><br>
+										<label><input class="form-control styled required" id="bgCheckYes" type="radio" name="Backgound_Check" value="Yes"> Yes &nbsp; &nbsp; &nbsp; &nbsp;</label>
+										<label><input class="form-control styled required" id="bgCheckNo" type="radio" name="Backgound_Check" value="No"> No</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="Drug_Test">Open to Drug Test? <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Are you open to periodic drug testing? Potential Employers may require this."></i></label><br>
+										<label><input class="form-control styled required" id="drugTestYes" type="radio" name="Drug_Test" value="Yes"> Yes &nbsp; &nbsp; &nbsp; &nbsp;</label>
+										<label><input class="form-control styled required" id="drugTestNo" type="radio" name="Drug_Test" value="No"> No</label>
+									</div>
+								</div>
+							</div><!-- End row -->
+						  </div>
+						
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<div class="title">
+										<h3>Professional Details</h3>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label><a href="https://github.com" target="_blank">GitHub Profile</a> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="As Technical Consultants, everyone needs a GitHub Profile to Join Us"></i></label>
+										<div class="input-group">
+											<span class="input-group-addon">https://github.com/</span>
+											<input type="text" class="form-control styled required" id="GitHub_Username" name="GitHub_Username" placeholder="username" required="">
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label><a href="https://linkedin.com" target="_blank">LinkedIn Profile</a> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Provide your Professional LinkedIn Username and make sure your profile is filled out completely."></i></label>
+										<div class="input-group">
+											<span class="input-group-addon">https://linkedin.com/in/</span>
+											<input type="text" class="form-control styled required" id="LinkedIn_Username" name="LinkedIn_Username" placeholder="username" required="">
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label><a href="https://learn.microsoft.com/en-us/training/support/learn-profile-manage#create-a-microsoft-learn-profile" target="_blank">Microsoft Learn Profile</a> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Share Your Microsoft Learn Profile"></i></label>
+										<div class="input-group">
+											<span class="input-group-addon">https://learn.microsoft.com/en-us/users/</span>
+											<input type="text" class="form-control styled required" id="MS_Learn_Username" name="MS_Learn_Username" placeholder="username" required="">
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+							</div><!-- End row -->
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Share a Link to your Resume (Optional) <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="A Google Drive, Dropbox, or similar link in PDF or DOCX format. Make sure Permissions are given to info@ignitecuriosity.org"></i></label>
+										<input type="text" class="form-control styled required" id="Resume" name="Resume" placeholder="Resume Link" required="">
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Desired SMILE Space&trade; <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="This is a Learning Space or Office Space Clear of Distractions"></i></label>
+										<select name="SMILE_Space" id="SMILE_Space" class="form-control styled required">
+											<option value="">Select SMILE Space&trade;</option>
+											<option value="Own Home">Own Home</option>
+											<option value="Local Office">Local Office</option>
+											<option value="University">University Setting</option>
+											<option value="International Visit">International Visit</option>
+										</select>
+									</div>
+								</div>
+								<!-- <div class="col-md-6">
+									<div class="form-group">
+										<label><a href="https://intro.dreamhive.org" target="_blank"><span>Click Here to Create your Intro Video</span></a> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Create a short video clip on the link to introduce yourself then, attach your link here."></i></label>
+										<input type="text" class="form-control styled required" id="Intro_Video" name="Intro_Video" placeholder="Intro Video Link" required="">
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+							 -->
+							</div><!-- End row -->
+							<hr class="styled_2">
+							
+							<div class="indent_title_in">
+								<i class="pe-7s-map-marker"></i>
+								<h3>Address</h3>
+							</div>
+		
+							<div class="wrapper_indent">
+						
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+									<input type="text" class="form-control styled required" id="Address" name="Address" placeholder="Street Address">
+								</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+									<input type="text" class="form-control styled required" id="City" name="City" placeholder="City">
+								</div>
+								</div>
+							</div><!-- End row -->
+								
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<input type="text" class="form-control styled required" id="Zip_Code" name="Zip_Code" placeholder="Postal Code">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<select class="form-control required" name="Location" id="Location">
+											<option value="" selected>Select Your Country</option>
+											<option value="Argentina">Argentina</option>
+											<option value="Brazil">Brazil</option>
+											<option value="Canada">Canada</option>
+											<option value="China">China</option>
+											<option value="Colombia">Colombia</option>
+											<option value="Egypt">Egypt</option>
+											<option value="India">India</option>
+											<option value="Mexico">Mexico</option>
+											<option value="Nigeria">Nigeria</option>
+											<option value="Pakistan">Pakistan</option>
+											<option value="Philippines">Philippines</option>
+											<option value="Poland">Poland</option>
+											<option value="Romania">Romania</option>
+											<option value="USA">USA</option>
+											<option value="Ukraine">Ukraine</option>
+											<option value="Vietnam">Vietnam</option>
+											<option value="Other">Other</option>
+										</select>
+									</div>
+								</div>
+							</div>         
+							</div>
+								<hr class="styled_2">
+								<div class="indent_title_in">
+									<i class="pe-7s-study"></i>
+								<h3>Academic Information</h3>
+								<p>Tell us a little about your Education, Desires, and Curiosity.</p>
+							</div>
+							<div class="wrapper_indent">
+								<div class="row list_courses_apply">
+									<div class="col-md-6 form-group">
+										<select class="form-control required" name="Education_Level" id="Education_Level" >
+											<option value="" selected>Select Education</option>
+											<option value="preschool">Preschool</option>
+											<option value="Middle School">Middle School</option>
+											<option value="High School">High School</option>
+											<option value="Some College">Some College</option>
+											<option value="Bachelor Degree">Bachelor Degree</option>
+											<option value="Master Degree">Master Degree</option>
+											<option value="Doctorate Degree">Doctorate Degree</option>
+										</select>
+									</div>
+									
+									
+									<div class="col-md-6 form-group">
+										<select class="form-control required" name="Time_Interest" id="Time_Interest"  >
+											<option value="" selected>Select Time Commitment</option>
+											<option value="Intensive">Intensive - Short Term</option>
+											<option value="Flexible">Flexible - Long Term</option>
+											<option value="Part Time">Part Time - Long Term</option>
+											<option value="Full Time">Full Time - Long Term</option>
+											<option value="Live In">Live-In Desired - Long Term</option>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 form-group">
+										<h4>Program Interest</h4>
+										<label>You Can Choose Multiple Options</label>
+										<div class="row">
+											<div class="col-md-6" name="Program_Interest" id="Program_Interest">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Internship" id="internship">
+													<label class="form-check-label" for="internship">
+														Free Internship
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Career" id="career">
+													<label class="form-check-label" for="career">
+														Career Coaching
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Mentor" id="mentor">
+													<label class="form-check-label" for="mentor">
+														Find a Mentor
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="University" id="university">
+													<label class="form-check-label" for="university">
+														Enroll in our University
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Procurement" id="procurement">
+													<label class="form-check-label" for="fellowship">
+														Seek Procurement Opportunities
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Fellowship" id="fellowship">
+													<label class="form-check-label" for="fellowship">
+														Join Our Fellowship
+													</label>
+												</div>
+											</div>
+											<div class="col-md-6" name="Program_Interest" id="interest2">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Volunteer" id="volunteer">
+													<label class="form-check-label" for="volunteer">
+														Volunteer with a Non-Profit
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Fundraise" id="fundraise">
+													<label class="form-check-label" for="fundraise">
+														Fundraise for a Non-Profit
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Grant" id="grant">
+													<label class="form-check-label" for="volunteer">
+														Write Grants for a Non-Profit
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="PartTime" id="partTime">
+													<label class="form-check-label" for="partTime">
+														Find a Part-Time Career
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="FullTime" id="fullTime">
+													<label class="form-check-label" for="fullTime">
+														Find a Full-Time Career
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="Program_Interest" value="Freelance" id="freelance">
+													<label class="form-check-label" for="freelance">
+														Find a Freelance Job
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 form-group">
+										<h4>Share Your Internet Speed (Optional)</h4>
+										<p><small>Optional - helps coaches advise on connectivity. You can submit without running it. Quick lightweight check only (no large downloads).</small></p>
+										<button type="button" id="speedTestButton" class="btn btn-secondary">Check Internet Speed (Optional)</button>
+										<div id="speedTestStatus"></div> <!-- Element to display "Testing..." or the result -->
+										<input type="hidden" id="speedTestResult" name="speedTestResult" value="">
+										<div id="speederror" class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 form-group">
+										<h4>Set Your Skill Level</h4>
+										<p>Rate your skill level on a scale of 1-5 for the following areas:</p>
+										
+										<table class="no-border-table">
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Communication">Communication:</label></td>
+												<td><input type="range" id="Skill_Communication" name="Skill_Communication" min="1" max="5" value="2" oninput="updateValue('Skill_CommunicationValue', this.value)"></td>
+												<td><span id="Skill_CommunicationValue">2</span></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Leadership">Leadership:</label></td>
+												<td><input type="range" id="Skill_Leadership" name="Skill_Leadership" min="1" max="5" value="2" oninput="updateValue('Skill_LeadershipValue', this.value)"></td>
+												<td><span id="Skill_LeadershipValue">2</span></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Research">Research:</label></td>
+												<td><input type="range" id="Skill_Research" name="Skill_Research" min="1" max="5" value="2" oninput="updateValue('Skill_ResearchValue', this.value)"></td>
+												<td><span id="Skill_ResearchValue">2</span></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Project_Management">Project Management:</label></td>
+												<td><input type="range" id="Skill_Project_Management" name="Skill_Project_Management" min="1" max="5" value="2" oninput="updateValue('Skill_Project_ManagementValue', this.value)"></td>
+												<td><span id="Skill_Project_ManagementValue">2</span></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Sales">Sales:</label></td>
+												<td><input type="range" id="Skill_Sales" name="Skill_Sales" min="1" max="5" value="2" oninput="updateValue('Skill_SalesValue', this.value)"></td>
+												<td><span id="Skill_SalesValue">2</span></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Agile_Development">Agile Development:</label></td>
+												<td><input type="range" id="Skill_Agile_Development" name="Skill_Agile_Development" min="1" max="5" value="2" oninput="updateValue('Skill_Agile_DevelopmentValue', this.value)"></td>
+												<td><span id="Skill_Agile_DevelopmentValue">2</span></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Office_365">Office 365:</label></td>
+												<td><input type="range" id="Skill_Office_365" name="Skill_Office_365" min="1" max="5" value="2" oninput="updateValue('Skill_Office_365Value', this.value)"></td>
+												<td><span id="Skill_Office_365Value">2</span></td>
+											</tr>
+											<tr>
+												<td style="text-align: right;"><label for="Skill_Teamwork">Teamwork:</label></td>
+												<td><input type="range" id="Skill_Teamwork" name="Skill_Teamwork" min="1" max="5" value="2" oninput="updateValue('Skill_TeamworkValue', this.value)"></td>
+												<td><span id="Skill_TeamworkValue">2</span></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="indent_title_in">
+									<h4>Salary Information</h4>
+								</div>
+			
+								<div class="wrapper_indent">
+							
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label><span>Select Your Currency</span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="What Country's Currency can you accept Wages in?"></i></label>
+											<select class="form-control required" name="Currency" id="Currency" >
+												<option value="" selected>Select Currency</option>
+												<option value="Naira">₦ Naira</option>
+												<option value="Pakistan Rupee">₨ Pakistan Rupee</option>
+												<option value="Philippine Peso">₱ Philippine Peso</option>
+												<option value="India Rupee">₹ India Rupee</option>
+												<option value="Ukrainian Hryvnia">₴ Ukrainian Hryvnia</option>
+												<option value="US Dollar">$ US Dollar</option>
+												<option value="Kenyan Shilling">KSh Kenyan Shilling</option>
+												<option value="Zig">Zimbabwe Zig</option>
+												<option value="Bitcoin">₿ Bitcoin</option>
+												<option value="USDT">₮ USDT Tether Coin</option>
+											</select>
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label><span>Current Monthly Salary</span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Share Your Current Wage. Enter '0' if you have none."></i></label>
+											<input type="text" class="form-control styled required" id="Prev_Salary" name="Prev_Salary" placeholder="$0" required="">
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									<div class="col-md-7">
+										<div class="form-group">
+											<label><span><a href="https://accounts.binance.com/en/register" target="_blank">USDT Contract Address</a> (optional)</span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Optional. Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed by Tether's reserves."></i></label>
+											<input type="text" class="form-control styled" id="USDT" name="USDT" placeholder="0x5E19b04130FB8204696922eBf602D5206AE9D126" maxlength="42">
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									<div class="col-md-5">
+										<div class="form-group">
+											<label><span><a href="https://accounts.binance.com/en/register" target="_blank">Binance Pay ID</a> (optional)</span> <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Optional. If you provide this, make sure it is your Binance Pay ID, not your Binance Account ID."></i></label>
+											<input type="text" class="form-control styled" id="Binance_Pay_ID" name="Binance_Pay_ID" placeholder="123456789" maxlength="10">
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+								</div><!-- End row -->
+							</div>
+						</div>
+							
+							<br>
+						
+							<div >
+								<div class="form-group">
+									<h4>Introduce Yourself</h4>
+										<div class="col-md-12">
+											<div class="form-group">
+												<textarea id="Message" name="Message" maxlength="750" class="form-control" rows="6" placeholder="Tell the entire Curiosity Hive about Yourself and Why You Want to Join :) "></textarea>
+											</div>
+										</div>
+									</div>
+										<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>How did you learn about Ignite Curiosity? <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="A Friend? An Advertisement? A Career Counselor or Professor?"></i></label>
+												<input type="text" class="form-control styled required" id="Reference" name="Reference" placeholder="Referred By" required="">
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Invitation Code (Required) <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Required. Finish the free orientation at curiosityhive.org to receive a code, or ask an existing member"></i></label>
+												<input type="text" class="form-control styled required" id="Invite_Code" name="Invite_Code" placeholder="e.g. ORIENTATION-2024-XXXX" required="" aria-describedby="inviteCodeHelp">
+												<small id="inviteCodeHelp" class="form-text text-muted">Required. Get a code by completing the free <a href="https://curiosityhive.org/" target="_blank">orientation</a> quiz or asking an existing member. Registration is <strong>pending coach approval</strong> - not an instant account.</small>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<br>
+									<div class="form-group checkbox-type">
+										<label><input type="checkbox" name="Correspondence_Accept" id="Correspondence_Accept" class="required form-control" >I agree to receive communication including automated responses via Phone, Facebook, WhatsApp, LinkedIn, MS Teams, Social Media, and/or Email.</label>
+									</div>
+									<div class="form-group checkbox-type">
+										<label><input type="checkbox" name="Understand_Days" id="Understand_Days" class="required form-control" >I understand I must start my <a href="https://dreamhive.org" target="_blank">Dream Quest</a> to get access to employment opportunties.</label>
+									</div>
+									<div class="form-group checkbox-type">
+										<label><input type="checkbox" name="Policy_Terms" id="Policy_Terms" class="required form-control" >I accept the <a href="terms.html" target="_blank">terms and conditions</a> and <a href="privacy.html" target="_blank">general policy</a>.</label>
+									</div>
+									<div class="help-block with-errors"></div>
+
+									
+										
+								
+								<input type="hidden" name="test" value="off">
+								<input type="hidden" name="owner" value="3d59947d-4991-e911-a95b-000d3a34ec54">
+								<input type="hidden" name="website" value="https://ignitecuriosity.org">
+								<input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+								<input type="text" name="_gotcha" style="display:none" />
+								<input type="hidden" name="budget" value="30000">
+								<input type="hidden" name="campaign" value="Ignite Curiosity">
+								<input type="hidden" name="pageName" value="register">
+								<input type="hidden" name="token" value="">
+								<input type="hidden" name="formType" value="registration">
+
+
+				
+								<div class="form-group">
+									<div id="success"></div>
+										<button type="submit" class="btn btn-primary">REGISTER</button>
+										<p class="form-text text-muted" style="margin-top:8px;"><small>Submitting creates a <strong>pending request</strong> - a coach must approve it before any account exists. Watch your email (and Spam) for next steps.</small></p>
+									</div>
+									<div id="speed-test-error" class="error-message" style="display:none;color:red;"></div>
+								</div>
+
+							<div class="margin-bottom-50"></div>
+								<p><em>Note: registration is <strong>pending coach approval</strong> - not an instant account. <a href="https://teams.microsoft.com" target="_blank">Download Microsoft Teams</a> so you are ready once a coach approves you and emails login credentials.</em></p>
+							</div>
+						</form>
 					</div>
 
 						
@@ -406,7 +957,147 @@ list-style-type: none;
 	<script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/common_scripts_min.js"></script>
 <script src="js/functions.js"></script>
-	<script src="js/script.js"></script>
+	<script src="assets/validate.js?v=20260929c"></script>
 
+	<!-- SENDMAIL -->
+	<!-- <script src="js/vendor/validator.min.js"></script> -->
+	<!-- <script src="js/vendor/form-scripts.js"></script> -->
+
+	<!-- Specific scripts -->
+	<script src="js/icheck.js"></script>
+	<script>  
+	$('input').iCheck({
+	checkboxClass: 'icheckbox_square-blue',
+	radioClass: 'iradio_square-blue'
+	});
+	</script>
+	
+	<script src="js/jquery.validate.js"></script>
+
+	<!-- MAIN JS -->
+	<script src="js/script.js"></script>
+	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script src="js/validate.min.js?v=20260929c"></script>
+	<script src="js/custom.register.validate.js?v=20260929c"></script>
+
+	
+	<script src="assets/tel2/build/js/intlTelInput.js"></script>
+	<script>
+	var input = document.querySelector("#Phone_Number");
+	window.intlTelInput(input);
+	</script>
+
+
+<script>
+	// Optional lightweight connectivity check. Never blocks submission and
+	// never downloads large files (previous version fetched ~19MB).
+	var speedTestButtonClicked = false;
+	document.getElementById('speedTestButton').addEventListener('click', function() {
+		var errorMessageDiv = document.getElementById('speed-test-error');
+		if (errorMessageDiv) {
+			errorMessageDiv.style.display = 'none';
+		}
+
+		var speedErrorDiv = document.getElementById('speederror');
+		if (speedErrorDiv) {
+			speedErrorDiv.innerHTML = '';
+			speedErrorDiv.style.display = 'none';
+		}
+
+		var statusDiv = document.getElementById('speedTestStatus');
+		var resultInput = document.getElementById('speedTestResult');
+		var button = document.getElementById('speedTestButton');
+
+		button.disabled = true;
+		if (statusDiv) {
+			statusDiv.className = '';
+			statusDiv.innerHTML = 'Checking... (quick lightweight check, optional)';
+		}
+
+		function finish(value, message, isNote) {
+			if (resultInput) { resultInput.value = value; }
+			if (statusDiv) {
+				statusDiv.innerHTML = message;
+				statusDiv.className = isNote ? 'speed-test-note' : '';
+			}
+			button.disabled = false;
+			speedTestButtonClicked = true;
+		}
+
+		// Prefer the Network Information API when available: zero downloads.
+		try {
+			var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+			if (conn && conn.downlink) {
+				var dl = parseFloat(conn.downlink);
+				if (isFinite(dl) && dl > 0) {
+					finish(dl.toFixed(2), 'Approximate connection speed: ' + dl.toFixed(2) + ' Mbps (estimate). You can submit now.', false);
+					return;
+				}
+			}
+		} catch (connErr) { console.log('connection API skipped', connErr); }
+
+		// Fallback: time fetching one small same-origin image (no large downloads).
+		try {
+			var finished = false;
+			var startTime = (new Date()).getTime();
+			var xhr = new XMLHttpRequest();
+			var timeoutId = setTimeout(function() {
+				if (!finished) { finished = true; try { xhr.abort(); } catch (e) {} }
+				finish('', 'Could not measure speed (timed out) - you can still submit.', true);
+			}, 15000);
+			xhr.onreadystatechange = function() {
+				if (finished || xhr.readyState !== XMLHttpRequest.DONE) { return; }
+				finished = true;
+				clearTimeout(timeoutId);
+				try {
+					if (xhr.status >= 200 && xhr.status < 300) {
+						var bytes = (xhr.responseText || '').length;
+						var secs = (((new Date()).getTime() - startTime) / 1000) || 1;
+						var mbps = ((bytes * 8) / secs) / (1024 * 1024);
+						if (!isFinite(mbps) || mbps < 0) { mbps = 0; }
+						finish(mbps.toFixed(2), 'Approximate speed: ' + mbps.toFixed(2) + ' Mbps (rough estimate). You can submit now.', false);
+					} else {
+						finish('', 'Could not measure speed - you can still submit.', true);
+					}
+				} catch (parseErr) {
+					console.log('speed fallback parse failed', parseErr);
+					finish('', 'Could not measure speed - you can still submit.', true);
+				}
+			};
+			xhr.onerror = function() {
+				if (finished) { return; }
+				finished = true;
+				clearTimeout(timeoutId);
+				finish('', 'Could not measure speed - you can still submit.', true);
+			};
+			xhr.open('GET', 'images/logo.png?nocache=' + Math.random(), true);
+			xhr.send();
+		} catch (checkErr) {
+			console.log('speed check skipped', checkErr);
+			finish('', 'Speed check unavailable - you can still submit.', true);
+		}
+	});
+</script>
+	<script>
+		function updateValue(id, value) {
+			document.getElementById(id).textContent = value;
+		}
+	</script>
+
+	<script>
+		var currencySelect = document.getElementById('Currency');
+		var salaryInput = document.getElementById('Prev_Salary');
+
+		if (currencySelect && salaryInput) {
+			currencySelect.addEventListener('change', function() {
+				var selectedOptionText = this.options[this.selectedIndex].text;
+				var currencySymbol = selectedOptionText.split(' ')[0];
+
+				salaryInput.placeholder = currencySymbol + '0';
+			});
+		}
+	</script>
+
+	
 </body>
 </html>
