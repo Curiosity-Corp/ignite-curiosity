@@ -45,3 +45,12 @@ check:sitemap:
   image: node:26.7.0-trixie
   script:
     - node scripts/build-sitemap.mjs --check
+
+# People must be able to register and to contact us from the site
+# (CEO order 2026-11-18, Curiosity-Corp/ignite-curiosity#20). Each page keeps a
+# form that posts to an https address whose host resolves, and the register
+# script that submits it is present.
+check:forms-post-somewhere:
+  image: node:26.7.0-trixie
+  script:
+    - node scripts/check-forms.mjs
