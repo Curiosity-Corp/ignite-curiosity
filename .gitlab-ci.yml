@@ -54,3 +54,12 @@ check:forms-post-somewhere:
   image: node:26.7.0-trixie
   script:
     - node scripts/check-forms.mjs
+
+# Every page in sitemap.xml meets the site standard: its own title, canonical link,
+# sharing tags, schema.org data, one h1, a skip link, alt text, rel=noopener on
+# new-tab links. A new or edited page that misses it fails here; the fix is to run
+# the script.
+check:page-standard:
+  image: node:26.7.0-trixie
+  script:
+    - node scripts/strengthen-pages.mjs --check

@@ -373,7 +373,7 @@ function resetForm() {
 // assessment, this key must be revisited together with the server config;
 // until then the classic key is the only one whose tokens can verify.
 var RECAPTCHA_ACTION = 'USIVA_OPT_Application';
-var REGISTER_SCRIPT_VERSION = '20260929c';
+var REGISTER_SCRIPT_VERSION = '20261118a';
 
 // Structured submit-path log. Stages: validation-passed, stale-page,
 // recaptcha-unavailable, token-ready, missing-token, posting, post-success,
@@ -514,15 +514,29 @@ function showSuccess() {
                 var status = xhr ? xhr.status : 'unknown';
                 if (submitBtn) { submitBtn.disabled = false; }
                 if (status === 400) {
-                    // INVALID-TOKEN (server): formfunnel rejected the token.
                     var body = '';
+                    var code = '';
                     try { body = (xhr.responseText || '').slice(0, 200); } catch (bodyErr) {}
-                    showSubmitError(
-                        'invalid-token',
-                        'Security check was rejected (invalid-token). Your verification expired or was issued for an old page version. Please reload the page and submit once more.',
-                        'Security check expired - reload and retry'
-                    );
-                    regLog('invalid-token', '400 body=' + body);
+                    try { code = (JSON.parse(xhr.responseText || '{}') || {}).code || ''; } catch (parseErr) {}
+                    if (code === 'not_human') {
+                        // NOT-HUMAN (server): the token was valid, but Google scored
+                        // this browser as likely automated. Reloading does not help;
+                        // say what does, and give a way through.
+                        showSubmitError(
+                            'not-human',
+                            'Our security check could not confirm this browser (not-human). Turn off any VPN, ad blocker or privacy extension, or try another browser or your phone, then submit again. If it still fails, write to us through the Contact page and we will help you register.',
+                            'Security check did not pass'
+                        );
+                        regLog('not-human', '400 body=' + body);
+                    } else {
+                        // INVALID-TOKEN (server): formfunnel rejected the token.
+                        showSubmitError(
+                            'invalid-token',
+                            'Security check was rejected (invalid-token). Your verification expired or was issued for an old page version. Please reload the page and submit once more.',
+                            'Security check expired - reload and retry'
+                        );
+                        regLog('invalid-token', '400 body=' + body);
+                    }
                 } else if (status === 0 || textStatus === 'timeout') {
                     // NETWORK: no response reached us at all.
                     showSubmitError(
