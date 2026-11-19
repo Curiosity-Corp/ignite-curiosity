@@ -128,6 +128,7 @@ function showSuccess() {
                 type: a.attr('method'),
                 url: a.attr('action'),
                 data: a.serialize(),
+                timeout: 30000,
                 success: function (data, textStatus, xhr) {
                     console.log(xhr.status)
                     if (xhr.status === 200) {
@@ -146,9 +147,22 @@ function showSuccess() {
                         });
                     }
                 },
-                error: function (data) {
+                error: function (xhr, textStatus) {
+                    // Say what went wrong and what helps, instead of one message for everything.
+                    var code = '';
+                    try { code = (JSON.parse((xhr && xhr.responseText) || '{}') || {}).code || ''; } catch (parseErr) {}
+                    var title = 'Your message was not sent';
+                    var text = 'The contact service answered with an error (HTTP ' + (xhr ? xhr.status : 'unknown') + '). Please wait a minute and send again.';
+                    if (code === 'not_human') {
+                        text = 'Our security check could not confirm this browser. Turn off any VPN, ad blocker or privacy extension, or try another browser or your phone, then send again.';
+                    } else if (!xhr || xhr.status === 0 || textStatus === 'timeout') {
+                        text = 'We could not reach the contact service. Check your connection and send again.';
+                    }
+                    console.log('[contactSubmit] ' + (code || textStatus || 'error') + ' status=' + (xhr ? xhr.status : 'unknown'));
+                    submitMSG(false, text);
                     swal.fire({
-                        title: "An unexpected Error Occurred!",
+                        title: title,
+                        text: text,
                         type: "error",
                         confirmButtonText: 'Ok'
                     })
