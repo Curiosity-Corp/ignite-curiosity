@@ -68,6 +68,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://ignitecuriosity.org/contact.html#webpage","url":"https://ignitecuriosity.org/contact.html","name":"Contact | Ignite Curiosity","isPartOf":{"@id":"https://ignitecuriosity.org/#website"},"description":"We Ignite Curiosity Worldwide and make STEAM Education cool.  We are a non-profit literacy program that focuses on all subjects for all ages."},{"@type":"WebSite","@id":"https://ignitecuriosity.org/#website","name":"Ignite Curiosity","url":"https://ignitecuriosity.org/","publisher":{"@id":"https://ignitecuriosity.org/#organization"}},{"@type":"Organization","@id":"https://ignitecuriosity.org/#organization","name":"Ignite Curiosity","url":"https://ignitecuriosity.org/","logo":"https://ignitecuriosity.org/images/logo.svg","parentOrganization":{"@type":"Organization","name":"Curiosity Research Corporation","url":"https://curiositycorp.org"}}]}</script>
 <style>.skip-link{position:absolute;left:-9999px;top:0;z-index:100000;padding:12px 18px;background:#fff;color:#111;font-weight:700}.skip-link:focus{left:0}main{display:contents}.skip-target{position:absolute}</style>
 <!-- site-meta:end -->
+<style>.location-panel{display:flex;align-items:center;justify-content:center;text-align:center;background-color:#eef6fb;background-size:cover;background-position:center}.location-panel-body{background:rgba(255,255,255,.92);padding:28px 32px;max-width:90%}.location-panel-icon{font-size:40px;color:#29ABE2}.location-panel-address{font-size:18px;color:#333;margin:12px 0 18px}.location-panel-links{margin:0}.location-panel-links .btn{margin:4px}</style>
 </head>
 
 
@@ -203,10 +204,19 @@
 					
 					<div class="col-sm-8 col-md-8">
 						<!-- MAPS -->
+						<!-- Location: a keyless panel with links out, not an embedded Google map. The old embed loaded the
+						     Maps JavaScript API without an API key (ApiProjectMapError) and pointed at the template's
+						     coordinates, not ours (Curiosity-Corp/ignite-curiosity#24). -->
 						<div class="maps-wraper">
-							<div id="cd-zoom-in"></div>
-							<div id="cd-zoom-out"></div>
-							<div id="maps" class="maps" data-lat="-7.452278" data-lng="112.708992" data-marker="images/cd-icon-location.png">
+							<div class="maps location-panel" data-background="images/1920/bg-map-dot.jpg">
+								<div class="location-panel-body">
+									<span class="fa fa-map-marker location-panel-icon" aria-hidden="true"></span>
+									<p class="location-panel-address">125 Frederick St<br>Marietta, OH 45750</p>
+									<p class="location-panel-links">
+										<a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=125%20Frederick%20St%2C%20Marietta%2C%20OH%2045750" target="_blank" rel="noopener">Open in Google Maps</a>
+										<a class="btn btn-secondary" href="https://www.openstreetmap.org/search?query=125%20Frederick%20St%2C%20Marietta%2C%20OH%2045750" target="_blank" rel="noopener">OpenStreetMap</a>
+									</p>
+								</div>
 							</div>
 						</div>
 						<div class="spacer-90"></div>
@@ -442,8 +452,7 @@
 	
 	
 	<!-- GOOGLEMAP -->
-	<script src="js/googlemap-setting.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"> </script>
+
 
 	<!-- MAIN JS -->
 	<script src="js/script.js"></script>
