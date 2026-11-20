@@ -6,12 +6,6 @@
 # None of these is an ownership claim. Ownership: Curiosity Research Corporation,
 # https://curiositycorp.org (Curiosity-Corp/ignite-curiosity#18).
 #
-# The registration form is back on register.html by CEO order of 2026-11-18
-# (Curiosity-Corp/ignite-curiosity#20): people must be able to register. It posts to
-# door.taolearning.org/api/form, which is our own Azure Function (tao-ninja/formfunnel) under
-# an old hostname. Both entries below go when #20 moves the form to a hostname on our domain.
-register.html	door.taolearning.org/api/form	our own form backend (tao-ninja/formfunnel) under its old hostname; CEO order 2026-11-18, #20
-contact.html	door.taolearning.org/api/form	same backend; the earlier door.curiositycorp.org address has no DNS record, #20
 js/jquery.validate.js	element.value === 'TAOLEARNING'	an invite code people may hold, not an ownership claim; #20
 
 # Gate tooling: these files name the old attribution in order to remove and block it.
