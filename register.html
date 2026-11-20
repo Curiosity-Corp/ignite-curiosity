@@ -56,12 +56,10 @@
 		// js/custom.register.validate.js is authoritative; this block must
 		// never throw (e.g. when an ad blocker prevents recaptcha loading).
 		// Action string must stay identical to RECAPTCHA_ACTION in
-		// js/custom.register.validate.js - formfunnel verifies the action
-		// and rejects tokens minted for a different (or missing) action.
-		// NOTE: Google allows A-Za-z/_ only (no spaces); the earlier
-		// action string contained spaces, is unmintable and made
-		// every prefetch fail. Canonical action is 'USIVA_OPT_Application',
-		// matching formfunnel RecaptchaExpectedAction.
+		// js/custom.register.validate.js ('IgniteCuriosity_Registration', this
+		// site's own action, #20); formfunnel checks it against its
+		// registrationExpectedAction setting.
+		// NOTE: Google allows A-Za-z/_ only (no spaces).
 		// NOTE 2026-09-29: site key MUST be the classic v3 key below.
 		// formfunnel currently verifies via classic v3 siteverify (Enterprise
 		// assessment is disabled server-side), and the Enterprise site key has
@@ -71,7 +69,7 @@
 			if (typeof grecaptcha !== 'undefined' && grecaptcha && grecaptcha.ready) {
 				grecaptcha.ready(function() {
 					try {
-						grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'USIVA_OPT_Application'})
+						grecaptcha.execute('6LcHIYcUAAAAAPnqH0iBwnDeFma0mWAMJKJHAoEO', {action: 'IgniteCuriosity_Registration'})
 						.then(function(token) {
 							var recaptchaResponse = document.getElementById('recaptchaResponse');
 							if (recaptchaResponse) {
@@ -978,7 +976,7 @@ list-style-type: none;
 	<script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/common_scripts_min.js"></script>
 <script src="js/functions.js"></script>
-	<script src="assets/validate.js?v=20261118a"></script>
+	<script src="assets/validate.js?v=20261120a"></script>
 
 	<!-- SENDMAIL -->
 	<!-- <script src="js/vendor/validator.min.js"></script> -->
@@ -998,8 +996,8 @@ list-style-type: none;
 	<!-- MAIN JS -->
 	<script src="js/script.js"></script>
 	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
-	<script src="js/validate.min.js?v=20261118a"></script>
-	<script src="js/custom.register.validate.js?v=20261118a"></script>
+	<script src="js/validate.min.js?v=20261120a"></script>
+	<script src="js/custom.register.validate.js?v=20261120a"></script>
 
 	
 	<script src="assets/tel2/build/js/intlTelInput.js"></script>

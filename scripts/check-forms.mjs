@@ -46,8 +46,28 @@ for (const { page, id, needs } of FORMS) {
   console.log(`${page}: form #${id} posts to ${action}`);
 }
 
+// reCAPTCHA action (#20): the register page's prefetch and the submit script must
+// mint tokens for the same action, and it must be this site's own name, not one
+// inherited from another organisation's form (USIVA_*, TLI*). formfunnel checks the
+// action against its registrationExpectedAction setting.
+{
+  const LEGACY_ACTION = /^(USIVA|TLI)/i;
+  const read = (file) => { try { return readFileSync(file, 'utf8'); } catch (err) { errors.push(`${file}: cannot read (${err.message})`); return ''; } };
+  const scriptAction = read('js/custom.register.validate.js').match(/var RECAPTCHA_ACTION = '([^']*)'/)?.[1];
+  const pageActions = [...read('register.html').matchAll(/grecaptcha\.execute\([^)]*\{\s*action:\s*'([^']*)'/g)].map((m) => m[1]);
+  if (!scriptAction) errors.push('js/custom.register.validate.js: no RECAPTCHA_ACTION found');
+  else {
+    if (!/^[A-Za-z_\/]+$/.test(scriptAction)) errors.push(`reCAPTCHA action "${scriptAction}" has characters Google rejects (A-Za-z/_ only)`);
+    if (LEGACY_ACTION.test(scriptAction)) errors.push(`reCAPTCHA action "${scriptAction}" is an inherited name; use this site's own (#20)`);
+    for (const a of pageActions) {
+      if (a !== scriptAction) errors.push(`register.html prefetches for action "${a}" but the submit script uses "${scriptAction}"`);
+    }
+    console.log(`register.html: reCAPTCHA action ${scriptAction} (${pageActions.length} prefetch call(s) agree)`);
+  }
+}
+
 if (errors.length) {
   for (const e of errors) console.error(`ERROR: ${e}`);
   process.exit(1);
 }
-console.log('OK: the register and contact forms post to resolvable https addresses');
+console.log('OK: the register and contact forms post to resolvable https addresses, with one own reCAPTCHA action');
