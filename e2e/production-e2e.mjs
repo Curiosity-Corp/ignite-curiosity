@@ -19,6 +19,7 @@ import { spawn } from 'node:child_process';
 import { lookup } from 'node:dns/promises';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { isIP } from 'node:net';
+import { relative, resolve } from 'node:path';
 
 const OUT_DIR = 'production-e2e';
 const RESULTS = `${OUT_DIR}/results.json`;
@@ -102,8 +103,13 @@ async function summarise() {
   const walk = (suite, trail) => {
     for (const spec of suite.specs ?? []) {
       if (spec.ok) continue;
-      const projects = [...new Set((spec.tests ?? []).filter((t) => t.status === 'unexpected').map((t) => t.projectName))];
-      failures.push(`${[...trail, spec.title].join(' › ')}${projects.length ? ` [${projects.join(', ')}]` : ''}`);
+      const failed = (spec.tests ?? []).filter((t) => t.status === 'unexpected');
+      const projects = [...new Set(failed.map((t) => t.projectName))];
+      // The first line that says what went wrong: the assertion message plus the first received value.
+      const message = (failed[0]?.results ?? []).map((r) => r.error?.message ?? '').find(Boolean) ?? '';
+      const lines = message.replace(/\u001b\[[0-9;]*m/g, '').split('\n').map((l) => l.trim()).filter(Boolean);
+      const cause = [lines[0], (lines.find((l) => /^\+\s+"/.test(l)) ?? lines.find((l) => l.startsWith('+ ') && !/^\+ (Received|Array \[)/.test(l)))].filter(Boolean).join(' ').slice(0, 300);
+      failures.push(`${[...trail, spec.title].join(' › ')}${projects.length ? ` [${projects.join(', ')}]` : ''}${cause ? `: ${cause}` : ''}`);
     }
     for (const child of suite.suites ?? []) walk(child, [...trail, child.title]);
   };
@@ -181,7 +187,8 @@ const passed = status === 0;
 const haveScreenshot = await exists(screenshot);
 const token = env[tokenName];
 
-let screenshotMarkdown = haveScreenshot ? `Landing page as a customer sees it: \`${screenshot}\` in the job artifacts.` : undefined;
+const artifactPath = relative(env.CI_PROJECT_DIR ?? process.cwd(), resolve(screenshot));
+let screenshotMarkdown = haveScreenshot ? `Landing page as a customer sees it: \`${artifactPath}\` in the job artifacts.` : undefined;
 let postStatus = 0;
 await writeFile(NOTE, buildNote({ passed, dns, summary, screenshotMarkdown }));
 if (token) {
