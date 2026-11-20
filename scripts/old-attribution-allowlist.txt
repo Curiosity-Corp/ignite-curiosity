@@ -18,3 +18,4 @@ js/jquery.validate.js	element.value === 'TAOLEARNING'	an invite code people may 
 scripts/check-old-attribution.mjs	*	the gate itself
 scripts/set-owner-attribution.mjs	*	the replacement script
 scripts/apply-site-decisions.mjs	*	the #19 decisions script matches the removed text in order to rewrite it
+scripts/check-forms.mjs	*	the forms gate names the inherited reCAPTCHA action prefixes (USIVA, TLI) in order to block them, #20
