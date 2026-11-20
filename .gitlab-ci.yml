@@ -1,6 +1,6 @@
 # SMS brand guard gate (CEO mandate 2026-11-03): the Logic App's SMS send must keep the
 # "Focus Hive" signature guard, and the guard must pass the contract vectors.
-stages: [validate]
+stages: [validate, e2e]
 
 sms-brand-guard:
   stage: validate
@@ -11,5 +11,65 @@ sms-brand-guard:
     - python3 -I logic-apps/sms-guard/signalwire_sms.py check logic-apps/focuspass-registration.definition.json
     - (cd logic-apps/sms-guard/tests && python3 -I -m unittest -v)
   rules:
+    - if: '$PRODUCTION_E2E == "true"'
+      when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+# Production e2e (hypervoid/admiral#123): e2e/production.spec.ts against https://ignitecuriosity.org at desktop and mobile
+# width, after each ship window. Pipeline schedules on this branch set PRODUCTION_E2E=true at 08:10, 14:10
+# and 20:10 UTC (the 07:00, 13:00 and 19:00 windows plus 70 minutes; e2e/ensure-production-e2e-schedules.sh
+# keeps them). A hand run is "Run pipeline" on any branch with PRODUCTION_E2E=true. e2e/production-e2e.mjs
+# checks that the pod reaches the public site (not the Ziti ingress), runs the smoke, and posts pass or
+# fail with the landing page screenshot on Curiosity-Corp/overview#6 when the masked CI variable
+# CURIOSITY_OVERVIEW_NOTE_TOKEN is set (Azure Key Vault omlab-secrets: curiosity-overview-note-token).
+# The note, screenshots and Playwright report are artifacts. Read-only: no form is submitted.
+e2e:production:
+  stage: e2e
+  image: mcr.microsoft.com/playwright:v1.64.1-noble
+  needs: []
+  interruptible: false
+  rules:
+    - if: '$PRODUCTION_E2E == "true"'
+  variables:
+    E2E_BASE_URL: https://ignitecuriosity.org
+    PRODUCTION_E2E_SITE: ignitecuriosity.org
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+    npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  cache:
+    key:
+      files:
+        - e2e/package-lock.json
+    paths:
+      - .npm/
+  script:
+    - cd e2e
+    - npm ci --prefer-offline --no-audit --fund=false
+    - node production-e2e.mjs -- npx playwright test --reporter=list,json,html
+  artifacts:
+    when: always
+    paths:
+      - e2e/production-e2e
+      - e2e/playwright-report
+      - e2e/test-results
+    expire_in: 30 days
+
+# MR check for the production smoke itself: it must compile and list its tests (no browser, no network
+# beyond npm ci). The smoke runs only in PRODUCTION_E2E pipelines (e2e:production).
+e2e:list:
+  stage: e2e
+  image: mcr.microsoft.com/playwright:v1.64.1-noble
+  needs: []
+  rules:
+    - if: '$PRODUCTION_E2E == "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - e2e/**/*
+        - .gitlab-ci.yml
+  variables:
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+  script:
+    - cd e2e
+    - npm ci --no-audit --fund=false
+    - npx playwright test --list

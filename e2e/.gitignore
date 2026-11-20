@@ -1,0 +1,4 @@
+node_modules/
+production-e2e/
+playwright-report/
+test-results/

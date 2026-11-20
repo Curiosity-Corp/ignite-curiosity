@@ -1,0 +1,13 @@
+{
+  "name": "ignitecuriosity-org-production-e2e",
+  "private": true,
+  "type": "module",
+  "description": "Production smoke (Playwright) against the live site; runs in CI only (hypervoid/admiral#123).",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test:production": "node production-e2e.mjs -- npx playwright test --reporter=list,json,html"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
+  }
+}
