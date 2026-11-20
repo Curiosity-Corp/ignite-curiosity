@@ -355,15 +355,14 @@ function resetForm() {
 // Registration submit configuration. Bump REGISTER_SCRIPT_VERSION whenever
 // this file or register.html changes so cached copies are invalidated
 // (script tags carry ?v=REGISTER_SCRIPT_VERSION for cache-busting).
-// RECAPTCHA_ACTION must exactly match RecaptchaExpectedAction verified
-// server-side by formfunnel; the page prefetch in register.html uses the same
-// string. Charset is constrained by Google: A-Za-z/_ ONLY (no spaces - a
-// spaced action makes grecaptcha.execute throw 'Invalid action name' and
-// yield no token at all, verified live 2026-09-29). The canonical action is
-// 'USIVA_OPT_Application', matching the formfunnel default; the earlier
-// action string contained spaces, is unmintable in any browser and
-// can never match a real token. Tokens minted for a different action (or no
-// action) are rejected as invalid-token (HTTP 568).
+// RECAPTCHA_ACTION is this site's own action name (Curiosity-Corp/ignite-curiosity#20;
+// it replaced the inherited 'USIVA_OPT_Application'). It must exactly match
+// formfunnel's app setting registrationExpectedAction (tao-ninja/formfunnel
+// deploy/formfunnel.config.json); once that is set, formfunnel answers a token
+// minted for any other action with 400 token_invalid. The page prefetch in
+// register.html uses the same string. Charset is constrained by Google:
+// A-Za-z/_ ONLY (no spaces - a spaced action makes grecaptcha.execute throw
+// 'Invalid action name' and yield no token at all, verified live 2026-09-29).
 // SITE KEY (2026-09-29): classic v3 key 6LcHIYcU... - formfunnel verifies via
 // classic v3 siteverify while its Enterprise assessment path is disabled, and
 // the Enterprise site key has no classic secret. Minting with the Enterprise
@@ -372,8 +371,8 @@ function resetForm() {
 // ["invalid-input-response"]). If formfunnel ever re-enables Enterprise
 // assessment, this key must be revisited together with the server config;
 // until then the classic key is the only one whose tokens can verify.
-var RECAPTCHA_ACTION = 'USIVA_OPT_Application';
-var REGISTER_SCRIPT_VERSION = '20261118a';
+var RECAPTCHA_ACTION = 'IgniteCuriosity_Registration';
+var REGISTER_SCRIPT_VERSION = '20261120a';
 
 // Structured submit-path log. Stages: validation-passed, stale-page,
 // recaptcha-unavailable, token-ready, missing-token, posting, post-success,
