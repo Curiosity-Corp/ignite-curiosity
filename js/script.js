@@ -1,6 +1,20 @@
 $(document).ready(function(){
 
 	"use strict";
+
+	// script.js is shared by every page, but only pages with a carousel or a popup load Owl Carousel and
+	// Magnific Popup (register.html loads neither). Initialise a plugin only where the page has the element;
+	// a page that has the element but forgot the plugin is a real fault and is reported, not thrown
+	// (Curiosity-Corp/ignite-curiosity#24).
+	var withPlugin = function(selector, plugin, options) {
+		var el = $(selector);
+		if (el.length === 0) return el;
+		if (typeof $.fn[plugin] !== 'function') {
+			console.error('script.js: ' + selector + ' needs ' + plugin + ', which this page does not load');
+			return el;
+		}
+		return el[plugin](options);
+	};
 	
 	/* =================================
 	LOADER 
@@ -103,7 +117,7 @@ $(document).ready(function(){
         });
 
 
-    slides.owlCarousel({
+    withPlugin(slides, 'owlCarousel', {
         items: 1,
         autoplay: true,
         autoplayTimeout: 5000,
@@ -123,7 +137,9 @@ $(document).ready(function(){
 	    });
   	});
   	slides.on('translated.owl.carousel',function(e){
-	    $('.owl-item.active video').get(0).play();
+	    // Only some slides hold a video; an image slide has nothing to play.
+	    var video = $('.owl-item.active video').get(0);
+	    if (video) video.play();
   	})
 
 	/* =================================
@@ -161,7 +177,7 @@ $(document).ready(function(){
 	=================================== */
 	
 	var caro = $("#caro");
-	caro.owlCarousel({
+	withPlugin(caro, 'owlCarousel', {
 		items: 1,
 		autoplay: true,
 		autoplayTimeout: 5000,
@@ -169,7 +185,7 @@ $(document).ready(function(){
 		loop: true,
 	});	
 	var caro2 = $("#caro-2");
-	caro2.owlCarousel({
+	withPlugin(caro2, 'owlCarousel', {
 		autoplay: true,
 		margin: 30,
 		autoplayTimeout: 5000,
@@ -190,7 +206,7 @@ $(document).ready(function(){
 		}
 	});
 	var testimony = $("#testimonial");
-	testimony.owlCarousel({
+	withPlugin(testimony, 'owlCarousel', {
 		items: 1,
 		autoplay: true,
 		autoplayTimeout: 5000,
@@ -201,7 +217,7 @@ $(document).ready(function(){
 	});
 	
 	var testimony2 = $("#owl-testimony2");
-	testimony2.owlCarousel({
+	withPlugin(testimony2, 'owlCarousel', {
 		items: 1,
 		autoplay: true,
 		autoplayTimeout: 5000,
@@ -215,7 +231,7 @@ $(document).ready(function(){
 	/* =================================
 	MAGNIFIC POPUP
 	=================================== */
-	$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+	withPlugin('.popup-youtube, .popup-vimeo, .popup-gmaps', 'magnificPopup', {
       disableOn: 700,
       type: 'iframe',
       mainClass: 'mfp-fade',
@@ -225,7 +241,7 @@ $(document).ready(function(){
       fixedContentPos: false
     });
 
-	$('.popup-gallery').magnificPopup({
+	withPlugin('.popup-gallery', 'magnificPopup', {
 	  delegate: 'a',
 	  type: 'image',
 	  tLoading: 'Loading image #%curr%...',
