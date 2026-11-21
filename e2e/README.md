@@ -1,0 +1,10 @@
+# Production smoke for ignitecuriosity.org
+
+A Playwright smoke against the live site https://ignitecuriosity.org (hypervoid/admiral#123). It runs only in CI (Kubernetes runner pods), never against a local server.
+
+- **What it checks:** the landing page and the key customer pages (programs, a program page, donate and registration or volunteer) return 200, render, show their images, and raise no console errors, uncaught exceptions or failed assets. It covers desktop (1440 px) and mobile (390 px) widths. It is read-only: no form is filled or submitted, and reCAPTCHA requests are blocked.
+- **When it runs:** job `e2e:production` runs in pipelines with `PRODUCTION_E2E=true`. Three pipeline schedules on `master` run it at 08:10, 14:10 and 20:10 UTC, after the 07:00, 13:00 and 19:00 ship windows. `bash e2e/ensure-production-e2e-schedules.sh` creates or updates them, and is safe to re-run. For a hand run, use **Run pipeline** on any branch with `PRODUCTION_E2E=true`.
+- **What it reports:** `production-e2e.mjs` first checks that the CI pod resolves the site to a public address, not the Ziti ingress (FocusApiary/ziti#215). It then runs the smoke and writes `production-e2e/note.md` with pass or fail, the failed tests, the pipeline link and the full-page landing screenshot. When the masked CI variable `CURIOSITY_OVERVIEW_NOTE_TOKEN` is set (Azure Key Vault `omlab-secrets`: `curiosity-overview-note-token`), it also posts that note on Curiosity-Corp/overview#6. Artifacts: `e2e/production-e2e/` (note, screenshots), `e2e/playwright-report/` and `e2e/test-results/`.
+- **A red result is the unit's first job.**
+
+The runner is the same file as `scripts/production-e2e.mjs` in Curiosity-Corp/developerdojo. Change all three copies (developerdojo, curiosity-corp, ignite-curiosity) together.
